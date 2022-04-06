@@ -14,5 +14,5 @@ jobs:
       - name: Upload PDF
         uses: actions/upload-artifact@v2
         with:
-          name: PDF
-          path: mgr.pdf
+          name: mgr
+          path: praca/mgr.pdf
