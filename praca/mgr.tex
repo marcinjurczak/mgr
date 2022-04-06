@@ -1,0 +1,207 @@
+\documentclass[twoside,a4paper]{book}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+% pakiet stosowany do url'i w bibliografii, zamienia odnośniki na ładnie sformatowane
+\usepackage{url}
+% pakiety służące do numerowania i tworzenia algorytmów
+\usepackage{algorithmic}
+\usepackage{algorithm}
+% redefinicja etykiety nagłówkowej listy algorytmów, domyślna jest po angielsku
+\renewcommand{\listalgorithmname}{Spis algorytmów}
+
+% pakiet do wyliczania skali, przydatny przy dużych obrazkach
+\usepackage{pgf}
+% pakiet służący do automatycznego sortowania odnośników do bibliografii
+\usepackage[sort]{natbib}
+% tworzenie listingów
+\usepackage{listings}
+% tworzenie figur wewnątrz figur
+\usepackage{subfig}
+% do automatycznego skracania nazw rozdziałów i podrozdziałów używanych w nagłówkach strony by mieściły się w jednej linii
+\usepackage[fit]{truncate}
+% fancyhdr - ładne nagłówki, definicja wyglądu nagłówka, numery stron będą umieszczane w nagłówku po odpowiedniej stronie
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\bfseries\thepage}
+% tutaj ograniczamy szerokość pola w nagłówku zawierającego nazwę rozdziału/podrozdziału do 95% szerokości strony
+% redefinicja sposobu prezentacji nazw domyślnie wypisywanych wielkimi literami (np. domyślnie w nagłówku Spis treści będzie miał postać SPIS TREŚCI)
+% Uwaga! to może popsuć wielkie litery w ogóle! Jak coś nie działa należy usunąć \nouppercase{} z poniższych definicji
+\fancyhead[LO]{\nouppercase{\bfseries{\truncate{.95\headwidth}{\rightmark}}}}
+\fancyhead[RE]{\nouppercase{\bfseries{\truncate{.95\headwidth}{\leftmark}}}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% definicja typu prostego wymagana przez pierwsze strony rozdziałów itp.
+% powyższe reguły niestety tych stron nie dotyczą, gdyż Latex automatycznie przełącza je pomiędzy fancy a plain
+% w tym wypadku eliminujemy nagłówki i stopki na stronach początkowych
+\fancypagestyle{plain}{%
+ \fancyhead{}
+ \fancyfoot{}
+ \renewcommand{\headrulewidth}{0pt}
+ \renewcommand{\footrulewidth}{0pt}
+}
+
+\parskip0.05in
+
+
+% makro umożliwiające otaczanie symboli okręgami
+\usepackage{tikz}
+% brak justowania tekstu (bazą okręgu będzie linia tekstu)
+\newcommand*\mycirc[1]{%
+  \begin{tikzpicture}
+    \node[draw,circle,inner sep=1pt] {#1};
+  \end{tikzpicture}}
+
+% pionowe justowanie tekstu, środek okręgu pokrywa się ze środkiem tekstu
+\newcommand*\mycircalign[1]{%
+  \begin{tikzpicture}[baseline=(C.base)]
+    \node[draw,circle,inner sep=1pt](C) {#1};
+  \end{tikzpicture}}
+
+% zmiana nazwy twierdzeń i lematów
+\newtheorem{theorem}{Twierdzenie}[section]
+\newtheorem{lemma}[theorem]{Lemat}
+
+% tworzenie definicji dowodu
+\newenvironment{proof}[1][Dowód]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+% \newenvironment{definition}[1][Definicja]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+% \newenvironment{example}[1][Przykład]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+% \newenvironment{remark}[1][Uwaga]{\begin{trivlist}
+% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+% definicja czarnego prostokąta zwyczajowo dodawanego na koniec dowodu
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+% poniższymi instrukcjami można sterować co ma być numerowane a co nie i co ma być wyświetlane w spisie treści
+% \setcounter{secnumdepth}{3}
+% \setcounter{tocdepth}{5}
+
+% definicja czcionki mniejszej niż tiny (domyślnie takiej małej nie ma)
+\usepackage{lmodern}
+\makeatletter
+  \newcommand\tinyv{\@setfontsize\tinyv{4pt}{6}}
+\makeatother
+
+% definicja jeszcze mniejszej czcionki
+\usepackage{lmodern}
+\makeatletter
+  \newcommand\tinyvv{\@setfontsize\tinyvv{3.5pt}{6}}
+\makeatother
+
+% pakiet do obsługi wielostronicowych tabel
+\usepackage{longtable}
+\setlength{\LTcapwidth}{\textwidth}
+
+\usepackage[section] {placeins}
+
+\usepackage{multirow}
+
+\usepackage{slantsc}
+
+% korekta marginesów - domyślnie latex ma jakieś kosmiczne
+\usepackage{anysize}
+\marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
+
+% po zmianie marginesów konieczne jest wymuszenie przeliczenia nagłówków
+\fancyhfoffset[E,O]{0pt}
+
+\begin{document}
+
+% nazwa pliku ze stroną tytułowąUnknown option: smooth-scroll
+\include{mgr_titlepage}
+
+% parametry strony tytułowej, zdefiniowane są w plikach z poszczególnymi stronami
+% tytuł pracy
+\title{Wykorzystanie języka ELM do tworzenia aplikacji frontendowych.}
+% autor
+\author{Marcin Jurczak}
+% rok wydania
+\date{2022}
+% miasto, gdzie napisano pracę
+\miasto{Gdańsk}
+% promotor
+\promotor{dr\ inż.\ Krzysztof Manuszewski}
+% rodzaj studiów, tylko dla mgr_titlepage
+\studies{Stacjonarne jednolite studia magisterskie}
+% nr indeksu, tylko dla mgr_titlepage
+\indeks{171641}
+% katedra, tylko dla mgr_titlepage
+\dept{Algorytmów i Technologii Internetowych}
+
+% sekcja wstępna książki, numerowana rzymskimi
+\frontmatter
+% generacja strony tytułowej załączonej wcześniej
+\maketitle
+% spis treści
+\tableofcontents
+
+% dodatkowa strona z podaniem źródła finansowania itp.
+% \newpage
+% wstawienie pustego symbolu
+% \null
+% i wypełnienie nim całej dostępnej strony
+% \vfill
+% a na jej dole dodajemy właściwy tekst
+% w tym przypadku z wyrównaniem do prawej strony
+% \begin{flushright}
+  % Wszystko co zostało dodane we frontmatter zostanie wydzielone do odrębnie numerowanej sekcji. Numeracja zazwyczaj jest małymi, rzymskimi liczbami. Tutaj przykład jak tekst umieścić na dole strony z wyrównaniem do prawej. Inne układy można robić analogicznie.
+% \end{flushright}
+
+% dodatkowy, nienumerowany rozdział na np. podziękowania
+% \chapter*{Podziękowania}
+% Tu możemy dać podziękowania. Jest to zrealizowane w~postaci zwykłego, nienumerowanego rozdziału. W razie konieczności należy ten rozdział po prostu usnąć.
+
+% właściwa część książki, numerowana arabskimi od 1
+\mainmatter\
+
+\chapter{Wstęp i cel pracy}
+
+\chapter{Aplikacje frontendowe}
+
+\chapter{Programowanie funkcyjne}
+
+\chapter{Elm}
+Elm jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika. Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
+
+\chapter{Instrukcja laboratoryjna}
+W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
+
+\section{Instalacja środowiska}
+
+\section{Podstawy języka Elm}
+
+\section{Aplikacja frontendowa}
+
+\chapter{Podsumowanie}
+
+
+\backmatter
+
+% lista rysunków
+\listoffigures
+% lista tabel
+\listoftables
+% lista algorytmów
+\listofalgorithms
+
+% rodzaj bibliografii
+\bibliographystyle{plain}
+% plik z wpisami bibliograficznymi
+\bibliography{bibliografia}
+\end{document}
