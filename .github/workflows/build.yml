@@ -11,8 +11,3 @@ jobs:
         with:
           working_directory: praca
           root_file: mgr.tex
-      - name: Upload PDF
-        uses: actions/upload-artifact@v2
-        with:
-          name: mgr
-          path: praca/mgr.pdf
