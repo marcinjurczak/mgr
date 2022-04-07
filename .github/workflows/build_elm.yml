@@ -4,8 +4,10 @@ jobs:
   build_elm:
     runs-on: ubuntu-latest
     steps:
-    - uses: jorelali/setup-elm@v3
+    - name: Set up Git repository
+      uses: actions/checkout@v2
+    - name: Build Elm application
+      uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: pwd
-    - run: ls
+    - run: elm make src/Main.elm
