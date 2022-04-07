@@ -1,8 +1,5 @@
 name: Build Elm application
 on: [push]
-defaults:
-  run:
-    working-directory: .
 jobs:
   build_elm:
     runs-on: ubuntu-latest
