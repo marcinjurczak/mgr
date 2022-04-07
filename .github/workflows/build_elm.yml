@@ -1,8 +1,13 @@
 name: Build Elm application
 on: [push]
+defaults:
+  run:
+    working-directory: /
 jobs:
   build_elm:
     runs-on: ubuntu-latest
     steps:
-    - uses: justgook/setup-elm@1.2.0
+    - uses: jorelali/setup-elm@v3
+      with:
+        elm-version: 0.19.1
     - run: elm make src/Main.elm
