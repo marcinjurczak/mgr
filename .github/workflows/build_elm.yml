@@ -4,8 +4,5 @@ jobs:
   build_elm:
     runs-on: ubuntu-latest
     steps:
-    - uses: jorelali/setup-elm@v3
-      with:
-        elm-version: 0.19.1
-    - run: elm init
+    - uses: justgook/setup-elm@1.2.0
     - run: elm make src/Main.elm
