@@ -1,6 +1,11 @@
 \documentclass[twoside,a4paper]{book}
 
+\usepackage{lipsum}
+
 \usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+\graphicspath{ {./img/} }
+\usepackage[font=small,labelfont=bf]{caption}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{textcomp}
@@ -8,6 +13,8 @@
 \usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{array}
+\usepackage{geometry}
+\usepackage{multicol}
 % pakiet stosowany do url'i w bibliografii, zamienia odnośniki na ładnie sformatowane
 \usepackage{url}
 % pakiety służące do numerowania i tworzenia algorytmów
@@ -29,6 +36,7 @@
 % fancyhdr - ładne nagłówki, definicja wyglądu nagłówka, numery stron będą umieszczane w nagłówku po odpowiedniej stronie
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \fancyhf{}
@@ -53,45 +61,6 @@
 
 \parskip0.05in
 
-
-% makro umożliwiające otaczanie symboli okręgami
-\usepackage{tikz}
-% brak justowania tekstu (bazą okręgu będzie linia tekstu)
-\newcommand*\mycirc[1]{%
-  \begin{tikzpicture}
-    \node[draw,circle,inner sep=1pt] {#1};
-  \end{tikzpicture}}
-
-% pionowe justowanie tekstu, środek okręgu pokrywa się ze środkiem tekstu
-\newcommand*\mycircalign[1]{%
-  \begin{tikzpicture}[baseline=(C.base)]
-    \node[draw,circle,inner sep=1pt](C) {#1};
-  \end{tikzpicture}}
-
-% zmiana nazwy twierdzeń i lematów
-\newtheorem{theorem}{Twierdzenie}[section]
-\newtheorem{lemma}[theorem]{Lemat}
-
-% tworzenie definicji dowodu
-\newenvironment{proof}[1][Dowód]{\begin{trivlist}
-\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-% \newenvironment{definition}[1][Definicja]{\begin{trivlist}
-% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-% \newenvironment{example}[1][Przykład]{\begin{trivlist}
-% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-% \newenvironment{remark}[1][Uwaga]{\begin{trivlist}
-% \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
-
-% definicja czarnego prostokąta zwyczajowo dodawanego na koniec dowodu
-\newcommand{\qed}{\nobreak \ifvmode \relax \else
-      \ifdim\lastskip<1.5em \hskip-\lastskip
-      \hskip1.5em plus0em minus0.5em \fi \nobreak
-      \vrule height0.75em width0.5em depth0.25em\fi}
-
-% poniższymi instrukcjami można sterować co ma być numerowane a co nie i co ma być wyświetlane w spisie treści
-% \setcounter{secnumdepth}{3}
-% \setcounter{tocdepth}{5}
-
 % definicja czcionki mniejszej niż tiny (domyślnie takiej małej nie ma)
 \usepackage{lmodern}
 \makeatletter
@@ -107,7 +76,6 @@
 % pakiet do obsługi wielostronicowych tabel
 \usepackage{longtable}
 \setlength{\LTcapwidth}{\textwidth}
-
 \usepackage[section] {placeins}
 
 \usepackage{multirow}
@@ -121,6 +89,7 @@
 % po zmianie marginesów konieczne jest wymuszenie przeliczenia nagłówków
 \fancyhfoffset[E,O]{0pt}
 
+% --------------------------------------------------------------------------------
 \begin{document}
 
 % nazwa pliku ze stroną tytułowąUnknown option: smooth-scroll
@@ -144,6 +113,7 @@
 % katedra, tylko dla mgr_titlepage
 \dept{Algorytmów i Technologii Internetowych}
 
+% --------------------------------------------------------------------------------
 % sekcja wstępna książki, numerowana rzymskimi
 \frontmatter
 % generacja strony tytułowej załączonej wcześniej
@@ -168,29 +138,121 @@
 % Tu możemy dać podziękowania. Jest to zrealizowane w~postaci zwykłego, nienumerowanego rozdziału. W razie konieczności należy ten rozdział po prostu usnąć.
 
 % właściwa część książki, numerowana arabskimi od 1
-\mainmatter\
+\mainmatter
 
+% --------------------------------------------------------------------------------
 \chapter{Wstęp i cel pracy}
 
+Celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm, porównanie go z powszechnymi rozwiązaniami do tworzenia aplikacji frontendowych, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
+
+W pierwszym rozdziale
+
+W drugim rozdziale
+
+W trzecim rozdziale
+
+% --------------------------------------------------------------------------------
 \chapter{Aplikacje frontendowe}
 
+\section{Powszechne rozwiązania}
+\subsection{TypeScript}
+\subsection{React}
+
+% --------------------------------------------------------------------------------
 \chapter{Programowanie funkcyjne}
 
+% --------------------------------------------------------------------------------
 \chapter{Elm}
 Elm jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika. Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
+\section{The Elm Architecture}
+The Elm Architecture jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{elm_arch.png}
+    \caption{The Elm Architecture}
+    \label{fig:elm_arch}
+\end{figure}
+
+Architektura Elma składa się z trzech podstawowych elementów:
+\begin{itemize}
+    \setlength\itemsep{-0.1em}
+    \item Model -- opisujący stan aplikacji
+    \item Update -- opisujący logikę aplikacji
+    \item View -- opisujący wygląd aplikacji
+\end{itemize}
+
+
+\subsection{Model}
+\begin{minipage}{.55\textwidth}
+Celem modelu jest zdefiniowanie danych w naszej aplikacji. W tym przypadku model będzie bardzo prosty - jedna wartość liczbowa, która może zostać zwiększona lub zmniejszona.
+\end{minipage}\hfill
+\begin{minipage}{.35\textwidth}
+\lstset{frame=single}
+\begin{lstlisting}[caption={Model},label=kod:Model]
+type alias Model = Int
+
+
+init : Model
+init =
+  0
+\end{lstlisting}
+\end{minipage}\hfill
+
+\subsection{Update}
+\begin{minipage}{.45\textwidth}
+\lstset{frame=single}
+\begin{lstlisting}[caption={Update},label=kod:Update]
+type Msg
+  = Increment
+  | Decrement
+
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Increment ->
+      model + 1
+
+    Decrement ->
+      model - 1
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+Funkcja update ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie. Może odebrać dwa typy wiadomości - Increment i Decrement. W wyniku operacji update otrzymujemy nowy, zaktualizowany model.
+\end{minipage}\hfill
+\subsection{View}
+Funkcja view jako argument przyjmuje model i zwraca kod HTML. Wykorzystany został tutaj handler onClick, który po kliknięciu generuje odpowiednią wiadomość. Znak plusa generuje wiadomość Increment, znak minusa Decrement. Wybrana wiadomość trafia do funkcji update.
+
+\lstset{frame=single}
+\begin{lstlisting}[caption={View},label=kod:View]
+view : Model -> Html Msg
+view model =
+  div []
+    [ button [ onClick Decrement ] [ text "-" ]
+    , div [] [ text (String.fromInt model) ]
+    , button [ onClick Increment ] [ text "+" ]
+    ]
+\end{lstlisting}
+
+
+% --------------------------------------------------------------------------------
 \chapter{Instrukcja laboratoryjna}
 W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
 
 \section{Instalacja środowiska}
+\subsection{Linux}
+\subsection{Windows}
 
 \section{Podstawy języka Elm}
 
 \section{Aplikacja frontendowa}
 
+% --------------------------------------------------------------------------------
 \chapter{Podsumowanie}
 
 
+% --------------------------------------------------------------------------------
 \backmatter
 
 % lista rysunków
