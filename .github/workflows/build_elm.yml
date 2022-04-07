@@ -7,4 +7,5 @@ jobs:
     - uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: elm init && elm make src/Main.elm
+    - run: elm init
+    - run: elm make src/Main.elm
