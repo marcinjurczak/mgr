@@ -1,0 +1,13 @@
+name: Build Elm application
+on: [push]
+jobs:
+  build_elm:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v2
+    - name: Build Elm application
+      uses: jorelali/setup-elm@v3
+      with:
+        elm-version: 0.19.1
+    - run: elm make src/Main.elm
