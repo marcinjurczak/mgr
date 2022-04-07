@@ -2,7 +2,7 @@ name: Build Elm application
 on: [push]
 defaults:
   run:
-    working-directory: /
+    working-directory: .
 jobs:
   build_elm:
     runs-on: ubuntu-latest
@@ -10,4 +10,5 @@ jobs:
     - uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
+    - run: pwd
     - run: ls
