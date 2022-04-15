@@ -6,8 +6,21 @@ jobs:
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
     - name: Build Elm application
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: cd startpage && elm make src/Main.elm
+    - run: elm make src/Main.elm --output=assets/main.js
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
