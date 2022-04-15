@@ -1,4 +1,4 @@
-name: Build Elm application
+name: Build Elm
 on: [push]
 jobs:
   build_elm:
@@ -17,10 +17,12 @@ jobs:
     - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -m "Add changes" -a
+        git config --local user.name "Octocat"
+        git commit -m "Update assets/main.js" -a
+      continue-on-error: true
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+      continue-on-error: true
