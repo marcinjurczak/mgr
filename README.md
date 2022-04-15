@@ -15,6 +15,9 @@ W ramach części praktycznej wytworzona zostanie aplikacja internetowa typu *st
 
 Całość implementacji zostanie wykonana z wykorzystaniem funkcyjnego języka Elm.
 
+Aktualny stan aplikacji można zobaczyć z użyciem [Github Pages](https://marcinjurczak.github.io/mgr/)
+* [Preview](/mgr/index.html)
+
 ## Część teoretyczna
 
 Część opisowa pracy magisterskiej zostanie napisana z użyciem LaTeX'a na podstawie [szablonu](https://www.overleaf.com/latex/templates/gdansk-university-of-technology-thesis-template/tngwxnzvzzqb) przygotowanego przez dra inż. Tomasza Boińskiego z Politechniki Gdańskiej.
