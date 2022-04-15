@@ -6712,7 +6712,7 @@ var $author$project$Main$viewWeather = function (model) {
 	var _v0 = model.status;
 	switch (_v0.$) {
 		case 'Failure':
-			return $elm$html$Html$text('Weather API failed');
+			return $elm$html$Html$text('Error: Couldn\'t retrieve weather data');
 		case 'Loading':
 			return $elm$html$Html$text('Loading weather...');
 		default:

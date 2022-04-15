@@ -153,7 +153,7 @@ viewWeather : Model -> Html Msg
 viewWeather model =
     case model.status of
         Failure ->
-            text "Couldn't retrieve weather"
+            text "Error: Couldn't retrieve weather data"
 
         Loading ->
             text "Loading weather..."
