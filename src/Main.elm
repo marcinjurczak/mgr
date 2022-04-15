@@ -9,14 +9,13 @@ import Http
 import Json.Decode as Json
 import Task
 import Time
-import Url
 
 
 
 -- MAIN
 
 
-main : Program () Model Msg
+main : Program (List Bookmark) Model Msg
 main =
     Browser.document
         { init = init
@@ -35,6 +34,13 @@ type alias Model =
     , zone : Time.Zone
     , time : Time.Posix
     , text : String
+    , bookmarks : List Bookmark
+    }
+
+
+type alias Bookmark =
+    { name : String
+    , url : String
     }
 
 
@@ -50,9 +56,9 @@ type alias Weather =
     }
 
 
-init : () -> ( Model, Cmd Msg )
-init flags =
-    ( Model Loading Time.utc (Time.millisToPosix 0) ""
+init : List Bookmark -> ( Model, Cmd Msg )
+init bookmarks =
+    ( Model Loading Time.utc (Time.millisToPosix 0) "" bookmarks
     , Cmd.batch [ Task.perform AdjustTimeZone Time.here, getWeather ]
     )
 
@@ -144,6 +150,14 @@ view model =
                     ]
                     []
                 ]
+            , div [ id "bookmark-container" ]
+                [ div [ class "bookmark-set" ]
+                    [ div [ class "bookmark-title" ]
+                        [ div [ class "bookmark-inner-container" ]
+                            [ viewBookmarks model.bookmarks ]
+                        ]
+                    ]
+                ]
             ]
         ]
     }
@@ -197,6 +211,11 @@ parseTime num =
 
     else
         String.fromInt num
+
+
+viewBookmarks : List Bookmark -> Html Msg
+viewBookmarks bookmarks =
+    text "//TODO"
 
 
 
