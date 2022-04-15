@@ -9,7 +9,7 @@ W ramach części praktycznej wytworzona zostanie aplikacja internetowa typu *st
 - [x] Aktualny czas
 - [x] Pogoda w Gdańsku (opis pogody + temperatura)
 - [x] Wyszukiwarka Google
-- [] Zbiór zakładek składających się z najczęściej używanych stron internetowych
+- [ ] Zbiór zakładek składających się z najczęściej używanych stron internetowych
 
 Całość implementacji zostanie wykonana z wykorzystaniem funkcyjnego języka Elm.
 
