@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), getWeather, init, main, update, view, viewWeather, weatherDecoder)
+module Main exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
