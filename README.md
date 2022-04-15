@@ -15,8 +15,7 @@ W ramach części praktycznej wytworzona zostanie aplikacja internetowa typu *st
 
 Całość implementacji zostanie wykonana z wykorzystaniem funkcyjnego języka Elm.
 
-Aktualny stan aplikacji można zobaczyć z użyciem [Github Pages](https://marcinjurczak.github.io/mgr/)
-* [Preview](/mgr/index.html)
+Aktualny stan aplikacji można zobaczyć z użyciem [Github Pages](https://marcinjurczak.github.io/mgr/).
 
 ## Część teoretyczna
 
