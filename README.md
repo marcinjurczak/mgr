@@ -1,4 +1,6 @@
 # Praca magisterska
+![Elm](https://github.com/marcinjurczak/mgr/actions/workflows/build_elm.yml/badge.svg)
+![LaTeX](https://github.com/marcinjurczak/mgr/actions/workflows/build_latex.yml/badge.svg)
 
 To repozytorium będzie zawierać wyniki mojej pracy magisterskiej, której tematem jest "Wykorzystanie języka ELM do tworzenia aplikacji frontendowych". Praca jest wykonywana na Politechnice Gdańskiej, w Katedrze Algorytmów i Modelowania Systemów, pod przewodnictwem dra inż. Krzysztofa Manuszewskiego.
 
@@ -12,6 +14,8 @@ W ramach części praktycznej wytworzona zostanie aplikacja internetowa typu *st
 - [ ] Zbiór zakładek składających się z najczęściej używanych stron internetowych
 
 Całość implementacji zostanie wykonana z wykorzystaniem funkcyjnego języka Elm.
+
+Aktualny stan aplikacji można zobaczyć z użyciem [Github Pages](https://marcinjurczak.github.io/mgr/).
 
 ## Część teoretyczna
 
