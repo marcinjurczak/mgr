@@ -1,4 +1,4 @@
-name: Build Elm
+name: build-elm
 on:
   push:
     paths:

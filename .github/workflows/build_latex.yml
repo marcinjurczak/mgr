@@ -1,4 +1,4 @@
-name: Build LaTeX
+name: build-latex
 on:
   push:
     paths:
