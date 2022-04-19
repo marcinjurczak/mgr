@@ -107,10 +107,14 @@ update msg model =
         GotWeather result ->
             case result of
                 Ok weather ->
-                    ( { model | status = Success weather }, Cmd.none )
+                    ( { model | status = Success weather }
+                    , Cmd.none
+                    )
 
                 Err _ ->
-                    ( { model | status = Failure }, Cmd.none )
+                    ( { model | status = Failure }
+                    , Cmd.none
+                    )
 
 
 
@@ -153,9 +157,9 @@ view model =
             , div [ id "bookmark-container" ]
                 [ div [ class "bookmark-set" ]
                     [ div [ class "bookmark-title" ]
-                        [ div [ class "bookmark-inner-container" ]
-                            [ viewBookmarks model.bookmarks ]
-                        ]
+                        [ text "Bookmarks" ]
+                    , div [ class "bookmark-inner-container" ]
+                        [ viewBookmarks model.bookmarks ]
                     ]
                 ]
             ]
@@ -215,7 +219,12 @@ parseTime num =
 
 viewBookmarks : List Bookmark -> Html Msg
 viewBookmarks bookmarks =
-    text "//TODO"
+    ul [] (List.map viewBookmark bookmarks)
+
+
+viewBookmark : Bookmark -> Html Msg
+viewBookmark bookmark =
+    li [ class "bookmark" ] [ a [ class "bookmark", href bookmark.url ] [ text bookmark.name ] ]
 
 
 
@@ -239,7 +248,7 @@ weatherDecoder =
 
 getTemp : Weather -> String
 getTemp weather =
-    String.fromFloat weather.temperature ++ " °C "
+    String.fromInt (round weather.temperature) ++ " °C "
 
 
 getDesc : Weather -> String
