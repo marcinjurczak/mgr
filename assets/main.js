@@ -6618,11 +6618,45 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $elm$html$Html$ul = _VirtualDom_node('ul');
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $elm$html$Html$li = _VirtualDom_node('li');
+var $author$project$Main$viewBookmark = function (bookmark) {
+	return A2(
+		$elm$html$Html$li,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('bookmark')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$a,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('bookmark'),
+						$elm$html$Html$Attributes$href(bookmark.url)
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text(bookmark.name)
+					]))
+			]));
+};
 var $author$project$Main$viewBookmarks = function (bookmarks) {
-	return $elm$html$Html$text('//TODO');
+	return A2(
+		$elm$html$Html$ul,
+		_List_Nil,
+		A2($elm$core$List$map, $author$project$Main$viewBookmark, bookmarks));
 };
 var $author$project$Main$parseTime = function (num) {
 	return (num < 10) ? ('0' + $elm$core$String$fromInt(num)) : $elm$core$String$fromInt(num);
@@ -6709,9 +6743,10 @@ var $author$project$Main$viewTime = function (model) {
 var $author$project$Main$getDesc = function (weather) {
 	return weather.description;
 };
-var $elm$core$String$fromFloat = _String_fromNumber;
+var $elm$core$Basics$round = _Basics_round;
 var $author$project$Main$getTemp = function (weather) {
-	return $elm$core$String$fromFloat(weather.temperature) + ' °C ';
+	return $elm$core$String$fromInt(
+		$elm$core$Basics$round(weather.temperature)) + ' °C ';
 };
 var $author$project$Main$viewWeather = function (model) {
 	var _v0 = model.status;
@@ -6831,16 +6866,17 @@ var $author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												A2(
-												$elm$html$Html$div,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('bookmark-inner-container')
-													]),
-												_List_fromArray(
-													[
-														$author$project$Main$viewBookmarks(model.bookmarks)
-													]))
+												$elm$html$Html$text('Bookmarks')
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('bookmark-inner-container')
+											]),
+										_List_fromArray(
+											[
+												$author$project$Main$viewBookmarks(model.bookmarks)
 											]))
 									]))
 							]))
