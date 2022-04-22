@@ -17,6 +17,12 @@ W ramach części praktycznej wytworzona zostanie aplikacja internetowa typu *st
 
 Całość implementacji zostanie wykonana z wykorzystaniem funkcyjnego języka Elm.
 
+Aby uruchomić aplikację należy skompilować kod, używając komendy:
+```sh
+elm make src/Main.elm --output=assets/main.js
+```
+Następnie uruchomić ją poleceniem `elm reactor`.
+
 Aktualny stan aplikacji można zobaczyć z użyciem [Github Pages](https://marcinjurczak.github.io/mgr/).
 
 ## Część teoretyczna
