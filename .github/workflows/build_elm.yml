@@ -6,6 +6,7 @@ on:
     - 'assets/**'
     - '**.html'
     - '**.js'
+    - '.github/workflows/build_elm.yml'
 
 jobs:
   build_elm:
@@ -26,5 +27,8 @@ jobs:
 
     - name: Deploy to Pages
       uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        folder: .
 
 

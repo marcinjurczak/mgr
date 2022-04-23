@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'praca/**'
+      - '.github/workflows/build_latex.yml'
 jobs:
   build_latex:
     runs-on: ubuntu-latest
