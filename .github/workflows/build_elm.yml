@@ -2,33 +2,26 @@ name: build-elm
 on:
   push:
     paths:
+    - '.github/workflows/build_elm.yml'
     - 'src/**'
     - 'assets/**'
     - '**.html'
-    - '**.js'
-    - '.github/workflows/build_elm.yml'
 
 jobs:
-  build_elm:
-    concurrency: ci-${{ github.ref }}
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Git repository
-      uses: actions/checkout@v3
-      with:
-        persist-credentials: false
-        fetch-depth: 0
+    - name: Checkout
+      uses: actions/checkout@v2
 
-    - name: Build Elm application
+    - name: Build
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: elm make src/Main.elm --output=assets/main.js
+    - run: elm make src/Main.elm --output=assets/main.js --optimize
 
-    - name: Deploy to Pages
-      uses: JamesIves/github-pages-deploy-action@v4.3.0
+    - name: Commit
+      uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        branch: gh-pages
-        folder: .
-
-
+        commit_message: "Github Action: Update assets/main.js"
+        branch: ${{ github.ref }}
