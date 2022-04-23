@@ -23,16 +23,14 @@ jobs:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js --optimize
 
-    - name: Commit
-      run: |
-        git config --local user.email "41898282+github-actions@users.noreply.github.com"
-        git config --local user.name "github-actions"
-        git commit -m "Update assets/main.js" -a
-      continue-on-error: true
-
-    - name: Push
-      uses: ad-m/github-push-action@master
+    - name: Auto Minify
+      uses: dolfies/auto-minify@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        files: "assets/main.js"
+        overwrite: true
+
+    - name: Auto committing minified files
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Github Action: Update assets/main.js"
         branch: ${{ github.ref }}
-      continue-on-error: true
