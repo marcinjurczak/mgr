@@ -6496,12 +6496,6 @@ var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'UpdateWeather':
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{status: $author$project$Main$Loading}),
-					$author$project$Main$getWeather);
 			case 'Tick':
 				var newTime = msg.a;
 				return _Utils_Tuple2(
@@ -6516,18 +6510,13 @@ var $author$project$Main$update = F2(
 						model,
 						{zone: newZone}),
 					$elm$core$Platform$Cmd$none);
-			case 'UpdateField':
-				var text = msg.a;
+			case 'UpdateWeather':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{text: text}),
-					$elm$core$Platform$Cmd$none);
-			case 'Search':
-				return _Utils_Tuple2(
-					model,
-					$elm$browser$Browser$Navigation$load('https://google.com/search?q=' + model.text));
-			default:
+						{status: $author$project$Main$Loading}),
+					$author$project$Main$getWeather);
+			case 'GotWeather':
 				var result = msg.a;
 				if (result.$ === 'Ok') {
 					var weather = result.a;
@@ -6545,6 +6534,17 @@ var $author$project$Main$update = F2(
 							{status: $author$project$Main$Failure}),
 						$elm$core$Platform$Cmd$none);
 				}
+			case 'UpdateField':
+				var text = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{text: text}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(
+					model,
+					$elm$browser$Browser$Navigation$load('https://google.com/search?q=' + model.text));
 		}
 	});
 var $author$project$Main$Search = {$: 'Search'};
