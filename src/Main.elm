@@ -38,12 +38,6 @@ type alias Model =
     }
 
 
-type alias Bookmark =
-    { name : String
-    , url : String
-    }
-
-
 type Status
     = Failure
     | Loading
@@ -53,6 +47,12 @@ type Status
 type alias Weather =
     { description : String
     , temperature : Float
+    }
+
+
+type alias Bookmark =
+    { name : String
+    , url : String
     }
 
 
@@ -68,10 +68,10 @@ init bookmarks =
 
 
 type Msg
-    = UpdateWeather
-    | GotWeather (Result Http.Error Weather)
-    | Tick Time.Posix
+    = Tick Time.Posix
     | AdjustTimeZone Time.Zone
+    | UpdateWeather
+    | GotWeather (Result Http.Error Weather)
     | UpdateField String
     | Search
 
@@ -79,11 +79,6 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        UpdateWeather ->
-            ( { model | status = Loading }
-            , getWeather
-            )
-
         Tick newTime ->
             ( { model | time = newTime }
             , Cmd.none
@@ -94,14 +89,9 @@ update msg model =
             , Cmd.none
             )
 
-        UpdateField text ->
-            ( { model | text = text }
-            , Cmd.none
-            )
-
-        Search ->
-            ( model
-            , Nav.load ("https://google.com/search?q=" ++ model.text)
+        UpdateWeather ->
+            ( { model | status = Loading }
+            , getWeather
             )
 
         GotWeather result ->
@@ -115,6 +105,16 @@ update msg model =
                     ( { model | status = Failure }
                     , Cmd.none
                     )
+
+        UpdateField text ->
+            ( { model | text = text }
+            , Cmd.none
+            )
+
+        Search ->
+            ( model
+            , Nav.load ("https://google.com/search?q=" ++ model.text)
+            )
 
 
 
@@ -135,7 +135,8 @@ view model =
     { title = "Startpage"
     , body =
         [ div [ class "container" ]
-            [ div [ id "clock" ] [ viewTime model ]
+            [ div [ id "clock" ]
+                [ viewTime model ]
             , div [ class "weather-container" ]
                 [ div [ class "row" ]
                     [ div [ id "weather-description", class "inline" ]
