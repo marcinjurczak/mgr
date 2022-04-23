@@ -2,8 +2,8 @@ name: build-latex
 on:
   push:
     paths:
-      - 'praca/**'
       - '.github/workflows/build_latex.yml'
+      - 'praca/**'
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -19,6 +19,12 @@ jobs:
         with:
           working_directory: praca
           root_file: mgr.tex
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+        commit_message: "Github Action: Update mgr.pdf"
+        branch: ${{ github.ref }}
 
       - name: Upload PDF
         uses: actions/upload-artifact@v2
