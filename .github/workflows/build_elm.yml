@@ -24,7 +24,7 @@ jobs:
     - run: elm make src/Main.elm --output=assets/main.js --optimize
 
     - name: Auto Minify
-      uses: dolfies/auto-minify@v1
+      uses: dolfies/auto-minify@v2.1
       with:
         files: "assets/main.js"
         overwrite: true
