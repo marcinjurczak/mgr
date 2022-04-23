@@ -35,6 +35,8 @@ sorting=none
 \fancyhead[LO]{\nouppercase{\bfseries{\truncate{.95\headwidth}{\rightmark}}}}
 \fancyhead[RE]{\nouppercase{\bfseries{\truncate{.95\headwidth}{\leftmark}}}}
 
+% \linespread{1.5}
+
 \parskip0.05in
 
 \marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
@@ -79,10 +81,9 @@ sorting=none
 % --------------------------------------------------------------------------------
 
 \chapter{Wstęp i cel pracy}
+Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie frontendowej aplikacji internetowej. Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnymi rozwiązaniami do tworzenia aplikacji internetowych. Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
 
-Celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm, porównanie go z powszechnymi rozwiązaniami do tworzenia aplikacji frontendowych, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
-
-W drugim rozdziale chciałbym się skupić na przedstawieniu
+W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React oraz Angular. Prezentuję cechy wyróżniające
 
 % --------------------------------------------------------------------------------
 
@@ -96,8 +97,7 @@ W drugim rozdziale chciałbym się skupić na przedstawieniu
 \subsection{Angular}
 \cite{angularjs}
 \cite{angulardocs}
-\subsection{Vue.js}
-\cite{vuejsdocs}
+\subsection{Podobieństwa i różnice}
 
 
 % --------------------------------------------------------------------------------
@@ -190,17 +190,37 @@ view model =
 
 \paragraph{elm install}
 
+\paragraph{elm-live}
+\cite{elm-live}
+
 
 % --------------------------------------------------------------------------------
 
 \chapter{Implementacja}
+W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty. Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
+\begin{itemize}
+    \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
+    \item Pogoda w Gdańsku przedstawiona w formie krótkiego opisu oraz temperatury w stopniach Celsjusza
+    \item Wyszukiwarka Google
+    \item Zakładki zawierające odnośniki do wybranych stron internetowych
+\end{itemize}
+
+W poniższych podrozdziałach skupię się na opisie implementacji każdego modułu.
+
+\section{Zegar}
+
+\section{Pogoda}
+
+\section{Wyszukiwarka}
+
+\section{Zakładki}
 
 % --------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
 W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
 
-\section{Instalacja środowiska}
+\section{Przygotowanie środowiska}
 
 \subsection{Linux}
 
@@ -213,6 +233,7 @@ W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, kt
 % --------------------------------------------------------------------------------
 
 \chapter{Podsumowanie}
+
 \section{Wnioski}
 
 % --------------------------------------------------------------------------------
