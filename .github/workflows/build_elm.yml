@@ -6,6 +6,7 @@ on:
     - 'assets/**'
     - '**.html'
     - '**.js'
+    - '.github/workflows/build_elm.yml'
 
 jobs:
   build_elm:
