@@ -21,7 +21,7 @@ jobs:
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: elm make src/Main.elm --output=assets/main.js
+    - run: elm make src/Main.elm --output=assets/main.js --optimize
 
     - name: Commit
       run: |
