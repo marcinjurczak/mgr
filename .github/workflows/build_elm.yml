@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Build
       uses: jorelali/setup-elm@v3
@@ -25,4 +25,3 @@ jobs:
       with:
         commit_message: "Github Action: Update assets/main.js"
         branch: ${{ github.ref }}
-      continue-on-error: true
