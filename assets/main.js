@@ -6744,7 +6744,7 @@ var $author$project$Main$viewWeather = function (model) {
 	var _v0 = model.A;
 	switch (_v0.$) {
 		case 0:
-			return $elm$html$Html$text('Error: Couldn\'t retrieve weather data');
+			return $elm$html$Html$text('Error: Couldn\'t retrieve weather data!');
 		case 1:
 			return $elm$html$Html$text('Loading weather...');
 		default:
