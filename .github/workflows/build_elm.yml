@@ -2,50 +2,37 @@ name: build-elm
 on:
   push:
     paths:
+    - '.github/workflows/build_elm.yml'
     - 'src/**'
     - 'assets/**'
     - '**.html'
-    - '**.js'
-    - '.github/workflows/build_elm.yml'
 
 jobs:
-  build_elm:
-    concurrency: ci-${{ github.ref }}
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Git repository
+    - name: Checkout
       uses: actions/checkout@v3
       with:
         persist-credentials: false
         fetch-depth: 0
 
-    - name: Build Elm application
+    - name: Build
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js
-    
-    - name: Commit files
+
+    - name: Commit
       run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.email "41898282+github-actions@users.noreply.github.com"
         git config --local user.name "github-actions"
-        git add assets/main.js -f
-        git commit -m "Update assets/main.js"
-        git checkout gh-pages
-        git pull --rebase
+        git commit -m "Update assets/main.js" -a
       continue-on-error: true
 
-    - name: Push changes
+    - name: Push
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-      continue-on-error: false
-
-    - name: Deploy to Pages
-      uses: JamesIves/github-pages-deploy-action@v4.3.0
-      with:
-        branch: gh-pages
-        folder: .
-
-
+        branch: ${{ github.ref }}
+      continue-on-error: true
