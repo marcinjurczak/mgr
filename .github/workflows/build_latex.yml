@@ -23,8 +23,8 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-        commit_message: "Github Action: Update mgr.pdf"
-        branch: ${{ github.ref }}
+          commit_message: "Github Action: Update mgr.pdf"
+          branch: ${{ github.ref }}
 
       - name: Upload PDF
         uses: actions/upload-artifact@v2
