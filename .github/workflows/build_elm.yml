@@ -19,6 +19,11 @@ jobs:
       with:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js --optimize
+    
+    - name: Checkout gh-pages
+      uses: actions/checkout@v3
+      with:
+        ref: gh-pages
 
     - name: Commit
       uses: stefanzweifel/git-auto-commit-action@v4
