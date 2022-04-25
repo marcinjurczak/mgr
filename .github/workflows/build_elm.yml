@@ -31,3 +31,9 @@ jobs:
         commit_message: "Github Action: Update assets/main.js"
         add_options: 'assets/main.js'
         branch: gh-pages
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        folder: .
