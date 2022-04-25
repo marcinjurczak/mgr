@@ -13,7 +13,7 @@ jobs:
         
       - id: count
         run: |
-          apt install texlive-extra-utils
+          sudo apt install texlive-extra-utils
           echo "##[set-output name=count;]$(texcount -sum mgr.tex | awk '/Sum/ {print $3}')"
         
       - name: Word count badge
