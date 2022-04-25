@@ -19,9 +19,7 @@ jobs:
       with:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js --optimize
-
-    - name: Commit
-      uses: stefanzweifel/git-auto-commit-action@v4
+    
+    - uses: EndBug/add-and-commit@v9
       with:
-        commit_message: "Github Action: Update assets/main.js"
-        branch: ${{ github.ref }}
+        new_branch: gh-pages
