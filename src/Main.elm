@@ -30,15 +30,15 @@ main =
 
 
 type alias Model =
-    { status : Status
-    , zone : Time.Zone
+    { zone : Time.Zone
     , time : Time.Posix
-    , text : String
+    , weatherStatus : WeatherStatus
+    , searchText : String
     , bookmarks : List Bookmark
     }
 
 
-type Status
+type WeatherStatus
     = Failure
     | Loading
     | Success Weather
@@ -58,7 +58,7 @@ type alias Bookmark =
 
 init : List Bookmark -> ( Model, Cmd Msg )
 init bookmarks =
-    ( Model Loading Time.utc (Time.millisToPosix 0) "" bookmarks
+    ( Model Time.utc (Time.millisToPosix 0) Loading "" bookmarks
     , Cmd.batch [ Task.perform AdjustTimeZone Time.here, getWeather ]
     )
 
@@ -90,30 +90,30 @@ update msg model =
             )
 
         UpdateWeather ->
-            ( { model | status = Loading }
+            ( { model | weatherStatus = Loading }
             , getWeather
             )
 
         GotWeather result ->
             case result of
                 Ok weather ->
-                    ( { model | status = Success weather }
+                    ( { model | weatherStatus = Success weather }
                     , Cmd.none
                     )
 
                 Err _ ->
-                    ( { model | status = Failure }
+                    ( { model | weatherStatus = Failure }
                     , Cmd.none
                     )
 
-        UpdateField text ->
-            ( { model | text = text }
+        UpdateField searchText ->
+            ( { model | searchText = searchText }
             , Cmd.none
             )
 
         Search ->
             ( model
-            , Nav.load ("https://google.com/search?q=" ++ model.text)
+            , Nav.load ("https://google.com/search?q=" ++ model.searchText)
             )
 
 
@@ -170,7 +170,7 @@ view model =
 
 viewWeather : Model -> Html Msg
 viewWeather model =
-    case model.status of
+    case model.weatherStatus of
         Failure ->
             text "Error: Couldn't retrieve weather data!"
 

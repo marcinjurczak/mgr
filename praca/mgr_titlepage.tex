@@ -5,29 +5,31 @@
 % parameters definition
 % they cannot conflict with other
 % like bibteh attributes etc.
+\def\tytul#1{\def\@tytul{#1}}
 \def\promotor#1{\def\@promotor{#1}}
 \def\miasto#1{\def\@miasto{#1}}
 \def\studies#1{\def\@studies{#1}}
 \def\descr#1{\def\@descr{#1}}
 \def\indeks#1{\def\@indeks{#1}}
 \def\dept#1{\def\@dept{#1}}
+\def\spec#1{\def\@spec{#1}}
 
 \def\maketitle{
   %removal of header
   \thispagestyle{empty}%
 
   \begin{center}
-    \begin{tabular}{lcl}
-      \multirow{4}{*}{\includegraphics[height=2.5cm]{img/logo_pg.png}} &
-      \textsc{\textbf{Politechnika Gdańska}} &
-      \multirow{4}{*}{\includegraphics[height=2.5cm]{img/logo_eti.png}}
-      \\ & & \\
-      &\textsc{\textbf{Wydział Elektroniki,}}&\\
-      &\textsc{\textbf{Telekomunikacji i Informatyki}}&
-    \end{tabular}
+      \begin{tabular}{ccc}
+          \multirow{4}{*}{\includegraphics[height=2.5cm]{logo_pg.png}}
+          & \textsc{\textbf{Politechnika Gdańska}} &
+          \multirow{4}{*}{\includegraphics[height=2.5cm]{logo_eti.png}} \\
+          & & \\
+          & \textsc{\textbf{Wydział Elektroniki, }}& \\
+          & \textsc{\textbf{Telekomunikacji i Informatyki }}& \\
+      \end{tabular}
   \end{center}
   \vspace{1cm}
-  \begin{tabular*}{\textwidth}{p{0.5\textwidth}p{0.5\textwidth}}
+  \begin{tabularx}{\textwidth}{XX}
     \textbf{Katedra:} & \@dept\\
     &\\
     \textbf{Imię i nazwisko dyplomanta:} & \@author\\
@@ -37,18 +39,23 @@
     \textbf{Forma i poziom studiów:} & \@studies\\
     &\\
     \textbf{Kierunek studiów:} & Informatyka\\
-  \end{tabular*}
+    &\\
+    \textbf{Specjalność:} & \@spec
+  \end{tabularx}
   \begin{center}
     \vspace{1cm}
     \Large{\textbf{Praca dyplomowa magisterska}}
   \end{center}
   \vspace{1cm}
-  \begin{tabular*}{\textwidth}{p{\textwidth}}
-    \textbf{Temat pracy:} \\ \@title\\
+  \begin{tabular}{l}
+    \textbf{Temat pracy:} \\ \@tytul\\
     \\
-    \textbf{Promotor:} \\ \@promotor\\
+    \textbf{Title of thesis:} \\ \@title\\
     \\
-  \end{tabular*}
+    \textbf{Opiekun pracy:} \\ \@promotor\\
+    \\
+    \textbf{Data ostatecznego zatwierdzenia raportu podobieństw w JSA:} //TODO
+  \end{tabular}
   \vspace*{\stretch{6}}
   \begin{center}
     \@miasto, \@date

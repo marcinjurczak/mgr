@@ -1,12 +1,14 @@
 \documentclass[twoside,a4paper]{report}
 
-\usepackage{lipsum}
 \usepackage[pdftex]{graphicx}
+\usepackage{textcomp}
+\usepackage{lipsum}
 \usepackage{wrapfig}
-\usepackage[font=small,labelfont=bf]{caption}
 \usepackage[utf8]{inputenc}
 \usepackage[polish]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage[font=small,labelfont=bf]{caption}
 \usepackage{url}
 \usepackage{csquotes}
 \usepackage[
@@ -18,6 +20,10 @@ sorting=none
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{anysize}
+\usepackage{adjustbox}
+\usepackage{indentfirst}
+\usepackage{tabularx}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -48,20 +54,23 @@ sorting=none
 
 \include{mgr_titlepage}
 
-\title{Wykorzystanie języka ELM do tworzenia aplikacji frontendowych.}
+\tytul{Wykorzystanie języka ELM do tworzenia aplikacji frontendowych.}
+\title{Programming the front end applications with ELM language.}
 \author{Marcin Jurczak}
 \date{2022}
 \miasto{Gdańsk}
 \promotor{dr\ inż.\ Krzysztof Manuszewski}
 \studies{Stacjonarne jednolite studia magisterskie}
 \indeks{171641}
-\dept{Algorytmów i Technologii Internetowych}
+\dept{Algorytmów i Modelowania Systemów}
+\spec{Algorytmów i Technologii Internetowych}
 
 \maketitle
 
 % --------------------------------------------------------------------------------
 
 \chapter*{Streszczenie}
+\noindent
 \lipsum[1]
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
@@ -69,6 +78,7 @@ sorting=none
 \textbf{Dziedzina nauki i techniki: }Nauki inżynieryjne i techniczne, inżynieria informatyczna.
 
 {\let\clearpage\relax\chapter*{Abstract}}
+\noindent
 \lipsum[1]
 
 \textbf{Keywords:} Elm, functional programming, web development
@@ -79,11 +89,29 @@ sorting=none
 \tableofcontents
 
 % --------------------------------------------------------------------------------
+\chapter*{Wykaz najważniejszych skrótów}
+\begin{tabular}{rl}
+    \textbf{CI} & -- ang.~Continuous Integration, pol.~ciągła integracja.\\
+    \textbf{CD} & -- ang.~Continuous Deployment, pol.~ciągłe wdrażanie.\\
+    \textbf{HTML} & -- ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników.\\
+    \textbf{HTTP} & -- ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu.\\
+\end{tabular}
+
+% --------------------------------------------------------------------------------
 
 \chapter{Wstęp i cel pracy}
-Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie frontendowej aplikacji internetowej. Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnymi rozwiązaniami do tworzenia aplikacji internetowych. Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
+Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie przykładowej frontendowej aplikacji internetowej.
+Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnie używanymi rozwiązaniami do tworzenia aplikacji internetowych.
+Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
 
-W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React oraz Angular. Prezentuję cechy wyróżniające
+W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React oraz Angular.
+Prezentuję cechy wyróżniające
+
+Trzeci rozdział poświęcam na
+
+W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elm'ie.
+
+Piąty rozdział zawiera instrukcję laboratoryjną.
 
 % --------------------------------------------------------------------------------
 
@@ -99,23 +127,19 @@ W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używa
 \cite{angulardocs}
 \subsection{Podobieństwa i różnice}
 
-
-% --------------------------------------------------------------------------------
-
-\chapter{Programowanie funkcyjne}
-
 % --------------------------------------------------------------------------------
 
 \chapter{Elm}
-Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika. Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy ,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}. Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
+Elm\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika.
+Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''\cite{Czaplicki2012ElmC}.
+Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
 \section{The Elm Architecture}
 \textit{The Elm Architecture} jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{elm_arch.png}
-    \caption{The Elm Architecture}
-    \label{fig:elm_arch}
+    \caption{The Elm Architecture}\label{fig:elm_arch}
 \end{figure}
 
 Architektura Elma składa się z trzech podstawowych elementów:
@@ -127,25 +151,26 @@ Architektura Elma składa się z trzech podstawowych elementów:
 \end{itemize}
 
 \subsection{Model}
-\begin{minipage}{.45\textwidth}
-Celem modelu jest zdefiniowanie danych w naszej aplikacji. W tym przypadku model będzie bardzo prosty - jedna wartość liczbowa, która może zostać zwiększona lub zmniejszona.
+\begin{minipage}{.50\textwidth}
+    Celem modelu jest zdefiniowanie danych w naszej aplikacji.
+    W tym przypadku model będzie bardzo prosty -- jedna wartość całkowitoliczbowa, która będzie mogła zostać zwiększona lub zmniejszona.
 \end{minipage}\hfill
 \begin{minipage}{.45\textwidth}
-\lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} - Model},label=kod:Model]
+    \lstset{frame=single}
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} - Model},label=kod:Model]
 type alias Model = Int
 
 
 init : Model
 init =
   0
-\end{lstlisting}
+    \end{lstlisting}
 \end{minipage}\hfill
 
 \subsection{Update}
 \begin{minipage}{.45\textwidth}
-\lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} - Update},label=kod:Update]
+    \lstset{frame=single}
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} - Update},label=kod:Update]
 type Msg
   = Increment
   | Decrement
@@ -159,13 +184,18 @@ update msg model =
 
     Decrement ->
       model - 1
-\end{lstlisting}
+    \end{lstlisting}
 \end{minipage}\hfill
-\begin{minipage}{.45\textwidth}
-Funkcja update ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie. Może odebrać dwa typy wiadomości - Increment i Decrement. W wyniku operacji update otrzymujemy nowy, zaktualizowany model.
+\begin{minipage}{.50\textwidth}
+    Funkcja \verb|update| ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie.
+    Może odebrać dwa typy wiadomości -- \textit{Increment} i \textit{Decrement}.
+    W wyniku operacji \verb|update| otrzymujemy nowy, zaktualizowany model.
 \end{minipage}\hfill
 \subsection{View}
-Funkcja view jako argument przyjmuje model i zwraca kod HTML. Wykorzystany został tutaj handler onClick, który po kliknięciu generuje odpowiednią wiadomość. Znak plusa generuje wiadomość Increment, znak minusa Decrement. Wybrana wiadomość trafia do funkcji update.
+Funkcja \verb|view| jako argument przyjmuje model i zwraca kod HTML\@.
+Wykorzystany został tutaj handler \verb|onClick|, który po kliknięciu generuje odpowiednią wiadomość.
+Znak plusa generuje wiadomość \textit{Increment}, znak minusa \textit{Decrement}.
+Wybrana wiadomość trafia do funkcji \verb|update|.
 
 \lstset{frame=single}
 \begin{lstlisting}[caption={\textit{The Elm Architecture} - View},label=kod:View]
@@ -190,14 +220,14 @@ view model =
 
 \paragraph{elm install}
 
-\paragraph{elm-live}
-\cite{elm-live}
+\paragraph{elm-live}\cite{elm-live}
 
 
 % --------------------------------------------------------------------------------
 
 \chapter{Implementacja}
-W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty. Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
+W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
+Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
 \begin{itemize}
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
     \item Pogoda w Gdańsku przedstawiona w formie krótkiego opisu oraz temperatury w stopniach Celsjusza
@@ -215,16 +245,45 @@ W poniższych podrozdziałach skupię się na opisie implementacji każdego modu
 
 \section{Zakładki}
 
+\section{Dokument hipertekstowy}
+
+\section{Style}
+
+\section{Całość}
+
 % --------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
+\lstset{frame=none}
 W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
 
 \section{Przygotowanie środowiska}
+Pierwszą rzeczą, którą należy się zająć przed rozpoczęciem nowego projektu jest przygotowanie odpowiedniego środowiska deweloperskiego.
+Należy upewnić się, że wszystkie narzędzia potrzebne do wykonania pracy są zainstalowane i prawidłowo skonfigurowane.
+W przypadku pracy z Elm'em będziemy korzystać przede wszystkim z kompilatora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
 
 \subsection{Linux}
+Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia npm -- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
+Aby zainstalować npm należy skorzystać z systemowego menadżera pakietów.
+Na przykładzie dystrybucji Ubuntu będą to komendy:
+\begin{lstlisting}[language=bash]
+  $ sudo apt update
+  $ sudo apt install npm
+\end{lstlisting}
+Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
+Posłuży do tego polecenie:
+\begin{lstlisting}[language=bash]
+  $ npm install -g elm
+\end{lstlisting}
+Zgodnie z dokumentacją npm\cite{npmdocs}, flaga \verb|-g| oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
+Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy uruchomić polecenie \verb|elm --version|.
+Jeżeli w odpowiedzi otrzymamy prawidłową wersję kompilatora oznacza to, że platforma Elm jest gotowa do działania i można przejść do kolejnego kroku.
 
 \subsection{Windows}
+
+\subsection{Edytor}
+
+\subsection{Tworzenie projektu}
 
 \section{Podstawy języka Elm}
 
@@ -243,8 +302,6 @@ W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, kt
 \lstlistoflistings
 
 \printbibliography
-% \bibliographystyle{plain}
-% \bibliography{bibliografia}
 
 % --------------------------------------------------------------------------------
 
