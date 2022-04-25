@@ -19,21 +19,3 @@ jobs:
       with:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js --optimize
-    
-    - name: Checkout gh-pages
-      uses: actions/checkout@v3
-      with:
-        ref: gh-pages
-
-    - name: Commit
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "Github Action: Update assets/main.js"
-        add_options: 'assets/main.js'
-        branch: gh-pages
-
-    - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.3.0
-      with:
-        branch: gh-pages
-        folder: .
