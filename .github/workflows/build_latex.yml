@@ -37,7 +37,6 @@ jobs:
       - id: count
         run: |
           sudo apt install texlive-extra-utils
-          texcount -sum praca/mgr.tex | awk '/Sum/ {print $3}'
           echo "##[set-output name=count;]$(texcount -sum praca/mgr.tex | awk '/Sum/ {print $3}')"
         
       - name: Word count badge
