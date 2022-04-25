@@ -43,7 +43,7 @@ jobs:
         uses: RubbaBoy/BYOB@v1.2.1
         with:
           NAME: count
-          LABEL: 'Word count'
+          LABEL: 'PDF word count'
           ICON: 'github'
           STATUS: ${{ steps.count.outputs.count }}
           COLOR: blue
