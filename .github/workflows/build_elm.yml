@@ -19,3 +19,7 @@ jobs:
       with:
         elm-version: 0.19.1
     - run: elm make src/Main.elm --output=assets/main.js --optimize
+    
+    - uses: EndBug/add-and-commit@v9
+      with:
+        new_branch: gh-pages
