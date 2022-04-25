@@ -24,4 +24,5 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Github Action: Update assets/main.js"
+        add_options: 'assets/main.js'
         branch: gh-pages
