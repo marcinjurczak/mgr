@@ -28,3 +28,23 @@ jobs:
         with:
           name: mgr
           path: praca/mgr.pdf
+  badge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - id: count
+        run: |
+          sudo apt install texlive-extra-utils
+          echo "##[set-output name=count;]$(texcount -sum praca/mgr.tex | awk '/Sum/ {print $3}')"
+        
+      - name: Word count badge
+        uses: RubbaBoy/BYOB@v1.2.1
+        with:
+          NAME: count
+          LABEL: 'PDF word count'
+          ICON: 'github'
+          STATUS: ${{ steps.count.outputs.count }}
+          COLOR: blue
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
