@@ -16,7 +16,7 @@ jobs:
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - working-directory: elm
+    - run: cd elm
     - run: elm make src/Main.elm --output=elm/assets/main.js --optimize
 
     - uses: EndBug/add-and-commit@v9
