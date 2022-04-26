@@ -12,14 +12,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Build
+    - name: Setup Elm
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: |
+
+    - name: Build
+      run: |
         cd elm
         elm make src/Main.elm --output=elm/assets/main.js --optimize
 
-    - uses: EndBug/add-and-commit@v9
+    - name: Commit
+      uses: EndBug/add-and-commit@v9
       with:
         new_branch: gh-pages
