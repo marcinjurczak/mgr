@@ -22,6 +22,13 @@ jobs:
         cd elm
         elm make src/Main.elm --output=elm/assets/main.js --optimize
 
+    - name: Deploy
+      if: ${{ github.branch == 'refs/heads/main' }}
+      uses: JamesIves/github-pages-deploy-action@v4.3.0
+      with:
+        branch: gh-pages
+        folder: elm
+        
     - name: Commit
       uses: EndBug/add-and-commit@v9
       with:
