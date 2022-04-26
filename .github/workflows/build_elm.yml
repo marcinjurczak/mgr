@@ -12,12 +12,53 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Build
+    - name: Setup Elm
       uses: jorelali/setup-elm@v3
       with:
         elm-version: 0.19.1
-    - run: elm make elm/src/Main.elm --output=elm/assets/main.js --optimize
 
+    - name: Build
+      run: |
+        cd elm
+        elm make src/Main.elm --output=assets/main.js --optimize
+      
+    - name: Upload main.js
+      uses: actions/upload-artifact@v2
+      with:
+        name: main.js
+        path: elm/assets/main.js
+        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./elm
+        
+  push-mainjs:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+      
+    - uses: actions/download-artifact@v3
+      with:
+        name: main.js
+        path: assets/
+        
     - uses: EndBug/add-and-commit@v9
       with:
+        add: 'assets/main.js'
         new_branch: gh-pages
+
+    
