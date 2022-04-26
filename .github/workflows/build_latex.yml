@@ -33,12 +33,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - id: count
         run: |
           sudo apt install texlive-extra-utils
           echo "##[set-output name=count;]$(texcount -sum praca/mgr.tex | awk '/Sum/ {print $3}')"
-        
+
       - name: Word count badge
         uses: RubbaBoy/BYOB@v1.2.1
         with:
