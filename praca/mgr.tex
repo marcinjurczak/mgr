@@ -103,30 +103,32 @@ Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem pro
 Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnie używanymi rozwiązaniami do tworzenia aplikacji internetowych.
 Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
 
-W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React oraz Angular.
-Prezentuję cechy wyróżniające
+W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React, Angular oraz Vue.
+Prezentuję ich zalety i wady względem siebie, a także przedstawiam cechy wyróżniające je między sobą.
 
-Trzeci rozdział poświęcam na
+Trzeci rozdział poświęcam na wysokopoziomowe wprowadzenie do języka Elm. Mówię o idei jaka przyświęcała stworzeniu tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii.
 
-W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elm'ie.
+W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elm'ie. Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągniecia wybranego celu.
 
-Piąty rozdział zawiera instrukcję laboratoryjną.
+Piąty rozdział zawiera instrukcję laboratoryjną, w której przeprowadzam czytelnika nieposiadającego żadnego doświadczenia z Elmem przez proces tworzenia oprogramowania z wykorzystaniem tej technologii, zaczynając od przygotowania środowiska, przez podstawy języka, aż po stworzenie aplikacji frontendowej przedstawionej we wcześniejszym rozdziale.
+
+Szósty rozdział poświęcam na omówienie zagadnień związanych z ciągłą integracją oraz ciągłym wdrażaniem, a także przedstawiam narzędzia wykorzystywane przeze mnie w tym celu podczas tworzenia omawianej aplikacji. Pokazuję, że Elm nie stanowi przeszkody w wykorzystywaniu tych technologii i całkowicie nadaje się do użytku produkcyjnego.
+
+Ostatni rozdział dotyczy przede wszystkim podsumowania niniejszej pracy magisterskiej. Przedstawiam produkt dwóch semestrów moich działań oraz wyciągam wnioski na temat Elm'a jako języka przeznaczonego do tworzenia aplikacji frontendowych.
 
 % --------------------------------------------------------------------------------
 
-\chapter{Aplikacje frontendowe}
+\chapter{Powszechne rozwiązania}
 
-\section{Powszechne rozwiązania}
-
-\subsection{React}
+\section{React}
 \cite{react}
 \cite{reactdocs}
-\subsection{Angular}
+\section{Angular}
 \cite{angularjs}
 \cite{angulardocs}
-\subsection{Vue.js}
+\section{Vue.js}
 \cite{vuejsdocs}
-\subsection{Podobieństwa i różnice}
+\section{Podobieństwa i różnice}
 
 % --------------------------------------------------------------------------------
 
@@ -292,7 +294,8 @@ Jeżeli w odpowiedzi otrzymamy prawidłową wersję kompilatora oznacza to, że 
 
 % --------------------------------------------------------------------------------
 
-\chapter{Infrastruktura}
+\chapter{Automatyzacja}
+W poniższym rozdziale chciałbym opisać procesy \textit{CI/CD} oraz korzyści płynące z używania ich, a także zaprezententować implementację takich rozwiązań na przykładzie stworzonej wcześniej aplikacji w Elmie.
 
 \section{CI/CD}
 
