@@ -1,9 +1,11 @@
 name: build-latex
+
 on:
   push:
     paths:
       - '.github/workflows/build_latex.yml'
       - 'praca/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,6 +30,7 @@ jobs:
         with:
           name: mgr
           path: praca/mgr.pdf
+
   badge:
     runs-on: ubuntu-latest
     steps:
