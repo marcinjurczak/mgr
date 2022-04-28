@@ -30,11 +30,16 @@ main =
 
 
 type alias Model =
-    { zone : Time.Zone
-    , time : Time.Posix
+    { clockTime : ClockTime
     , weatherStatus : WeatherStatus
     , searchText : String
     , bookmarks : List Bookmark
+    }
+
+
+type alias ClockTime =
+    { zone : Time.Zone
+    , time : Time.Posix
     }
 
 
@@ -58,7 +63,7 @@ type alias Bookmark =
 
 init : List Bookmark -> ( Model, Cmd Msg )
 init bookmarks =
-    ( Model Time.utc (Time.millisToPosix 0) Loading "" bookmarks
+    ( Model (ClockTime Time.utc (Time.millisToPosix 0)) Loading "" bookmarks
     , Cmd.batch [ Task.perform AdjustTimeZone Time.here, getWeather ]
     )
 
@@ -80,12 +85,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick newTime ->
-            ( { model | time = newTime }
+            ( { model | clockTime = ClockTime model.clockTime.zone newTime }
             , Cmd.none
             )
 
         AdjustTimeZone newZone ->
-            ( { model | zone = newZone }
+            ( { model | clockTime = ClockTime newZone model.clockTime.time }
             , Cmd.none
             )
 
@@ -117,6 +122,16 @@ update msg model =
             )
 
 
+setTime : Time.Posix -> ClockTime -> ClockTime
+setTime newTime clockTime =
+    { clockTime | time = newTime }
+
+
+setZone : Time.Zone -> ClockTime -> ClockTime
+setZone newZone clockTime =
+    { clockTime | zone = newZone }
+
+
 
 -- SUBSCRIPTIONS
 
@@ -135,42 +150,34 @@ view model =
     { title = "Startpage"
     , body =
         [ div [ class "container" ]
-            [ div [ id "clock" ]
-                [ viewTime model ]
-            , div [ class "weather-container" ]
-                [ div [ class "row" ]
-                    [ div [ id "weather-description", class "inline" ]
-                        [ div [ id "weather-description", class "inline" ]
-                            [ viewWeather model ]
-                        ]
-                    ]
-                ]
-            , div [ id "search" ]
-                [ input
-                    [ id "search-field"
-                    , type_ "text"
-                    , placeholder "Search"
-                    , onInput UpdateField
-                    , onEnter Search
-                    ]
-                    []
-                ]
-            , div [ id "bookmark-container" ]
-                [ div [ class "bookmark-set" ]
-                    [ div [ class "bookmark-title" ]
-                        [ text "Bookmarks" ]
-                    , div [ class "bookmark-inner-container" ]
-                        [ viewBookmarks model.bookmarks ]
-                    ]
-                ]
+            [ viewTime model.clockTime
+            , viewWeather model.weatherStatus
+            , viewSearchBar
+            , viewBookmarks model.bookmarks
             ]
         ]
     }
 
 
-viewWeather : Model -> Html Msg
-viewWeather model =
-    case model.weatherStatus of
+
+-- Weather
+
+
+viewWeather : WeatherStatus -> Html Msg
+viewWeather weatherStatus =
+    div [ class "weather-container" ]
+        [ div [ class "row" ]
+            [ div [ id "weather-description", class "inline" ]
+                [ div [ id "weather-description", class "inline" ]
+                    [ viewWeatherStatus weatherStatus ]
+                ]
+            ]
+        ]
+
+
+viewWeatherStatus : WeatherStatus -> Html Msg
+viewWeatherStatus weatherStatus =
+    case weatherStatus of
         Failure ->
             text "Error: Couldn't retrieve weather data!"
 
@@ -179,57 +186,6 @@ viewWeather model =
 
         Success weather ->
             text (getDesc weather ++ " | " ++ getTemp weather)
-
-
-onEnter : Msg -> Attribute Msg
-onEnter msg =
-    let
-        isEnter code =
-            if code == 13 then
-                Json.succeed msg
-
-            else
-                Json.fail "not ENTER"
-    in
-    on "keydown" (Json.andThen isEnter keyCode)
-
-
-viewTime : Model -> Html Msg
-viewTime model =
-    let
-        hour =
-            Time.toHour model.zone model.time
-
-        minute =
-            Time.toMinute model.zone model.time
-
-        second =
-            Time.toSecond model.zone model.time
-    in
-    text (parseTime hour ++ ":" ++ parseTime minute ++ ":" ++ parseTime second)
-
-
-parseTime : Int -> String
-parseTime num =
-    if num < 10 then
-        "0" ++ String.fromInt num
-
-    else
-        String.fromInt num
-
-
-viewBookmarks : List Bookmark -> Html Msg
-viewBookmarks bookmarks =
-    ul [] (List.map viewBookmark bookmarks)
-
-
-viewBookmark : Bookmark -> Html Msg
-viewBookmark bookmark =
-    li [ class "bookmark" ] [ a [ class "bookmark", href bookmark.url ] [ text bookmark.name ] ]
-
-
-
--- HTTP
 
 
 getWeather : Cmd Msg
@@ -255,3 +211,84 @@ getTemp weather =
 getDesc : Weather -> String
 getDesc weather =
     weather.description
+
+
+
+-- Search
+
+
+viewSearchBar : Html Msg
+viewSearchBar =
+    div [ id "search" ]
+        [ input
+            [ id "search-field"
+            , type_ "text"
+            , placeholder "Search"
+            , onInput UpdateField
+            , onEnter Search
+            ]
+            []
+        ]
+
+
+onEnter : Msg -> Attribute Msg
+onEnter msg =
+    let
+        isEnter code =
+            if code == 13 then
+                Json.succeed msg
+
+            else
+                Json.fail "not ENTER"
+    in
+    on "keydown" (Json.andThen isEnter keyCode)
+
+
+
+-- Clock
+
+
+viewTime : ClockTime -> Html Msg
+viewTime clockTime =
+    let
+        hour =
+            Time.toHour clockTime.zone clockTime.time
+
+        minute =
+            Time.toMinute clockTime.zone clockTime.time
+
+        second =
+            Time.toSecond clockTime.zone clockTime.time
+    in
+    div [ id "clock" ]
+        [ text (parseTime hour ++ ":" ++ parseTime minute ++ ":" ++ parseTime second) ]
+
+
+parseTime : Int -> String
+parseTime num =
+    if num < 10 then
+        "0" ++ String.fromInt num
+
+    else
+        String.fromInt num
+
+
+
+-- Bookmarks
+
+
+viewBookmarks : List Bookmark -> Html Msg
+viewBookmarks bookmarks =
+    div [ id "bookmark-container" ]
+        [ div [ class "bookmark-set" ]
+            [ div [ class "bookmark-title" ]
+                [ text "Bookmarks" ]
+            , div [ class "bookmark-inner-container" ]
+                [ ul [] (List.map viewBookmark bookmarks) ]
+            ]
+        ]
+
+
+viewBookmark : Bookmark -> Html Msg
+viewBookmark bookmark =
+    li [ class "bookmark" ] [ a [ class "bookmark", href bookmark.url ] [ text bookmark.name ] ]
