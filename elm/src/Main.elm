@@ -122,16 +122,6 @@ update msg model =
             )
 
 
-setTime : Time.Posix -> ClockTime -> ClockTime
-setTime newTime clockTime =
-    { clockTime | time = newTime }
-
-
-setZone : Time.Zone -> ClockTime -> ClockTime
-setZone newZone clockTime =
-    { clockTime | zone = newZone }
-
-
 
 -- SUBSCRIPTIONS
 
