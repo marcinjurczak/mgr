@@ -44,7 +44,7 @@ type alias ClockTime =
 
 
 type WeatherStatus
-    = Failure
+    = Failure String
     | Loading
     | Success Weather
 
@@ -107,7 +107,7 @@ update msg model =
                     )
 
                 Err _ ->
-                    ( { model | weatherStatus = Failure }
+                    ( { model | weatherStatus = Failure "Error: Couldn't retrieve weather data" }
                     , Cmd.none
                     )
 
@@ -168,8 +168,8 @@ viewWeather weatherStatus =
 viewWeatherStatus : WeatherStatus -> Html Msg
 viewWeatherStatus weatherStatus =
     case weatherStatus of
-        Failure ->
-            text "Error: Couldn't retrieve weather data!"
+        Failure errorMsg ->
+            text errorMsg
 
         Loading ->
             text "Loading weather..."
