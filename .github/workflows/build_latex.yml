@@ -40,7 +40,7 @@ jobs:
       - id: count
         run: |
           sudo apt install texlive-extra-utils
-          echo "##[set-output name=count;]$(texcount -sum praca/mgr.tex | awk '/Sum/ {print $3}')"
+          echo "##[set-output name=count;]$(texcount -total mgr.tex | awk '/Words in text/ {print $4}')"
 
       - name: Word count badge
         uses: RubbaBoy/BYOB@v1.2.1
