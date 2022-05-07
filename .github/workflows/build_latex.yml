@@ -20,11 +20,11 @@ jobs:
           root_file: mgr.tex
 
       - name: Commit
-        uses: EndBug/add-and-commit@v9
+        uses: dfm/force-push-branch-action@v1
         with:
-          add: 'praca/mgr.pdf'
-          message: 'Update mgr.pdf'
-          new_branch: pdf
+          target-branch: pdf
+          commit-message: "GitHub Action: Update mgr.pdf"
+          path: praca/mgr.pdf
 
       - name: Upload PDF
         uses: actions/upload-artifact@v2
