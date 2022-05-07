@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
+import Config
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -181,7 +182,7 @@ viewWeatherStatus weatherStatus =
 getWeather : Cmd Msg
 getWeather =
     Http.get
-        { url = "https://api.openweathermap.org/data/2.5/weather?appid=ad058b50a02f29f63724fade627da689&q=Gdansk&units=metric"
+        { url = Config.weatherApi ++ ("&q=" ++ Config.city) ++ ("&units=" ++ Config.unit) ++ ("&appid=" ++ Config.apiKey)
         , expect = Http.expectJson GotWeather weatherDecoder
         }
 
