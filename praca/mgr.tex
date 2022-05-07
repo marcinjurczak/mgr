@@ -56,7 +56,7 @@ sorting=none
 \marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
 \fancyhfoffset[E,O]{0pt}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \begin{document}
 
@@ -75,12 +75,11 @@ sorting=none
 
 \maketitle
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter*{Streszczenie}
 \noindent
-Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{Współczesne Aplikacje Programowania Funkcyjnego} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej.
-Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{Współczesne Aplikacje Programowania Funkcyjnego} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
 
@@ -88,18 +87,17 @@ Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli starto
 
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{Modern applications of functional programming} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics.
-The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{Modern applications of functional programming} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
 \textbf{Field of Science and Technology:} Engineering and Technology, Information engineering.
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \tableofcontents
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter*{Wykaz najważniejszych skrótów}
 \begin{tabular}{rl}
@@ -111,7 +109,7 @@ The created application is a \textit{startpage}, meaning a starting page of a we
     \textbf{JSON} &-- ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
 \end{tabular}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Wstęp i cel pracy}
 \begin{wrapfigure}{r}{0.25\textwidth}
@@ -143,26 +141,33 @@ Przedstawiam produkt dwóch semestrów moich działań oraz wyciągam wnioski na
 
 Na końcu dokumentu znajdują się spisy użytych rysunków i listingów, a także bibliografia, która została wykorzystana podczas pracy nad niniejszym dokumentem oraz w czasie zapoznawania się z tematem wytwarzania aplikacji internetowych z wykorzystaniem języka Elm.
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Powszechne rozwiązania}
+W poniższym rozdziale chciałbym przedstawić najpopularniejsze rozwiązania do tworzenia frontendowych stron internetowych, które są powszechnie stosowane zarówno przez największych gigantów technologicznych, tj. Google, Facebook, Netflix, ale także małe, dopiero wchodządzące na rynek firmy startupowe.
 
-\section{React}
-~\cite{react}
+Według ankiety przeprowadzonej w 2021 roku przez StackOverflow~\cite{stacksurvey}, najczęściej wybieranym przez programistów frameworkiem do tworzenia stron internetowych był React.js (40,14\% odpowiedzi), a na czwartym i piątym miejscu znajdowały się odpowiednio biblioteki Angular (22,96\% odpowiedzi) oraz Vue.js (18,97\% odpowiedzi).
+Są to biblioteki, na których chciałbym się skupić w poniższych podrozdziałach.
+Opiszę, czym się charakteryzują, jakie są ich wady i zalety, a także co je ze sobą łączy oraz w jaki sposób są od siebie różne.
+
+\section{React.js}
+Biblioteka React.js~\cite{react}
 ~\cite{reactdocs}
 \section{Angular}
-~\cite{angularjs}
+Biblioteka Angular~\cite{angulardocs}
 ~\cite{angulardocs}
 \section{Vue.js}
-~\cite{vuejsdocs}
+Biblioteka Vue.js~\cite{vuejsdocs}
 \section{Podobieństwa i różnice}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Elm}
 Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika.
 Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}.
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
+
+Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elm'a.
 
 \section{Programowanie funkcyjne}
 
@@ -253,11 +258,12 @@ Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na
         \texttt{elm reactor} &--& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
         \texttt{elm make} &--& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
         \texttt{elm install} &--& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
-        \texttt{elm-live~}\cite{elm-live} &--& //TODO\\
-        \texttt{elm-format~}\cite{elm-format} &--& //TODO\\
+        \texttt{elm-format~}\cite{elm-format} &--& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
+        \texttt{elm-live~}\cite{elm-live} &--& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
     \end{tabularx}
 \end{center}
-% --------------------------------------------------------------------------------
+
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Implementacja}
 W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
@@ -287,7 +293,7 @@ W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechani
 
 \section{Całość}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
 W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
@@ -365,6 +371,7 @@ Będzie się tam znajdował kod naszej aplikacji, którą stworzymy w kolejnych 
 
 \section{Podstawy języka Elm}
 
+
 \subsection{Wartości}
 
 \subsection{Funkcje}
@@ -401,7 +408,7 @@ W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz 
 
 \subsection{Style}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Automatyzacja}
 W poniższym rozdziale chciałbym opisać procesy \textit{CI/CD} oraz korzyści płynące z ich używania, a także zaprezententować implementację takich rozwiązań na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
@@ -413,7 +420,7 @@ Mianem CI/CD (Continuous Integration / Continuous Delivery) określa się zbiór
     \includegraphics[width=1\textwidth]{cicd_pipeline.png}
     \caption{Przykładowy potok CI/CD}\label{cicd_pipeline}
 \end{figure}
-
+Na rysunku~\ref{cicd_pipeline} przedstawiony został przykład potoku (\textit{pipeline}), na który składa się CI/CD\@.
 
 \subsection{Ciągła integracja}
 
@@ -423,13 +430,13 @@ Mianem CI/CD (Continuous Integration / Continuous Delivery) określa się zbiór
 
 \section{GitHub Pages}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Podsumowanie}
 
 \section{Wnioski}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \listoffigures
 % \listoftables
@@ -437,6 +444,6 @@ Mianem CI/CD (Continuous Integration / Continuous Delivery) określa się zbiór
 
 \printbibliography{}
 
-% --------------------------------------------------------------------------------
+% ---------------------------------------------------------------------------------------------------------------------
 
 \end{document}
