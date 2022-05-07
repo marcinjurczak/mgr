@@ -2,6 +2,9 @@
 
 \usepackage[pdftex]{graphicx}
 \usepackage{textcomp}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\huge}
 \usepackage{lipsum}
 \usepackage{wrapfig}
 \usepackage[utf8]{inputenc}
@@ -9,9 +12,12 @@
 \usepackage[T1]{fontenc}
 \usepackage[fit]{truncate}
 \usepackage{array}
+\usepackage{float}
 \usepackage{anysize}
+\usepackage{enumitem}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage{csquotes}
 \usepackage[
 sorting=none
@@ -23,6 +29,9 @@ sorting=none
 \usepackage{tabularx}
 \usepackage{indentfirst}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
+
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -70,7 +79,8 @@ sorting=none
 
 \chapter*{Streszczenie}
 \noindent
-Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{Współczesne Aplikacje Programowania Funkcyjnego} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{Współczesne Aplikacje Programowania Funkcyjnego} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej.
+Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
 
@@ -78,13 +88,15 @@ Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji i
 
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{Modern applications of functional programming} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{Modern applications of functional programming} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics.
+The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
 \textbf{Field of Science and Technology:} Engineering and Technology, Information engineering.
 
-% spis treści
+% --------------------------------------------------------------------------------
+
 \tableofcontents
 
 % --------------------------------------------------------------------------------
@@ -102,6 +114,12 @@ The goal of this master thesis is to use the Elm language to create a front-end 
 % --------------------------------------------------------------------------------
 
 \chapter{Wstęp i cel pracy}
+\begin{wrapfigure}{r}{0.25\textwidth}
+    \centering
+    \centering
+    \includegraphics[width=0.25\textwidth]{elm_logo.png}
+    \caption*{Logo Elm'a}\label{elm_logo}
+\end{wrapfigure}
 Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie przykładowej frontendowej aplikacji internetowej.
 Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnie używanymi rozwiązaniami do tworzenia aplikacji internetowych.
 Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
@@ -123,42 +141,44 @@ Pokazuję, że Elm nie stanowi przeszkody w wykorzystywaniu tych technologii i c
 Ostatni rozdział dotyczy przede wszystkim podsumowania niniejszej pracy magisterskiej.
 Przedstawiam produkt dwóch semestrów moich działań oraz wyciągam wnioski na temat Elm'a jako języka przeznaczonego do tworzenia aplikacji frontendowych.
 
-Na końcu dokumentu znajdują się spisy użytych grafik i listingów, jak i bibliografia.
+Na końcu dokumentu znajdują się spisy użytych rysunków i listingów, a także bibliografia, która została wykorzystana podczas pracy nad niniejszym dokumentem oraz w czasie zapoznawania się z tematem wytwarzania aplikacji internetowych z wykorzystaniem języka Elm.
 
 % --------------------------------------------------------------------------------
 
 \chapter{Powszechne rozwiązania}
 
 \section{React}
-\cite{react}
-\cite{reactdocs}
+~\cite{react}
+~\cite{reactdocs}
 \section{Angular}
-\cite{angularjs}
-\cite{angulardocs}
+~\cite{angularjs}
+~\cite{angulardocs}
 \section{Vue.js}
-\cite{vuejsdocs}
+~\cite{vuejsdocs}
 \section{Podobieństwa i różnice}
 
 % --------------------------------------------------------------------------------
 
 \chapter{Elm}
-Elm\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika.
-Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''\cite{Czaplicki2012ElmC}.
+Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym do tworzenia graficznych interfejsów użytkownika.
+Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}.
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
+\section{Programowanie funkcyjne}
+
 \section{The Elm Architecture}
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{elm_arch.png}
-    \caption{Diagram działania programu w Elm'ie}\label{fig:elm_arch}
+    \caption{Diagram działania programu w Elm'ie}\label{elm_arch}
 \end{figure}
 
 \textit{The Elm Architecture} jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
-Zgodnie z rysunkiem~\ref{fig:elm_arch} typowa aplikacja Elm działa w następujący sposób: Program generuje pewien kod HTML, który zostaje wyświetlony na ekranie, a następnie komputer zwraca wiadomości informujące o tym co się dzieje, np.~użytkownik wcisnął guzik.
+Zgodnie z rysunkiem~\ref{elm_arch} typowa aplikacja Elm działa w następujący sposób:
+Program generuje pewien kod HTML, który zostaje wyświetlony na ekranie, a następnie komputer zwraca wiadomości informujące o tym co się dzieje, np.~użytkownik wcisnął guzik.
 
 A co się dzieje wewnątrz wspomnianego programu Elm'owego? Zawsze składa się z trzech podstawowych elementów:
-\begin{itemize}
-    \setlength\itemsep{-0.1em}
+\begin{itemize}[noitemsep,topsep=0pt]
     \item Model~-- opisujący stan aplikacji
     \item Update~-- opisujący logikę aplikacji
     \item View~-- opisujący wygląd aplikacji
@@ -228,13 +248,13 @@ view model =
 Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elm'a, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
 \begin{center}
     \begin{tabularx}{\textwidth}{llX}
-        \texttt{elm repl} &--& otwiera interaktywną sesję programistyczną.\\&\\
-        \texttt{elm init} &--& inicjalizuje bieżący katalog jako nowy projekt Elm'a poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\&\\
-        \texttt{elm reactor} &--& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\&\\
-        \texttt{elm make} &--& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\&\\
-        \texttt{elm install} &--& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\&\\
-        \texttt{elm-live~\cite{elm-live}} &--& test\\&\\
-        \texttt{elm-format~\cite{elm-format}} &--& test\\
+        \texttt{elm repl} &--& otwiera interaktywną sesję programistyczną.\\
+        \texttt{elm init} &--& inicjalizuje bieżący katalog jako nowy projekt Elm'a poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
+        \texttt{elm reactor} &--& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
+        \texttt{elm make} &--& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
+        \texttt{elm install} &--& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
+        \texttt{elm-live~}\cite{elm-live} &--& //TODO\\
+        \texttt{elm-format~}\cite{elm-format} &--& //TODO\\
     \end{tabularx}
 \end{center}
 % --------------------------------------------------------------------------------
@@ -242,14 +262,16 @@ Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na
 \chapter{Implementacja}
 W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
 Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
-\begin{itemize}
+\begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
     \item Pogoda w Gdańsku przedstawiona w formie krótkiego opisu oraz temperatury w stopniach Celsjusza
     \item Wyszukiwarka Google
     \item Zakładki zawierające odnośniki do wybranych stron internetowych
 \end{itemize}
 
-W poniższych podrozdziałach skupię się na opisie implementacji każdego modułu.
+Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe biblioteki Elm'a oraz uwzględniają pracę z najpopularniejszymi sposobami przekazywania informacji w aplikacjach internetowych, takich jak przetwarzanie plików JSON, wysyłanie zapytań HTTP oraz praca z plikami.
+
+W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów,
 
 \section{Zegar}
 
@@ -260,6 +282,106 @@ W poniższych podrozdziałach skupię się na opisie implementacji każdego modu
 \section{Zakładki}
 
 \section{Dokument hipertekstowy}
+
+\section{Style}
+
+\section{Całość}
+
+% --------------------------------------------------------------------------------
+
+\chapter{Instrukcja laboratoryjna}
+W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
+
+\section{Przygotowanie środowiska}
+Pierwszą rzeczą, którą należy się zająć przed rozpoczęciem nowego projektu jest przygotowanie odpowiedniego środowiska deweloperskiego.
+Należy upewnić się, że wszystkie narzędzia potrzebne do wykonania pracy są zainstalowane i prawidłowo skonfigurowane.
+W przypadku pracy z Elm'em będziemy korzystać przede wszystkim z platformy dostarczanej przez autora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
+
+\subsection{Platforma Elm}
+Najważniejszą rzeczą, jaka będzie nam potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
+Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows. Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}. Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, powinniśmy ujrzeć widok podobny do przedstawionego na rysunku~\ref{elm_output}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{elm_output.png}
+    \caption{Wyjście instrukcji \texttt{elm}}\label{elm_output}
+\end{figure}
+
+\subsubsection{Linux}
+Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia \texttt{npm}~-- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
+Aby zainstalować \texttt{npm} należy skorzystać z systemowego menadżera pakietów.
+Na przykładzie dystrybucji Ubuntu będą to komendy:
+\begin{lstlisting}[language=bash]
+  $ sudo apt update
+  $ sudo apt install npm
+\end{lstlisting}
+Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
+Posłuży do tego polecenie:
+\begin{lstlisting}[language=bash]
+  $ npm install -g elm
+\end{lstlisting}
+Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
+Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy w wierszu poleceń uruchomić komendę \texttt{elm}.
+Naszym oczom powinien ukazać się widok podobny do rysunku~\ref{elm_output}, tak jak zostało to już wcześniej wspomniane.
+\subsubsection{Windows}
+Osoby korzystające z systemu operacyjnego Windows mogą skorzystać z npm, tak jak to było opisane w powyższej sekcji dotyczącej Linuxa lub posłużyć się dedykowanym \href{https://github.com/elm/compiler/releases/download/0.19.1/installer-for-windows.exe}{instalatorem Elm'a}~\cite{elm_installer} na system Windows.
+W tym drugim przypadku wystarczy przejść przez wszystkie kroki zostawiając opcje domyślne i w rezultacie Elm zostanie pomyślnie zainstalowany i będzie gotowy do użytkowania.
+W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}. Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{elm_output}, tak jak zostało to już wcześniej wspomniane.
+
+\subsection{Edytor}
+Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni edytor tekstowy, który jest w stanie podświetlać składnię języka, z którego aktualnie korzystamy.
+Żeby osiągnąć ten cel, w przypadku Elm'a potrzebna będzie instalacja dodatkowej wtyczki do jednego z następujących edytorów:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item{\href{https://atom.io/packages/language-elm}{Atom}}
+    \item{\href{https://github.com/jcollard/elm-mode}{Emacs}}
+    \item{\href{https://github.com/klazuka/intellij-elm}{IntelliJ}}
+    \item{\href{https://github.com/rundis/elm-light}{Light Table}}
+    \item{\href{https://github.com/evancz/elm-syntax-highlighting/}{Sublime Text}}
+    \item{\href{https://github.com/elm-tooling/elm-vim}{Vim}}
+    \item{\href{https://github.com/elm-tooling/elm-language-client-vscode}{VS Code}}
+\end{itemize}
+
+Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
+
+\subsection{Tworzenie projektu}
+Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
+Jednym z nich jest \texttt{elm init}, które posłuży nam do stworzenia nowego projektu.
+W tym celu należy otworzyć wiersz poleceń i wykonać następujące instrukcje:
+
+\begin{lstlisting}[language=bash]
+  $ mkdir elm_project
+  $ cd elm_project
+  $ elm init
+\end{lstlisting}
+
+Po wypisaniu zawartości katalogu \texttt{elm\_project} z użyciem polecenia \texttt{ls} powinny pojawić się dwa nowe elementy:
+
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item{Plik \texttt{elm.json} opisujący projekt oraz jego zależności}
+    \item{Katalog \texttt{src/} zawierący nasze przyszłe pliki Elm'a}
+\end{itemize}
+
+Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowoutworzonym katalogu \texttt{src/}.
+Będzie się tam znajdował kod naszej aplikacji, którą stworzymy w kolejnych krokach.
+
+\section{Podstawy języka Elm}
+
+\subsection{Wartości}
+
+\subsection{Funkcje}
+
+\section{Aplikacja frontendowa}
+W ramach większego projektu zbudujemy stronę internetową typu \texttt{startpage}, czyli strony startowej przeglądarki zawierającej najważniejsze i najczęściej używane elementy.
+W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz pasek zakładek.
+
+\subsection{Zegar}
+
+\subsection{Pogoda}
+
+\subsection{Wyszukiwarka}
+
+\subsection{Zakładki}
+
+\subsection{Dokument hipertekstowy}
 \begin{lstlisting}[caption={Zawartość pliku \texttt{index.html}},language=html]
 <head>
     <link rel="stylesheet" href="assets/styles.css" />
@@ -276,53 +398,26 @@ W poniższych podrozdziałach skupię się na opisie implementacji każdego modu
     </script>
 </body>
 \end{lstlisting}
-\section{Style}
 
-\section{Całość}
-
-% --------------------------------------------------------------------------------
-
-\chapter{Instrukcja laboratoryjna}
-W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, która krok po kroku przeprowadza czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
-
-\section{Przygotowanie środowiska}
-Pierwszą rzeczą, którą należy się zająć przed rozpoczęciem nowego projektu jest przygotowanie odpowiedniego środowiska deweloperskiego.
-Należy upewnić się, że wszystkie narzędzia potrzebne do wykonania pracy są zainstalowane i prawidłowo skonfigurowane.
-W przypadku pracy z Elm'em będziemy korzystać przede wszystkim z kompilatora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
-
-\subsection{Linux}
-Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia \texttt{npm}~-- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
-Aby zainstalować \texttt{npm} należy skorzystać z systemowego menadżera pakietów.
-Na przykładzie dystrybucji Ubuntu będą to komendy:
-\begin{lstlisting}[language=bash]
-  $ sudo apt update
-  $ sudo apt install npm
-\end{lstlisting}
-Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
-Posłuży do tego polecenie:
-\begin{lstlisting}[language=bash]
-  $ npm install -g elm
-\end{lstlisting}
-Zgodnie z dokumentacją \texttt{npm}\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
-Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy uruchomić polecenie \texttt{elm --version}.
-Jeżeli w odpowiedzi otrzymamy prawidłową wersję kompilatora oznacza to, że platforma Elm jest gotowa do działania i można przejść do kolejnego kroku.
-
-\subsection{Windows}
-
-\subsection{Edytor}
-
-\subsection{Tworzenie projektu}
-
-\section{Podstawy języka Elm}
-
-\section{Aplikacja frontendowa}
+\subsection{Style}
 
 % --------------------------------------------------------------------------------
 
 \chapter{Automatyzacja}
-W poniższym rozdziale chciałbym opisać procesy \textit{CI/CD} oraz korzyści płynące z używania ich, a także zaprezententować implementację takich rozwiązań na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
+W poniższym rozdziale chciałbym opisać procesy \textit{CI/CD} oraz korzyści płynące z ich używania, a także zaprezententować implementację takich rozwiązań na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
 
 \section{CI/CD}
+Mianem CI/CD (Continuous Integration / Continuous Delivery) określa się zbiór praktyk pozwających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{cicd_pipeline.png}
+    \caption{Przykładowy potok CI/CD}\label{cicd_pipeline}
+\end{figure}
+
+
+\subsection{Ciągła integracja}
+
+\subsection{Ciągłe wdrażanie}
 
 \section{GitHub Actions}
 
