@@ -4,7 +4,7 @@
 \usepackage{textcomp}
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
-  {\normalfont\bfseries}{}{0pt}{\huge}
+{\normalfont\bfseries}{}{0pt}{\huge}
 \usepackage{lipsum}
 \usepackage{wrapfig}
 \usepackage{adjustbox}
@@ -13,6 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[fit]{truncate}
 \usepackage{array}
+\usepackage{makecell}
 \usepackage{float}
 \usepackage{anysize}
 \usepackage{enumitem}
@@ -80,7 +81,7 @@ sorting=none
 
 \chapter*{Streszczenie}
 \noindent
-Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{Współczesne Aplikacje Programowania Funkcyjnego} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
 
@@ -88,7 +89,7 @@ Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji i
 
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{Modern applications of functional programming} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
@@ -117,28 +118,28 @@ The goal of this master thesis is to use the Elm language to create a front-end 
     \centering
     \centering
     \includegraphics[width=0.25\textwidth]{elm_logo.png}
-    \caption*{Logo Elm'a}\label{elm_logo}
+    \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
 Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie przykładowej frontendowej aplikacji internetowej.
 Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnie używanymi rozwiązaniami do tworzenia aplikacji internetowych.
 Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
 
-W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React, Angular oraz Vue.
+W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React.js, Angular oraz Vue.js.
 Prezentuję ich zalety i wady względem siebie, a także przedstawiam cechy wyróżniające je między sobą.
 
 Trzeci rozdział poświęcam na wysokopoziomowe wprowadzenie do języka Elm.
 Mówię o idei jaka przyświęcała stworzeniu tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii.
 
-W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elm'ie.
-Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elm'em, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągniecia wybranego celu.
+W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elmie.
+Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągniecia wybranego celu.
 
-Piąty rozdział zawiera instrukcję laboratoryjną, w której przeprowadzam czytelnika nieposiadającego żadnego doświadczenia z Elm'em przez proces tworzenia oprogramowania z wykorzystaniem tej technologii, zaczynając od przygotowania środowiska, przez podstawy języka, aż po stworzenie aplikacji frontendowej przedstawionej we wcześniejszym rozdziale.
+Piąty rozdział zawiera instrukcję laboratoryjną, w której przeprowadzam czytelnika nieposiadającego żadnego doświadczenia z Elmem przez proces tworzenia oprogramowania z wykorzystaniem tej technologii, zaczynając od przygotowania środowiska, przez podstawy języka, aż po stworzenie aplikacji frontendowej przedstawionej we wcześniejszym rozdziale.
 
 Szósty rozdział poświęcam na omówienie zagadnień związanych z ciągłą integracją oraz ciągłym wdrażaniem, a także przedstawiam narzędzia wykorzystywane przeze mnie w tym celu podczas tworzenia omawianej aplikacji.
 Pokazuję, że Elm nie stanowi przeszkody w wykorzystywaniu tych technologii i całkowicie nadaje się do użytku produkcyjnego.
 
 Ostatni rozdział dotyczy przede wszystkim podsumowania niniejszej pracy magisterskiej.
-Przedstawiam produkt dwóch semestrów moich działań oraz wyciągam wnioski na temat Elm'a jako języka przeznaczonego do tworzenia aplikacji frontendowych.
+Przedstawiam produkt dwóch semestrów moich działań oraz wyciągam wnioski na temat Elma jako języka przeznaczonego do tworzenia aplikacji frontendowych.
 
 Na końcu dokumentu znajdują się spisy użytych rysunków i listingów, a także bibliografia, która została wykorzystana podczas pracy nad niniejszym dokumentem oraz w czasie zapoznawania się z tematem wytwarzania aplikacji internetowych z wykorzystaniem języka Elm.
 
@@ -168,37 +169,39 @@ Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym 
 Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}.
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
-Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elm'a.
+Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elma.
 
 \section{Programowanie funkcyjne}
 
 \section{The Elm Architecture}
+
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{elm_arch.png}
-    \caption{Diagram działania programu w Elm'ie}\label{elm_arch}
+\centering
+\includegraphics[width=0.6\textwidth]{elm_arch.png}
+\caption{Diagram działania programu w Elmie}\label{fig:elm_arch}
 \end{figure}
 
 \textit{The Elm Architecture} jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
-Zgodnie z rysunkiem~\ref{elm_arch} typowa aplikacja Elm działa w następujący sposób:
+Zgodnie z rysunkiem~\ref{fig:elm_arch} typowa aplikacja Elm działa w następujący sposób:
 Program generuje pewien kod HTML, który zostaje wyświetlony na ekranie, a następnie komputer zwraca wiadomości informujące o tym co się dzieje, np.~użytkownik wcisnął guzik.
 
-A co się dzieje wewnątrz wspomnianego programu Elm'owego? Zawsze składa się z trzech podstawowych elementów:
+A co się dzieje wewnątrz wspomnianego programu Elmowego? Zawsze składa się z trzech podstawowych elementów:
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Model~-- opisujący stan aplikacji
     \item Update~-- opisujący logikę aplikacji
     \item View~-- opisujący wygląd aplikacji
 \end{itemize}
-W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elm'a na podstawie prostego programu, którego zadaniem jest wyświetlenie na ekranie dwóch guzików oraz licznika, który może się zwiększać i zmniejszać, w zależności od tego, który guzik zostanie naciśnięty przez użytkownika.
+W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elma na podstawie prostego programu, którego zadaniem jest wyświetlenie na ekranie dwóch guzików oraz licznika, który może się zwiększać i zmniejszać, w zależności od tego, który guzik zostanie naciśnięty przez użytkownika.
 
 \subsection{Model}
 \begin{minipage}{.50\textwidth}
-    Celem modelu jest zdefiniowanie danych w naszej aplikacji.
-    W tym przypadku model będzie bardzo prosty~-- jedna wartość całkowitoliczbowa, która będzie mogła zostać zwiększona lub zmniejszona.
+    Celem modelu przedstawionego na listingu~\ref{lst:Model} jest zdefiniowanie danych w naszej aplikacji.
+
+    W tym przypadku model będzie bardzo prosty~-- jest to rekord zawierający jedną wartość całkowitoliczbową (typ \texttt{Int}), która będzie mogła zostać zwiększona lub zmniejszona poprzez naciśnięcie odpowiedniego guzika.
 \end{minipage}\hfill
 \begin{minipage}{.43\textwidth}
     \lstset{frame=single}
-    \begin{lstlisting}[caption={\textit{The Elm Architecture} - Model},label=kod:Model]
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Model},label={lst:Model}]
 type alias Model = Int
 
 
@@ -211,7 +214,7 @@ init =
 \subsection{Update}
 \begin{minipage}{.43\textwidth}
     \lstset{frame=single}
-    \begin{lstlisting}[caption={\textit{The Elm Architecture} - Update},label=kod:Update]
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Update},label={lst:Update}]
 type Msg
   = Increment
   | Decrement
@@ -228,18 +231,18 @@ update msg model =
     \end{lstlisting}
 \end{minipage}\hfill
 \begin{minipage}{.50\textwidth}
-    Funkcja \texttt{update} ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie.
-    Może odebrać dwa typy wiadomości~-- \textit{Increment} i \textit{Decrement}.
-    W wyniku operacji \texttt{update} otrzymujemy nowy, zaktualizowany model.
+    Funkcja \texttt{update}, która została przedstawiona na listingu~\ref{lst:Update}, ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie.
+
+    Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty~-- \texttt{Increment} i \texttt{Decrement}. Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
 \end{minipage}\hfill
 \subsection{View}
-Funkcja \texttt{view} jako argument przyjmuje model i zwraca kod HTML\@.
-Wykorzystany został tutaj handler \texttt{onClick}, który po kliknięciu generuje odpowiednią wiadomość.
-Znak plusa generuje wiadomość \textit{Increment}, znak minusa \textit{Decrement}.
-Wybrana wiadomość trafia do funkcji \texttt{update}.
+Funkcja \texttt{view}, która została zaprezentowana na listingu~\ref{lst:View}, jako argument przyjmuje model i zwraca kod HTML\@.
+Wykorzystany został tutaj handler \texttt{onClick z biblioteki \texttt{Html.Events}}, który po kliknięciu guzika, do którego został przypisany, generuje odpowiednią wiadomość.
+Znak plusa generuje wiadomość \texttt{Increment}, znak minusa \texttt{Decrement}.
+Następnie wybrana wiadomość trafia do funkcji \texttt{update}.
 
 \lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} - View},label=kod:View]
+\begin{lstlisting}[caption={\textit{The Elm Architecture} -- View},label={lst:View}]
 view : Model -> Html Msg
 view model =
   div []
@@ -251,16 +254,16 @@ view model =
 \lstset{frame=none}
 
 \section{Narzędzia}
-Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elm'a, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
+Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elma, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
 \begin{center}
-    \begin{tabularx}{\textwidth}{llX}
+    \begin{tabularx}{\textwidth}{clX}
         \texttt{elm repl} &--& otwiera interaktywną sesję programistyczną.\\
-        \texttt{elm init} &--& inicjalizuje bieżący katalog jako nowy projekt Elm'a poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
+        \texttt{elm init} &--& inicjalizuje bieżący katalog jako nowy projekt Elma poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
         \texttt{elm reactor} &--& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
         \texttt{elm make} &--& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
         \texttt{elm install} &--& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
-        \texttt{elm-format~}\cite{elm-format} &--& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
-        \texttt{elm-live~}\cite{elm-live} &--& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
+        \makecell{\texttt{elm-format}~\cite{elm-format}} &--& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
+        \makecell{\texttt{elm-live}~\cite{elm-live}} &--& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
     \end{tabularx}
 \end{center}
 
@@ -280,20 +283,6 @@ Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe
 
 W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów,
 
-\section{Zegar}
-
-\section{Pogoda}
-
-\section{Wyszukiwarka}
-
-\section{Zakładki}
-
-\section{Dokument hipertekstowy}
-
-\section{Style}
-
-\section{Całość}
-
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
@@ -306,11 +295,12 @@ W przypadku pracy z Elm'em będziemy korzystać przede wszystkim z platformy dos
 
 \subsection{Platforma Elm}
 Najważniejszą rzeczą, jaka będzie nam potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
-Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows. Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}. Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, powinniśmy ujrzeć widok podobny do przedstawionego na rysunku~\ref{elm_output}.
+Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows. Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
+Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, powinniśmy ujrzeć widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{elm_output.png}
-    \caption{Wyjście instrukcji \texttt{elm}}\label{elm_output}
+    \caption{Wyjście instrukcji \texttt{elm}}\label{fig:elm_output}
 \end{figure}
 
 \subsubsection{Linux}
@@ -328,11 +318,11 @@ Posłuży do tego polecenie:
 \end{lstlisting}
 Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
 Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy w wierszu poleceń uruchomić komendę \texttt{elm}.
-Naszym oczom powinien ukazać się widok podobny do rysunku~\ref{elm_output}, tak jak zostało to już wcześniej wspomniane.
+Naszym oczom powinien ukazać się widok podobny do rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
 \subsubsection{Windows}
 Osoby korzystające z systemu operacyjnego Windows mogą skorzystać z npm, tak jak to było opisane w powyższej sekcji dotyczącej Linuxa lub posłużyć się dedykowanym \href{https://github.com/elm/compiler/releases/download/0.19.1/installer-for-windows.exe}{instalatorem Elm'a}~\cite{elm_installer} na system Windows.
 W tym drugim przypadku wystarczy przejść przez wszystkie kroki zostawiając opcje domyślne i w rezultacie Elm zostanie pomyślnie zainstalowany i będzie gotowy do użytkowania.
-W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}. Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{elm_output}, tak jak zostało to już wcześniej wspomniane.
+W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}. Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
 
 \subsection{Edytor}
 Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni edytor tekstowy, który jest w stanie podświetlać składnię języka, z którego aktualnie korzystamy.
@@ -353,7 +343,6 @@ Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, w
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
 Jednym z nich jest \texttt{elm init}, które posłuży nam do stworzenia nowego projektu.
 W tym celu należy otworzyć wiersz poleceń i wykonać następujące instrukcje:
-
 \begin{lstlisting}[language=bash]
   $ mkdir elm_project
   $ cd elm_project
@@ -371,8 +360,7 @@ Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowoutwor
 Będzie się tam znajdował kod naszej aplikacji, którą stworzymy w kolejnych krokach.
 
 \section{Podstawy języka Elm}
-
-
+W celu nauki podstaw języka Elm skorzystamy z narzędzia \texttt{elm repl}, pozwalającego na korzystanie z interaktywnej sesji programistycznej.
 \subsection{Wartości}
 
 \subsection{Funkcje}
@@ -390,7 +378,7 @@ W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz 
 \subsection{Zakładki}
 
 \subsection{Dokument hipertekstowy}
-\begin{lstlisting}[caption={Zawartość pliku \texttt{index.html}},language=html]
+\begin{lstlisting}[caption={Zawartość pliku \texttt{index.html}},label={lst:index.html},language=html]
 <head>
     <link rel="stylesheet" href="assets/styles.css" />
     <script src="assets/main.js"></script>
@@ -412,24 +400,28 @@ W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz 
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Automatyzacja}
-W poniższym rozdziale chciałbym opisać procesy \textit{CI/CD} oraz korzyści płynące z ich używania, a także zaprezententować implementację takich rozwiązań na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
+W poniższym rozdziale chciałbym opisać procesy CI/CD oraz korzyści płynące z ich użytkowania, a także zaprezententować implementację takiego rozwiązania na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
 
 \section{CI/CD}
-Mianem CI/CD (Continuous Integration / Continuous Delivery) określa się zbiór praktyk pozwających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
+Mianem CI/CD określa się zbiór praktyk pozwających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{cicd_pipeline.png}
-    \caption{Przykładowy potok CI/CD}\label{cicd_pipeline}
+    \caption{Przykładowy potok CI/CD}\label{fig:cicd_pipeline}
 \end{figure}
-Na rysunku~\ref{cicd_pipeline} przedstawiony został przykład potoku (\textit{pipeline}), na który składa się CI/CD\@.
+Na rysunku~\ref{fig:cicd_pipeline} przedstawiony został przykład potoku CI/CD\@.
 
 \subsection{Ciągła integracja}
 
+Na rynku dostępnych jest wiele narzędzi oferujących usługi wspierające CI\@. Kilka najpopularniejszych z nich to m.in. Jenkins, TeamCity i CircleCI\@.
+Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami ciągłej integracji nawet w przypadku bardzo rozbudowanych projektów prowadzonych przez największe firmy informatyczne.
 \subsection{Ciągłe wdrażanie}
 
 \section{GitHub Actions}
+Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}. Z tego względu, oraz przez niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
 
 \section{GitHub Pages}
+GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
