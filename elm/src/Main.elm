@@ -9,7 +9,7 @@ import Html.Events exposing (..)
 import Http
 import Json.Decode as Json
 import Task
-import Time
+import Time exposing (..)
 
 
 
@@ -142,6 +142,7 @@ view model =
     , body =
         [ div [ class "container" ]
             [ viewTime model.clockTime
+            , viewDate model.clockTime
             , viewWeather model.weatherStatus
             , viewSearchBar
             , viewBookmarks model.bookmarks
@@ -236,7 +237,7 @@ onEnter msg =
 
 
 
--- Clock
+-- Time
 
 
 viewTime : ClockTime -> Html Msg
@@ -262,6 +263,93 @@ parseTime num =
 
     else
         String.fromInt num
+
+
+
+-- Date
+
+
+viewDate : ClockTime -> Html Msg
+viewDate clockTime =
+    let
+        weekday =
+            Time.toWeekday clockTime.zone clockTime.time
+
+        day =
+            Time.toDay clockTime.zone clockTime.time
+
+        month =
+            Time.toMonth clockTime.zone clockTime.time
+
+        year =
+            Time.toYear clockTime.zone clockTime.time
+    in
+    div [ id "date" ] [ text (toEnglishWeekday weekday ++ ", " ++ String.fromInt day ++ " " ++ toEnglishMonth month ++ " " ++ String.fromInt year) ]
+
+
+toEnglishWeekday : Time.Weekday -> String
+toEnglishWeekday weekday =
+    case weekday of
+        Mon ->
+            "Monday"
+
+        Tue ->
+            "Tuesday"
+
+        Wed ->
+            "Wednesday"
+
+        Thu ->
+            "Thursday"
+
+        Fri ->
+            "Friday"
+
+        Sat ->
+            "Saturday"
+
+        Sun ->
+            "Sunday"
+
+
+toEnglishMonth : Time.Month -> String
+toEnglishMonth month =
+    case month of
+        Jan ->
+            "January"
+
+        Feb ->
+            "February"
+
+        Mar ->
+            "March"
+
+        Apr ->
+            "April"
+
+        May ->
+            "May"
+
+        Jun ->
+            "June"
+
+        Jul ->
+            "July"
+
+        Aug ->
+            "August"
+
+        Sep ->
+            "September"
+
+        Oct ->
+            "October"
+
+        Nov ->
+            "November"
+
+        Dec ->
+            "December"
 
 
 
