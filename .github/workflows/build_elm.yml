@@ -35,6 +35,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./elm
+        keep_files: true
+
     - uses: actions/download-artifact@v3
       with:
         name: main.js
@@ -44,13 +51,6 @@ jobs:
       with:
         add: 'assets/main.js --force'
         new_branch: gh-pages
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./elm
-        keep_files: true
 
 
 
