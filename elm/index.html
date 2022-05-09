@@ -1,25 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-        <link rel="stylesheet" href="assets/styles.css" />
-        <link href="assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link href="assets/favicon.png" rel="shortcut icon" type="image/x-icon" />
 
-        <script src="assets/main.js"></script>
-        <script src="assets/bookmarks.js"></script>
-    </head>
-    <body>
-
-        <div id="myapp"></div>
-        <script>
-            var app = Elm.Main.init({
-                node: document.getElementById('myapp'),
-                flags: bookmarks
-            });
-        </script>
-
-    </body>
+    <script src="assets/main.js"></script>
+    <script src="assets/bookmarks.js"></script>
+  </head>
+  <body>
+    <div id="myapp"></div>
+    <script>
+      var app = Elm.Main.init({
+        node: document.getElementById("myapp"),
+        flags: bookmarks,
+      });
+    </script>
+  </body>
 </html>
-
