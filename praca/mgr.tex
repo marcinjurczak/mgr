@@ -283,6 +283,8 @@ Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe
 
 W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów,
 
+\section{JSON}
+
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
@@ -380,18 +382,18 @@ W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz 
 \subsection{Dokument hipertekstowy}
 \begin{lstlisting}[caption={Zawartość pliku \texttt{index.html}},label={lst:index.html},language=html]
 <head>
-    <link rel="stylesheet" href="assets/styles.css" />
-    <script src="assets/main.js"></script>
-    <script src="assets/bookmarks.js"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/main.js"></script>
+  <script src="assets/bookmarks.js"></script>
 </head>
 <body>
-    <div id="myapp"></div>
-    <script>
-        var app = Elm.Main.init({
-            node: document.getElementById('myapp'),
-            flags: bookmarks
-        });
-    </script>
+  <div id="myapp"></div>
+  <script>
+    var app = Elm.Main.init({
+      node: document.getElementById("myapp"),
+      flags: bookmarks,
+    });
+  </script>
 </body>
 \end{lstlisting}
 
