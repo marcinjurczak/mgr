@@ -1,157 +1,154 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 
 :root {
-    --bg: #212121;
-    --fg: #ffffff;
-    --secondaryFg: #b3b3b3;
-    --containerBg: #272727;
-    --searchBg: var(--containerBg);
-    --fontFamily: 'Roboto Mono', monospace;
+  --bg: #212121;
+  --fg: #ffffff;
+  --secondaryFg: #b3b3b3;
+  --containerBg: #272727;
+  --searchBg: var(--containerBg);
+  --fontFamily: "Roboto Mono", monospace;
 }
 
 body {
-    background-color: var(--bg);
-    margin: 0px;
+  background-color: var(--bg);
+  margin: 0px;
 }
 
 .container {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #clock {
-    font-family: sans-serif;
-    font-size: 3.5rem;
-    font-weight: 600;
-    font-family: var(--fontFamily);
-    color: var(--fg);
-    margin-bottom: 0.25em;
+  font-family: sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  font-family: var(--fontFamily);
+  color: var(--fg);
+  margin-bottom: 0.25em;
 }
 
 #search {
-    width: 40%;
-    background-color: var(--searchBg);
-    border-radius: 5px;
-    font-family: var(--fontFamily);
-    color: var(--fg);
-    margin: 1em;
+  width: 40%;
+  background-color: var(--searchBg);
+  border-radius: 5px;
+  font-family: var(--fontFamily);
+  color: var(--fg);
+  margin: 1em;
 }
 
 #search-field {
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--searchBg);
-    padding: 0.25em;
-    border: solid 0px var(--searchBg);
-    border-radius: 5px;
-    font-family: var(--fontFamily);
-    font-size: 2rem;
-    color: var(--fg);
-    outline: none;
-    text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--searchBg);
+  padding: 0.25em;
+  border: solid 0px var(--searchBg);
+  border-radius: 5px;
+  font-family: var(--fontFamily);
+  font-size: 2rem;
+  color: var(--fg);
+  outline: none;
+  text-align: center;
 }
 
 .weather-container {
-    width: 30%;
-    background-color: var(--containerBg);
-    padding: 1em;
-    border-radius: 5px;
-    font-family: var(--fontFamily);
-    color: var(--fg);
-    text-align: center;
+  width: 30%;
+  background-color: var(--containerBg);
+  padding: 1em;
+  border-radius: 5px;
+  font-family: var(--fontFamily);
+  color: var(--fg);
+  text-align: center;
 }
 .inline {
-    display: inline-block;
+  display: inline-block;
 }
 
 #bookmark-container {
-    display: flex;
-    justify-content: center;
-    min-width: 50%;
+  display: flex;
+  justify-content: center;
+  min-width: 50%;
 }
 
 @media only screen and (max-width: 960px) {
-    .container {
-        height: auto;
-    }
-    #clock {
-        margin-top: 1em;
-    }
-    .weather-container {
-        width: 70%;
-    }
-    #search {
-        width: 80%;
-    }
-    #bookmark-container {
-        width: 90%;
-    }
-    .container > .bookmark-container {
-        flex-direction: column;
-        width: 60%;
-    }
-    .bookmark-container > .bookmark-set {
-        width: auto;
-        margin: 1em 0em;
-    }
+  .container {
+    height: auto;
+  }
+  #clock {
+    margin-top: 1em;
+  }
+  .weather-container {
+    width: 70%;
+  }
+  #search {
+    width: 80%;
+  }
+  #bookmark-container {
+    width: 90%;
+  }
+  .container > .bookmark-container {
+    flex-direction: column;
+    width: 60%;
+  }
+  .bookmark-container > .bookmark-set {
+    width: auto;
+    margin: 1em 0em;
+  }
 }
 
 .bookmark-set {
-    padding: 1em;
-    padding-bottom: 0em;
-    background-color: var(--containerBg);
-    border-radius: 3px;
-    font-family: var(--fontFamily);
-    /* font-size: 0.85rem; */
-    width: 100%;
-    height: auto;
-    margin: 0em 0.5em;
-    box-sizing: border-box;
-    display: inline;
+  padding: 1em;
+  padding-bottom: 0em;
+  background-color: var(--containerBg);
+  border-radius: 3px;
+  font-family: var(--fontFamily);
+  /* font-size: 0.85rem; */
+  width: 100%;
+  height: auto;
+  margin: 0em 0.5em;
+  box-sizing: border-box;
+  display: inline;
 }
 
 .bookmark-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--fg);
-    text-align:center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--fg);
+  text-align: center;
 }
 .bookmark {
-    text-decoration: none;
-    color: var(--secondaryFg);
-    display: block;
-    margin: 0.0em 0em;
-    outline: none;
-    text-align:center;
+  text-decoration: none;
+  color: var(--secondaryFg);
+  display: block;
+  margin: 0em 0em;
+  outline: none;
+  text-align: center;
 }
 .bookmark:hover {
-    color: var(--fg);
+  color: var(--fg);
 }
 
-ul
-{
-    padding:0em;
-    display:flex;
-    justify-content: center;
-    list-style:none;
+ul {
+  padding: 0em;
+  display: flex;
+  justify-content: center;
+  list-style: none;
 }
 
 li {
-    padding:0em 1em;
+  padding: 0em 1em;
 }
 
 @media only screen and (max-width: 520px) {
-    ul
-    {
-        display:block;
-    }
+  ul {
+    display: block;
+  }
 
-    li {
-        padding:5px;
-    }
+  li {
+    padding: 5px;
+  }
 }
-
