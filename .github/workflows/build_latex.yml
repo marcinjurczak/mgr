@@ -24,6 +24,7 @@ jobs:
         with:
           commit_message: "Github Action: Update mgr.pdf"
           branch: ${{ github.ref }}
+          add_options: -f praca/mgr.pdf
 
       - name: Upload PDF
         uses: actions/upload-artifact@v2
