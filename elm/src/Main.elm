@@ -284,7 +284,7 @@ viewDate clockTime =
         year =
             Time.toYear clockTime.zone clockTime.time
     in
-    div [ id "date" ] [ text (toEnglishWeekday weekday ++ ", " ++ String.fromInt day ++ " " ++ toEnglishMonth month ++ " " ++ String.fromInt year) ]
+    div [ id "date" ] [ text (toEnglishWeekday weekday ++ ", " ++ String.fromInt day ++ " " ++ toEnglishMonth month ++ "  " ++ String.fromInt year) ]
 
 
 toEnglishWeekday : Time.Weekday -> String
