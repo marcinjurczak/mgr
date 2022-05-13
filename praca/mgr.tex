@@ -81,7 +81,7 @@ sorting=none
 
 \chapter*{Streszczenie}
 \noindent
-Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Celem niniejszej pracy magisterskiej było stworzenie frontend'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
 
@@ -89,7 +89,7 @@ Celem niniejszej pracy magisterskiej było stworzenie front-end'owej aplikacji i
 
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to use the Elm language to create a front-end web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The goal of this master thesis is to use the Elm language to create a frontend web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
@@ -423,7 +423,15 @@ Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami c
 Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}. Z tego względu, oraz przez niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
 
 \section{GitHub Pages}
-GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
+Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
+
+Wykorzystanie funkcjonalności Pages jest dość proste -- w ustawieniach repozytorium należy ustawić gałąź (\textit{branch}), która ma być zbudowana i wystawiona na stronie, a także wybrać odpowiedni katalog.
+Domyślnie mogą być to jedynie katalogi \texttt{/} (\texttt{root}) oraz \texttt{/docs}.
+
+Jednakże wykorzystując GitHub Actions możliwe jest bardziej szczegółowe dostosowanie tej strony do swoich potrzeb.
+W przypadku stworzonej w ramach tej pracy aplikacji w Elmie, kod źródłowy znajdował się w podkatalogu \texttt{/elm}.
+W wyniku stworzonej konfiguracji, na gałąź \texttt{gh-pages} wypychana jest aktualna zawartość katalogu \texttt{/elm}, a następnie do tej samej gałęzi dorzucany jest otrzymany podczas przeprowadzonej wcześniej fazy budowania wynikowy plik \texttt{main.js}.
+GitHub Pages znajduje w wybranym miejscu plik \texttt{index.html}, który zostaje wystawiony i strona staje się dostępna do oglądania.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
