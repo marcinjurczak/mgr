@@ -42,6 +42,14 @@ sorting=none
 
 \renewcommand{\lstlistlistingname}{Spis listingów}
 
+\lstdefinelanguage{JavaScript}{
+    keywords={function, class, extends, return, render},
+}
+
+\lstdefinelanguage{Elm}{
+    keywords={type, alias, update, case, of, init, view},
+}
+
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \renewcommand{\headrulewidth}{0.5pt}
@@ -57,6 +65,8 @@ sorting=none
 
 \marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
 \fancyhfoffset[E,O]{0pt}
+
+
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -109,6 +119,7 @@ The goal of this master thesis is to use the Elm language to create a frontend w
     \textbf{HTML} &-- ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników.\\
     \textbf{HTTP} &-- ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu.\\
     \textbf{JSON} &-- ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
+    \textbf{SPA} &-- ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
 \end{tabular}
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -153,8 +164,29 @@ Są to biblioteki, na których chciałbym się skupić w poniższych podrozdzia�
 Opiszę, czym się charakteryzują, jakie są ich wady i zalety, a także co je ze sobą łączy oraz w jaki sposób są od siebie różne.
 
 \section{React.js}
-Biblioteka React.js~\cite{react}
-~\cite{reactdocs}
+React.js~\cite{react} jest otwartoźródłową biblioteką języka programowania JavaScript, której głównym przeznaczeniem jest tworzenie interfejsów graficznych, w większości wykorzystywana jest do aplikacji typu SPA\@.
+Została stworzona w 2013 roku przez ówczesnego programistę Facebook'a, Jordana Walke.
+Rozwój Reacta utrzymywany jest po dzień dzisiejszy przez~,,matczyną'' firmę Meta (dawniej znaną jako Facebook), a także przez społeczność indywidualnych programistów i innych organizacji ze względu na swoją otwartoźródłową naturę.
+
+Tworzenie oprogramowania z użyciem tej biblioteki odbywa się poprzez budowanie nowych komponentów, które za pośrednictwem metody \texttt{render()} decydują, co ma zostać wyświetlane na ekranie użytkownika.
+Według dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane na dwa sposoby: poprzez stworzenie JavaScript'owej funkcji lub wykorzystując klasę bazującą na \texttt{React.Component}.
+
+Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa -- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
+
+\begin{lstlisting}[caption={Przykład funkcyjnego komponentu},label={lst:func_comp},language=JavaScript]
+function Hello(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Przykład klasowego komponentu},label={lst:class_comp},language=JavaScript]
+class Hello extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+\end{lstlisting}
+
 \section{Angular}
 Biblioteka Angular~\cite{angulardocs}
 ~\cite{angulardocs}
@@ -201,7 +233,7 @@ W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elma na
 \end{minipage}\hfill
 \begin{minipage}{.43\textwidth}
     \lstset{frame=single}
-    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Model},label={lst:Model}]
+\begin{lstlisting}[caption={\textit{The Elm Architecture} -- Model},label={lst:Model},language={Elm}]
 type alias Model = Int
 
 
@@ -214,7 +246,7 @@ init =
 \subsection{Update}
 \begin{minipage}{.43\textwidth}
     \lstset{frame=single}
-    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Update},label={lst:Update}]
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Update},label={lst:Update},language={Elm}]
 type Msg
   = Increment
   | Decrement
@@ -242,7 +274,7 @@ Znak plusa generuje wiadomość \texttt{Increment}, znak minusa \texttt{Decremen
 Następnie wybrana wiadomość trafia do funkcji \texttt{update}.
 
 \lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} -- View},label={lst:View}]
+\begin{lstlisting}[caption={\textit{The Elm Architecture} -- View},label={lst:View},language={Elm}]
 view : Model -> Html Msg
 view model =
   div []
