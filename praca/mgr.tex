@@ -24,6 +24,7 @@
 \usepackage[
 sorting=none
 ]{biblatex}
+\emergencystretch=1em
 \addbibresource{bibliografia.bib}
 \usepackage{listings}
 \usepackage{fancyhdr}
@@ -120,15 +121,16 @@ The goal of this master thesis is to use the Elm language to create a frontend w
     \textbf{HTTP} &-- ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu.\\
     \textbf{JSON} &-- ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
     \textbf{SPA} &-- ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
+    \textbf{DOM} &-- ang.~Document Object Model, pol.~obiektowy model dokumentu\\
 \end{tabular}
 
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Wstęp i cel pracy}
-\begin{wrapfigure}{r}{0.25\textwidth}
+\begin{wrapfigure}{r}{0.28\textwidth}
     \centering
     \centering
-    \includegraphics[width=0.25\textwidth]{elm_logo.png}
+    \includegraphics[width=0.28\textwidth]{elm_logo.png}
     \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
 Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie przykładowej frontendowej aplikacji internetowej.
@@ -136,10 +138,10 @@ Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej
 Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
 
 W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React.js, Angular oraz Vue.js.
-Prezentuję ich zalety i wady względem siebie, a także przedstawiam cechy wyróżniające je między sobą.
+Prezentuję ich zalety i wady względem siebie, a także przedstawiam cechy charakterystyczne dla każdego z nich oraz co je odróżnia między sobą.
 
 Trzeci rozdział poświęcam na wysokopoziomowe wprowadzenie do języka Elm.
-Mówię o idei jaka przyświęcała stworzeniu tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii.
+Mówię o idei jaka przyświęcała autorowi podczas tworzenia tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii, włączając w to dokumentację.
 
 W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elmie.
 Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągniecia wybranego celu.
@@ -186,6 +188,14 @@ class Hello extends React.Component {
   }
 }
 \end{lstlisting}
+
+Jedną z cech kodu tworzonego z użyciem biblioteki React jest jego deklaratywność. Aby użyć stworzonego komponentu wystarczy go zaimportować i wykorzystać za pomocą tagu, dla powyższego przykładu tagu \texttt{<Hello name="Marcin"/>}, który dodatkowo zawiera pojedynczy argument \texttt{props}, będący obiektem z danymi, w tym przypadku zawierający imię~,,Marcin''.
+Dzięki temu kod pisany przy pomocy biblioteki React jest bardzo reużywalny i pozwala na wykorzystanie komponentów nawet pomiędzy odrębnymi aplikacjami.
+
+Jedną z zalet tego rozwiązania jest jego niesamowita popularność oraz dostępność gotowych rozwiązań.
+W Internecie znajduje się mnóstwo poradników i instrukcji pomagających nowym użytkownikom zapoznać się z biblioteką i stworzyć pierwsze proste projekty.
+Istnieje także dostatek pomocy dla bardziej zaawansowych programistów Reacta oraz szeroka społeczność użytkowników chętnych do pomocy przy rozwiązywaniu bardziej skomplikowanych problemów.
+Dostępność gotowych rozwiązań pozwala na relatywnie łatwy rozwój oprogramowania poprzez ich wykorzystanie, dla przykładu
 
 \section{Angular}
 Biblioteka Angular~\cite{angulardocs}
@@ -299,6 +309,15 @@ Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na
     \end{tabularx}
 \end{center}
 
+Ponadto, Elm posiada szeroką dokumentację, która w znacznym zakresie została wykorzystana podczas pracy nad niniejszym dokumentem.
+Składa się z dwóch głównych części -- oficjalnego poradnika języka oraz technicznego opisu paczek, zarówno tych podstawowych jak i tych stworzonych i udostępnionych przez użytkowników.
+
+Pierwsza część składa się z poradnika, który opisuje m.in.~podstawowe mechanizmy języka, przedstawia przykłady prostych aplikacji wraz z ćwiczeniami pozwalających na rozwijanie swojej znajomości Elma oraz umiejętności tworzenia oprogramowania z jego wykorzystaniem, a także oferuje wskazówki odnośnie dobrych praktyk pisania kodu w tym języku.
+
+Druga część dokumentacji zawiera techniczny opis zarówno tych fundamentalnych modułów języka, niezbędnych do tworzenia aplikacji internetowych, takich jak \texttt{elm/core} i \texttt{elm/browser}, przez te mniej niezbędne, jednakowoż w wielu przypadkach wymagane do spełnienia podstawowych funkcjonalności tworzonego oprogramowania, np.~\texttt{elm/http} i \texttt{elm/json}.
+
+Dokumentacja techniczna zawiera takie informacje, jak ogólne przeznaczenie danej paczki, jakie moduły są w niej zawarte, a także szczegółowy opis funkcji mieszczących się w ramach danego modułu wraz z przykładami ich użycia.
+
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Implementacja}
@@ -306,6 +325,7 @@ W ramach części praktycznej niniejszej pracy stworzona została aplikacja inte
 Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
+    \item Aktualna data
     \item Pogoda w Gdańsku przedstawiona w formie krótkiego opisu oraz temperatury w stopniach Celsjusza
     \item Wyszukiwarka Google
     \item Zakładki zawierające odnośniki do wybranych stron internetowych
@@ -372,6 +392,7 @@ Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni e
 \end{itemize}
 
 Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
+Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jeden z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
 
 \subsection{Tworzenie projektu}
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
@@ -395,6 +416,7 @@ Będzie się tam znajdował kod naszej aplikacji, którą stworzymy w kolejnych 
 
 \section{Podstawy języka Elm}
 W celu nauki podstaw języka Elm skorzystamy z narzędzia \texttt{elm repl}, pozwalającego na korzystanie z interaktywnej sesji programistycznej.
+
 \subsection{Wartości}
 
 \subsection{Funkcje}
@@ -452,7 +474,8 @@ Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami c
 \subsection{Ciągłe wdrażanie}
 
 \section{GitHub Actions}
-Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}. Z tego względu, oraz przez niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
+Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}. Ze względu na ten wybór jak i niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
+
 
 \section{GitHub Pages}
 Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
@@ -462,7 +485,7 @@ Domyślnie mogą być to jedynie katalogi \texttt{/} (\texttt{root}) oraz \textt
 
 Jednakże wykorzystując GitHub Actions możliwe jest bardziej szczegółowe dostosowanie tej strony do swoich potrzeb.
 W przypadku stworzonej w ramach tej pracy aplikacji w Elmie, kod źródłowy znajdował się w podkatalogu \texttt{/elm}.
-W wyniku stworzonej konfiguracji, na gałąź \texttt{gh-pages} wypychana jest aktualna zawartość katalogu \texttt{/elm}, a następnie do tej samej gałęzi dorzucany jest otrzymany podczas przeprowadzonej wcześniej fazy budowania wynikowy plik \texttt{main.js}.
+W wyniku stworzonej konfiguracji, na gałęzi \texttt{gh-pages} zostaje opublikowana aktualna zawartość katalogu \texttt{/elm}, a następnie do tej samej gałęzi dodoawany jest otrzymany podczas przeprowadzonej wcześniej fazy budowania wynikowy plik \texttt{main.js}.
 GitHub Pages znajduje w wybranym miejscu plik \texttt{index.html}, który zostaje wystawiony i strona staje się dostępna do oglądania.
 
 % ---------------------------------------------------------------------------------------------------------------------
