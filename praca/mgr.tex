@@ -27,6 +27,7 @@ sorting=none
 \emergencystretch=1em
 \addbibresource{bibliografia.bib}
 \usepackage{listings}
+\renewcommand{\ttdefault}{pcr}
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{tabularx}
@@ -66,8 +67,6 @@ sorting=none
 
 \marginsize{3.5cm}{2.5cm}{2.5cm}{2.5cm}
 \fancyhfoffset[E,O]{0pt}
-
-
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -113,15 +112,17 @@ The goal of this master thesis is to use the Elm language to create a frontend w
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter*{Wykaz najważniejszych skrótów}
-\begin{tabular}{rl}
-    \textbf{CD} &-- ang.~Continuous Deployment, pol.~ciągłe wdrażanie.\\
-    \textbf{CI} &-- ang.~Continuous Integration, pol.~ciągła integracja.\\
-    \textbf{CSS} &-- ang.~Cascading Style Sheets, pol.~kaskadowe arkusze stylów\\
-    \textbf{HTML} &-- ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników.\\
-    \textbf{HTTP} &-- ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu.\\
-    \textbf{JSON} &-- ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
-    \textbf{SPA} &-- ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
-    \textbf{DOM} &-- ang.~Document Object Model, pol.~obiektowy model dokumentu\\
+\begin{tabular}{rcl}
+    \textbf{API} &---& ang.~Application Programming Interface,\\
+                 &   & pol.~interfejs programowania aplikacji\\
+    \textbf{CD} &---& ang.~Continuous Deployment, pol.~ciągłe wdrażanie\\
+    \textbf{CI} &---& ang.~Continuous Integration, pol.~ciągła integracja\\
+    \textbf{CSS} &---& ang.~Cascading Style Sheets, pol.~kaskadowe arkusze stylów\\
+    \textbf{HTML} &---& ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników\\
+    \textbf{HTTP} &---& ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu\\
+    \textbf{JSON} &---& ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
+    \textbf{SPA} &---& ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
+    \textbf{DOM} &---& ang.~Document Object Model, pol.~obiektowy model dokumentu\\
 \end{tabular}
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -173,14 +174,20 @@ Rozwój Reacta utrzymywany jest po dzień dzisiejszy przez~,,matczyną'' firmę 
 Tworzenie oprogramowania z użyciem tej biblioteki odbywa się poprzez budowanie nowych komponentów, które za pośrednictwem metody \texttt{render()} decydują, co ma zostać wyświetlane na ekranie użytkownika.
 Według dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane na dwa sposoby: poprzez stworzenie JavaScript'owej funkcji lub wykorzystując klasę bazującą na \texttt{React.Component}.
 
-Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa -- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
+Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa --- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
 
+\lstset{
+  basicstyle=\ttfamily,
+  keywordstyle=\textbf,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+}
 \begin{lstlisting}[caption={Przykład funkcyjnego komponentu},label={lst:func_comp},language=JavaScript]
 function Hello(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 \end{lstlisting}
-
 \begin{lstlisting}[caption={Przykład klasowego komponentu},label={lst:class_comp},language=JavaScript]
 class Hello extends React.Component {
   render() {
@@ -229,9 +236,9 @@ Program generuje pewien kod HTML, który zostaje wyświetlony na ekranie, a nast
 
 A co się dzieje wewnątrz wspomnianego programu Elmowego? Zawsze składa się z trzech podstawowych elementów:
 \begin{itemize}[noitemsep,topsep=0pt]
-    \item Model~-- opisujący stan aplikacji
-    \item Update~-- opisujący logikę aplikacji
-    \item View~-- opisujący wygląd aplikacji
+    \item Model --- opisujący stan aplikacji
+    \item Update --- opisujący logikę aplikacji
+    \item View --- opisujący wygląd aplikacji
 \end{itemize}
 W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elma na podstawie prostego programu, którego zadaniem jest wyświetlenie na ekranie dwóch guzików oraz licznika, który może się zwiększać i zmniejszać, w zależności od tego, który guzik zostanie naciśnięty przez użytkownika.
 
@@ -239,11 +246,10 @@ W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elma na
 \begin{minipage}{.50\textwidth}
     Celem modelu przedstawionego na listingu~\ref{lst:Model} jest zdefiniowanie danych w naszej aplikacji.
 
-    W tym przypadku model będzie bardzo prosty~-- jest to rekord zawierający jedną wartość całkowitoliczbową (typ \texttt{Int}), która będzie mogła zostać zwiększona lub zmniejszona poprzez naciśnięcie odpowiedniego guzika.
+    W tym przypadku model będzie bardzo prosty --- jest to rekord zawierający jedną wartość całkowitoliczbową (typ \texttt{Int}), która będzie mogła zostać zwiększona lub zmniejszona poprzez naciśnięcie odpowiedniego guzika.
 \end{minipage}\hfill
 \begin{minipage}{.43\textwidth}
-    \lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} -- Model},label={lst:Model},language={Elm}]
+\begin{lstlisting}[caption={\textit{The Elm Architecture} --- Model},label={lst:Model},language={Elm}]
 type alias Model = Int
 
 
@@ -255,8 +261,7 @@ init =
 
 \subsection{Update}
 \begin{minipage}{.43\textwidth}
-    \lstset{frame=single}
-    \begin{lstlisting}[caption={\textit{The Elm Architecture} -- Update},label={lst:Update},language={Elm}]
+    \begin{lstlisting}[caption={\textit{The Elm Architecture} --- Update},label={lst:Update},language={Elm}]
 type Msg
   = Increment
   | Decrement
@@ -275,16 +280,15 @@ update msg model =
 \begin{minipage}{.50\textwidth}
     Funkcja \texttt{update}, która została przedstawiona na listingu~\ref{lst:Update}, ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie.
 
-    Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty~-- \texttt{Increment} i \texttt{Decrement}. Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
+    Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty --- \texttt{Increment} i \texttt{Decrement}. Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
 \end{minipage}\hfill
 \subsection{View}
 Funkcja \texttt{view}, która została zaprezentowana na listingu~\ref{lst:View}, jako argument przyjmuje model i zwraca kod HTML\@.
-Wykorzystany został tutaj handler \texttt{onClick z biblioteki \texttt{Html.Events}}, który po kliknięciu guzika, do którego został przypisany, generuje odpowiednią wiadomość.
+Wykorzystany został tutaj handler \texttt{onClick} z biblioteki \texttt{Html.Events}, który po kliknięciu guzika, do którego został przypisany, generuje odpowiednią wiadomość.
 Znak plusa generuje wiadomość \texttt{Increment}, znak minusa \texttt{Decrement}.
 Następnie wybrana wiadomość trafia do funkcji \texttt{update}.
 
-\lstset{frame=single}
-\begin{lstlisting}[caption={\textit{The Elm Architecture} -- View},label={lst:View},language={Elm}]
+\begin{lstlisting}[caption={\textit{The Elm Architecture} --- View},label={lst:View},language={Elm}]
 view : Model -> Html Msg
 view model =
   div []
@@ -293,24 +297,23 @@ view model =
     , button [ onClick Increment ] [ text "+" ]
     ]
 \end{lstlisting}
-\lstset{frame=none}
 
 \section{Narzędzia}
 Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elma, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
 \begin{center}
     \begin{tabularx}{\textwidth}{clX}
-        \texttt{elm repl} &--& otwiera interaktywną sesję programistyczną.\\
-        \texttt{elm init} &--& inicjalizuje bieżący katalog jako nowy projekt Elma poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
-        \texttt{elm reactor} &--& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
-        \texttt{elm make} &--& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
-        \texttt{elm install} &--& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
-        \makecell{\texttt{elm-format}~\cite{elm-format}} &--& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
-        \makecell{\texttt{elm-live}~\cite{elm-live}} &--& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
+        \texttt{elm repl} &---& otwiera interaktywną sesję programistyczną.\\
+        \texttt{elm init} &---& inicjalizuje bieżący katalog jako nowy projekt Elma poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
+        \texttt{elm reactor} &---& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
+        \texttt{elm make} &---& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
+        \texttt{elm install} &---& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
+        \makecell{\texttt{elm-format}~\cite{elm-format}} &---& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
+        \makecell{\texttt{elm-live}~\cite{elm-live}} &---& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
     \end{tabularx}
 \end{center}
 
 Ponadto, Elm posiada szeroką dokumentację, która w znacznym zakresie została wykorzystana podczas pracy nad niniejszym dokumentem.
-Składa się z dwóch głównych części -- oficjalnego poradnika języka oraz technicznego opisu paczek, zarówno tych podstawowych jak i tych stworzonych i udostępnionych przez użytkowników.
+Składa się z dwóch głównych części --- oficjalnego poradnika języka oraz technicznego opisu paczek, zarówno tych podstawowych jak i tych stworzonych i udostępnionych przez użytkowników.
 
 Pierwsza część składa się z poradnika, który opisuje m.in.~podstawowe mechanizmy języka, przedstawia przykłady prostych aplikacji wraz z ćwiczeniami pozwalających na rozwijanie swojej znajomości Elma oraz umiejętności tworzenia oprogramowania z jego wykorzystaniem, a także oferuje wskazówki odnośnie dobrych praktyk pisania kodu w tym języku.
 
@@ -322,7 +325,7 @@ Dokumentacja techniczna zawiera takie informacje, jak ogólne przeznaczenie dane
 
 \chapter{Implementacja}
 W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
-Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
+Na potrzeby aplikacji postanowiłem zaimplementować następujące funkcjonalności:
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
     \item Aktualna data
@@ -332,10 +335,71 @@ Na potrzeby aplikacji postanowiłem stworzyć cztery moduły:
 \end{itemize}
 
 Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe biblioteki Elm'a oraz uwzględniają pracę z najpopularniejszymi sposobami przekazywania informacji w aplikacjach internetowych, takich jak przetwarzanie plików JSON, wysyłanie zapytań HTTP oraz praca z plikami.
+W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów.
 
-W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów,
+\section{Model}
+Poniżej, w listingu~\ref{lst:impl_model} przedstawiam zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu aplikacji, a także pokazuję stworzone typy pomocniczne wykorzystane w głównym typie Model.
 
-\section{JSON}
+\begin{lstlisting}[caption={\textit{}Pełen model aplikacji},label={lst:impl_model},language={Elm}]
+type alias Model =
+    { clockTime : ClockTime
+    , weatherStatus : WeatherStatus
+    , searchText : String
+    , bookmarks : List Bookmark
+    }
+type alias ClockTime =
+    { zone : Time.Zone
+    , time : Time.Posix
+    }
+type WeatherStatus
+    = Failure String
+    | Loading
+    | Success Weather
+type alias Weather =
+    { description : String
+    , temperature : Float
+    }
+type alias Bookmark =
+    { name : String
+    , url : String
+    }
+\end{lstlisting}
+
+W rozdziale powyżej wymienione zostały główne funkcjonalności aplikacji, które bezpośrednio przekładają się na implementację modelu.
+Informacje potrzebne do przedstawienia daty i godziny zawarte zostały w zmiennej typu \texttt{ClockTime}, który zawiera w sobie dane wykorzystujące bibliotekę \texttt{elm/time} do określenia strefy czasowej oraz aktualnego czasu, tj.~daty i godziny.
+
+Kolejnym elementem modelu jest zmienna typu \texttt{WeatherStatus}, która może przyjąć jedną z trzech wartości --- \texttt{Failure}, \texttt{Loading} lub \texttt{Success}.
+Odpowiada ona za trzymanie informacji o statusie zapytania HTTP do API dostarczanego przez serwis OpenWeather~\cite{openweather}.
+Początkowo inicjalizowany jest jako wariant \texttt{Loading}, w przypadku niepowiedzenia zapytania przypisywany jest wariant \texttt{Failure} wraz z tekstem opisującym błąd, w stworzonej aplikacji jest to.~\textit{,,Error: Couldn't retrieve weather data``}.
+W przypadku powodzenia typ \texttt{WeatherStatus} przyjmuje wariant \texttt{Success} wraz z otrzymaną pogodą.
+Typ pogody \texttt{Weather} zawiera przeparsowane informacje z pliku JSON odebranego z zapytania HTTP, czyli krótki opis słowny pogody oraz aktualna temperatura w Gdańsku.
+
+Następny element o nazwie \texttt{searchText} odpowiada za trzymanie informacji o frazie wpisanej przez użytkownika w dedykowanym polu tekstowym wyszukiwarki, która po wciśnięciu klawisza Enter ma zostać wyszukana w Internecie, wykorzystując do tego wyszukiwarkę Google.
+
+Ostatni zdefiniowany element modelu jest listą elementów typu \texttt{Bookmark}.
+Zadaniem elementu \texttt{bookmarks} jest trzymanie informacji o zakładkach zdefiniowanych przez użytkownika w oddzielnym pliku.
+Lista przekazywana jest do programu przy pomocy machanizmu flag, co zostanie opisane w kolejnych podrozdziałach.
+Typ zakładki składa się z dwóch elementów --- nazwy, która ma zostać wyświetlona na stronie oraz adresu URL, do którego prowadzi kliknięcie hiperlinku.
+
+\begin{lstlisting}[caption={Funkcja inicjalizująca model},label={lst:impl_init},language={Elm}]
+init : List Bookmark -> ( Model, Cmd Msg )
+init bookmarks =
+    ( Model (ClockTime Time.utc (Time.millisToPosix 0)) Loading "" bookmarks
+    , Cmd.batch [ Task.perform AdjustTimeZone Time.here, getWeather ]
+    )
+\end{lstlisting}
+
+Na listingu~\ref{lst:impl_init} przedstawiona została funkcja \texttt{init}, której zadaniem jest wstępne zainicjalizowanie modelu odpowiednimi wartościami.
+
+Przyjmuje jeden argument, którym jest lista zakładek przekazana jako flaga, a zwraca tuplę zawierającą nowy, zainicjalizowany model oraz komendy, jakie mają zostać wykonane przez program.
+Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności przekazać wartości dla każdego z elementów. Zegar zostaje wyzerowany, status pogody przymuje wartosć \texttt{Loading}, a zakładki zostają przypisane bezpośrednio z argumentu funkcji.
+
+Następnie należy wskazać wiadomości, które mają zostać przetworzone przez funkcję \texttt{update} i wykonane przez program na początku działania programu.
+W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
+
+\section{Update}
+
+\section{View}
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -423,7 +487,7 @@ W celu nauki podstaw języka Elm skorzystamy z narzędzia \texttt{elm repl}, poz
 
 \section{Aplikacja frontendowa}
 W ramach większego projektu zbudujemy stronę internetową typu \texttt{startpage}, czyli strony startowej przeglądarki zawierającej najważniejsze i najczęściej używane elementy.
-W naszym przypadku będą to cztery moduły -- zegar, pogoda, wyszukiwarka oraz pasek zakładek.
+W naszym przypadku będą to cztery moduły --- zegar, pogoda, wyszukiwarka oraz pasek zakładek.
 
 \subsection{Zegar}
 
@@ -480,7 +544,7 @@ Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przec
 \section{GitHub Pages}
 Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
 
-Wykorzystanie funkcjonalności Pages jest dość proste -- w ustawieniach repozytorium należy ustawić gałąź (\textit{branch}), która ma być zbudowana i wystawiona na stronie, a także wybrać odpowiedni katalog.
+Wykorzystanie funkcjonalności Pages jest dość proste --- w ustawieniach repozytorium należy ustawić gałąź (\textit{branch}), która ma być zbudowana i wystawiona na stronie, a także wybrać odpowiedni katalog.
 Domyślnie mogą być to jedynie katalogi \texttt{/} (\texttt{root}) oraz \texttt{/docs}.
 
 Jednakże wykorzystując GitHub Actions możliwe jest bardziej szczegółowe dostosowanie tej strony do swoich potrzeb.
