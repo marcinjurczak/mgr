@@ -32,6 +32,7 @@ sorting=none
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{indentfirst}
+\usepackage{gensymb}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
@@ -50,6 +51,14 @@ sorting=none
 
 \lstdefinelanguage{Elm}{
     keywords={type, alias, update, case, of, init, view},
+}
+
+\lstset{
+  basicstyle=\ttfamily,
+  keywordstyle=\textbf,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
 }
 
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
@@ -130,7 +139,6 @@ The goal of this master thesis is to use the Elm language to create a frontend w
 \chapter{Wstęp i cel pracy}
 \begin{wrapfigure}{r}{0.28\textwidth}
     \centering
-    \centering
     \includegraphics[width=0.28\textwidth]{elm_logo.png}
     \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
@@ -176,13 +184,7 @@ Według dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane
 
 Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa --- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
 
-\lstset{
-  basicstyle=\ttfamily,
-  keywordstyle=\textbf,
-  columns=fullflexible,
-  frame=single,
-  breaklines=true,
-}
+
 \begin{lstlisting}[caption={Przykład funkcyjnego komponentu},label={lst:func_comp},language=JavaScript]
 function Hello(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -223,11 +225,10 @@ Największym atutem tego języka jest zdecydowanie silnie promowany przez autora
 \section{Programowanie funkcyjne}
 
 \section{The Elm Architecture}
-
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.6\textwidth]{elm_arch.png}
-\caption{Diagram działania programu w Elmie}\label{fig:elm_arch}
+    \centering
+    \includegraphics[width=0.5\textwidth]{elm_arch.png}
+    \caption{Diagram działania programu w Elmie}\label{fig:elm_arch}
 \end{figure}
 
 \textit{The Elm Architecture} jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
@@ -240,6 +241,7 @@ A co się dzieje wewnątrz wspomnianego programu Elmowego? Zawsze składa się z
     \item Update --- opisujący logikę aplikacji
     \item View --- opisujący wygląd aplikacji
 \end{itemize}
+
 W kolejnych podrozdziałach przedstawiam powyższe elementy architektury Elma na podstawie prostego programu, którego zadaniem jest wyświetlenie na ekranie dwóch guzików oraz licznika, który może się zwiększać i zmniejszać, w zależności od tego, który guzik zostanie naciśnięty przez użytkownika.
 
 \subsection{Model}
@@ -325,7 +327,7 @@ Dokumentacja techniczna zawiera takie informacje, jak ogólne przeznaczenie dane
 
 \chapter{Implementacja}
 W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
-Na potrzeby aplikacji postanowiłem zaimplementować następujące funkcjonalności:
+W ramach tejże aplikacji postanowiłem zaimplementować następujące funkcjonalności:
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
     \item Aktualna data
@@ -335,10 +337,12 @@ Na potrzeby aplikacji postanowiłem zaimplementować następujące funkcjonalno�
 \end{itemize}
 
 Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe biblioteki Elm'a oraz uwzględniają pracę z najpopularniejszymi sposobami przekazywania informacji w aplikacjach internetowych, takich jak przetwarzanie plików JSON, wysyłanie zapytań HTTP oraz praca z plikami.
-W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów.
+
+W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów, bazując bezpośrednio na kodzie źródłowym stworzonej aplikacji.
+Przejdę przez każdy fragment architektury Elma, tj. \texttt{Model}, \texttt{View} i \texttt{Update}, opisując działanie najważniejszych według mnie fragmentów kodu oraz wyjaśniając decyzje stojące za wyborem danych rozwiązań.
 
 \section{Model}
-Poniżej, w listingu~\ref{lst:impl_model} przedstawiam zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu aplikacji, a także pokazuję stworzone typy pomocniczne wykorzystane w głównym typie Model.
+Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocniczne wykorzystane w głównym typie Model.
 
 \begin{lstlisting}[caption={\textit{}Pełen model aplikacji},label={lst:impl_model},language={Elm}]
 type alias Model =
@@ -398,8 +402,121 @@ Następnie należy wskazać wiadomości, które mają zostać przetworzone przez
 W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
 
 \section{Update}
+Na listingu~\ref{lst:impl_update} znajduje się implementacja typu \texttt{Msg} definiującego rodzaje wiadomości, jakie mogą zostać odebrane i obsłużone przez funkcję \texttt{update}.
+
+\begin{lstlisting}[caption={Implementacja typu \texttt{Msg} i funkcji \texttt{update}},label={lst:impl_update},language={Elm}]
+type Msg
+    = Tick Time.Posix
+    | AdjustTimeZone Time.Zone
+    | UpdateWeather
+    | GotWeather (Result Http.Error Weather)
+    | UpdateField String
+    | Search
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+  case msg of
+    Tick newTime ->
+      ( { model | clockTime = ClockTime model.clockTime.zone newTime }
+      , Cmd.none )
+    AdjustTimeZone newZone ->
+      ( { model | clockTime = ClockTime newZone model.clockTime.time }
+      , Cmd.none )
+    UpdateWeather ->
+      ( { model | weatherStatus = Loading }
+      , getWeather )
+    GotWeather result ->
+      case result of
+        Ok weather ->
+          ( { model | weatherStatus = Success weather }
+          , Cmd.none )
+        Err _ ->
+          ( { model | weatherStatus = Failure "Error: Couldn't retrieve weather data" }
+          , Cmd.none )
+    UpdateField searchText ->
+      ( { model | searchText = searchText }
+      , Cmd.none )
+    Search ->
+      ( model
+      , Nav.load ("https://google.com/search?q=" ++ model.searchText) )
+\end{lstlisting}
+
+Przedstawiona powyżej funkcja \texttt{update} w przypadku odebrania wiadomości \texttt{UpdateWeather} wykorzystuje pomocniczą funkcję \texttt{getWeather}, przedstawioną na listingu~\ref{lst:impl_weather}, w celu wykonania zapytania HTTP do API usługi OpenWeather, aby odebrać aktualny stan pogody w Gdańsku.
+Aby wysłać prawidłowe zapytanie GET do wspomnianego API, potrzebne są dodatkowe dane.
+W przypadku stworzonej aplikacji trzymane są one w oddzielnym pliku o nazwie \texttt{Config.elm} i są to:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Prywatny klucz API do OpenWeather
+    \item Miasto --- Gdańsk
+    \item Jednostki --- Stopnie Celsjusza
+\end{itemize}
+
+Do samego wysłania zapytania została użyta biblioteka \texttt{elm/http} i funkcja \texttt{get}, która wymaga adresu URL, na który ma zostać wysłane zapytanie oraz wskazania funkcji dekodującej otrzymaną odpowiedź.
+Funkcja dekodująca jest konieczna do wyłuskania potrzebnych informacji ze względu na statyczne typowanie języka Elm.
+Program \textit{nie wie} jaki typ ma odebrane zapytanie, więc obowiązkiem programisty jest jego odpowiednie przetworzenie.
+
+W przypadku stworzonej aplikacji jako odpowiedź zapytania GET spodziewanym formatem pliku jest JSON (\texttt{Http.expectJson}), następnie zostaje przekazany typ odebranej wiadomości (\texttt{GotWeather}), a na końcu dekoder (\texttt{weatherDecoder}), użyty do wydobycia konkretnych informacji.
+\begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{getWeather}},label={lst:impl_weather},language={Elm}]
+getWeather : Cmd Msg
+getWeather =
+  Http.get
+    { url = Config.weatherApi ++ ("&q=" ++ Config.city) ++ ("&units=" ++ Config.unit) ++ ("&appid=" ++ Config.apiKey)
+    , expect = Http.expectJson GotWeather weatherDecoder
+    }
+\end{lstlisting}
+
+Do implementacji dekodera użyta została biblioteka \texttt{elm/json}.
+Funkcja \texttt{weatherDecoder}, przedstawiona na listingu~\ref{lst:impl_decoder}, ma na celu przetworzenie odebranego pliku w formacie JSON tak, aby pasował do zdefiniowanego przez nas typu \texttt{Weather}, który ma zawierać krótki opis pogody (typ \texttt{String}) oraz temperaturę powietrza (typ \texttt{Float}).
+
+Przykład odpowiedzi w formacie JSON, który na potrzeby prezentacji został zmodyfikowany tak, aby zawierał tylko potrzebne nam informacje, został pokazany na listingu~\ref{lst:impl_json}.
+Implementacja funkcji dekodującej wynika bezpośrednio ze struktury odebranej odpowiedzi.
+Funkcja \texttt{Json.field} pozwala na wyciągniecie wartości pola o danej nazwie, a \texttt{Json.index} wartości znajdującej się pod wskazanym indeksem.
+Na końcu, funkcja \texttt{Json.map2} pozwala na przypisanie wyłuskanych wartości do wskazanego typu, tutaj \texttt{Weather}.
+
+Znając działanie tych funkcji można zauważyć że implementacja funkcji dekodującej jest dość prosta:~,,sprecyzuj typ i miejsce potrzebnych pól z odpowiedzi JSON, a następnie zmapuj je do wskazanego typu``.
+
+\begin{lstlisting}[mathescape,caption={Implementacja dekodera JSON},label={lst:impl_decoder},language={Elm}]
+weatherDecoder : Json.Decoder Weather
+weatherDecoder =
+  Json.map2 Weather
+    (Json.field "weather" (Json.index 0 (Json.field "description" Json.string)))
+    (Json.field "main" (Json.field "temp" Json.float))
+\end{lstlisting}
+\begin{lstlisting}[mathescape,caption={Przykład odebranego zapytania GET w formacie JSON},label={lst:impl_json}]
+"weather": [ {
+    "description": "broken clouds",
+  }
+],
+"main": {
+  "temp": 20.58,
+}
+\end{lstlisting}
+
+Przechodząc do implementacji cyfrowego zegara, do jego prawidłowego działania potrzebne jest wykorzystanie funkcji \texttt{subscriptions}, której zadaniem jest cykliczne generowanie wiadomości typu \texttt{Msg}. Na listingu~\ref{lst:impl_subs} przedstawiona została implementacja tej funkcji dla stworzonej aplikacji. Wykorzystanie biblioteki \texttt{elm/time} pozwala na użycie funkcji \texttt{Time.every} z argumentem \texttt{10}. W praktyce oznacza to, że co 10 \textit{ms} zostanie wygenerowana wiadomość typu \texttt{Tick} wraz z aktualnym czasem POSIX przekazanym jako argument, a następnie funkcja \texttt{update} na podstawie tej wiadomości odpowiednio zaktualizuje wartość \texttt{clockTime.time} w zdefiniowanym modelu.
+
+\begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{subscriptions}},label={lst:impl_subs}]
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Time.every 10 Tick
+\end{lstlisting}
 
 \section{View}
+Na listingu~\ref{lst:impl_view} przedstawiona została implementacja głównej funkcji wyświetlającej elementy na ekranie użytkownika --- \texttt{view}.
+Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocnicznych.
+Każda z nich wyświetla jeden z pięciu elementów funkcjonalnych, które zostały wymienione na początku tego rozdziału.
+\begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{view}},label={lst:impl_view},language={Elm}]
+view : Model -> Browser.Document Msg
+view model =
+    { title = "Startpage"
+    , body =
+        [ div [ class "container" ]
+            [ viewTime model.clockTime
+            , viewDate model.clockTime
+            , viewWeather model.weatherStatus
+            , viewSearchBar
+            , viewBookmarks model.bookmarks
+            ]
+        ]
+    }
+\end{lstlisting}
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -425,13 +542,13 @@ Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, powinniśmy
 Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia \texttt{npm}~-- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
 Aby zainstalować \texttt{npm} należy skorzystać z systemowego menadżera pakietów.
 Na przykładzie dystrybucji Ubuntu będą to komendy:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
   $ sudo apt update
   $ sudo apt install npm
 \end{lstlisting}
 Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
 Posłuży do tego polecenie:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
   $ npm install -g elm
 \end{lstlisting}
 Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
@@ -462,7 +579,7 @@ Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji 
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
 Jednym z nich jest \texttt{elm init}, które posłuży nam do stworzenia nowego projektu.
 W tym celu należy otworzyć wiersz poleceń i wykonać następujące instrukcje:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting}
   $ mkdir elm_project
   $ cd elm_project
   $ elm init
