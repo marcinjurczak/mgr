@@ -1,8 +1,9 @@
 \documentclass[twoside,a4paper]{report}
 
+\usepackage[bottom]{footmisc}
 \usepackage[pdftex]{graphicx}
 \usepackage{textcomp}
-\usepackage{titlesec}
+\usepackage[compact]{titlesec}
 \titleformat{\chapter}[display]
 {\normalfont\bfseries}{}{0pt}{\huge}
 \usepackage{lipsum}
@@ -18,6 +19,7 @@
 \usepackage{anysize}
 \usepackage{enumitem}
 \usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
 \usepackage{url}
 \usepackage{hyperref}
 \usepackage{csquotes}
@@ -33,6 +35,8 @@ sorting=none
 \usepackage{tabularx}
 \usepackage{indentfirst}
 \usepackage{gensymb}
+\raggedbottom
+
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
@@ -100,7 +104,8 @@ sorting=none
 
 \chapter*{Streszczenie}
 \noindent
-Celem niniejszej pracy magisterskiej było stworzenie frontend'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej. Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Celem niniejszej pracy magisterskiej było stworzenie frontend'owej aplikacji internetowej z wykorzystaniem funkcyjnego języka Elm, porównanie tejże technologii z istniejącymi, bardziej powszechnymi rozwiązaniami tego typu, a także przygotowanie instrukcji laboratoryjnej, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej.
+Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli startowa strona przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
 
@@ -108,7 +113,8 @@ Celem niniejszej pracy magisterskiej było stworzenie frontend'owej aplikacji in
 
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to use the Elm language to create a frontend web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics. The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The goal of this master thesis is to use the Elm language to create a frontend web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics.
+The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
@@ -184,7 +190,6 @@ Według dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane
 
 Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa --- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
 
-
 \begin{lstlisting}[caption={Przykład funkcyjnego komponentu},label={lst:func_comp},language=JavaScript]
 function Hello(props) {
   return <h1>Hello, {props.name}</h1>;
@@ -204,10 +209,14 @@ Dzięki temu kod pisany przy pomocy biblioteki React jest bardzo reużywalny i p
 Jedną z zalet tego rozwiązania jest jego niesamowita popularność oraz dostępność gotowych rozwiązań.
 W Internecie znajduje się mnóstwo poradników i instrukcji pomagających nowym użytkownikom zapoznać się z biblioteką i stworzyć pierwsze proste projekty.
 Istnieje także dostatek pomocy dla bardziej zaawansowych programistów Reacta oraz szeroka społeczność użytkowników chętnych do pomocy przy rozwiązywaniu bardziej skomplikowanych problemów.
-Dostępność gotowych rozwiązań pozwala na relatywnie łatwy rozwój oprogramowania poprzez ich wykorzystanie, dla przykładu
+Dostępność gotowych rozwiązań pozwala na relatywnie łatwy rozwój oprogramowania poprzez ich wykorzystanie.
+
+Warto także wspomnieć, że React określany jest jako~,,biblioteka'', a nie framework. Oznacza to
 
 \section{Angular}
-Biblioteka Angular~\cite{angulardocs}
+Biblioteka Angular~\cite{angulardocs} została stworzona przez firmę Google w 2016 roku z wykorzystaniem języka TypeScript --- nadzbioru języka JavaScript, który dodatkowo udostępnia takie funkcjonalności jak statyczne typowanie czy programowanie zorientowane obiektowo. Bycie~,,nadzbiorem'' oznacza, że każdy program napisany w JavaScript jest także prawidłowym programem TypeScript. Angular początkowo miał być drugą wersją biblioteki AngularJS, jednak w ostateczności Google zdecydował się wydać tę bibliotekę jako osobny produkt.
+
+Głównym przeznaczeniem Angulara, podobnie jak w przypadku React.js, jest tworzenie aplikacji typu SPA\@. Jednak w przeciwieństwie do Reacta, jest to pełnoprawny \textit{framework}. Oznacza to, że
 ~\cite{angulardocs}
 \section{Vue.js}
 Biblioteka Vue.js~\cite{vuejsdocs}
@@ -225,6 +234,7 @@ Największym atutem tego języka jest zdecydowanie silnie promowany przez autora
 \section{Programowanie funkcyjne}
 
 \section{The Elm Architecture}
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{elm_arch.png}
@@ -341,7 +351,11 @@ Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe
 W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów, bazując bezpośrednio na kodzie źródłowym stworzonej aplikacji.
 Przejdę przez każdy fragment architektury Elma, tj. \texttt{Model}, \texttt{View} i \texttt{Update}, opisując działanie najważniejszych według mnie fragmentów kodu oraz wyjaśniając decyzje stojące za wyborem danych rozwiązań.
 
-\section{Model}
+Ponadto zaimplementowany został odpowiednik aplikacji z użyciem biblioteki React, udostępniający identyczne funkcjonalności jak w przypadku aplikacji w Elmie. Celem stworzenia drugiego programu jest pokazanie różnic w implementacji obu
+
+\section{Elm}
+
+\subsection{Model}
 Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocniczne wykorzystane w głównym typie Model.
 
 \begin{lstlisting}[caption={\textit{}Pełen model aplikacji},label={lst:impl_model},language={Elm}]
@@ -374,7 +388,7 @@ Informacje potrzebne do przedstawienia daty i godziny zawarte zostały w zmienne
 
 Kolejnym elementem modelu jest zmienna typu \texttt{WeatherStatus}, która może przyjąć jedną z trzech wartości --- \texttt{Failure}, \texttt{Loading} lub \texttt{Success}.
 Odpowiada ona za trzymanie informacji o statusie zapytania HTTP do API dostarczanego przez serwis OpenWeather~\cite{openweather}.
-Początkowo inicjalizowany jest jako wariant \texttt{Loading}, w przypadku niepowiedzenia zapytania przypisywany jest wariant \texttt{Failure} wraz z tekstem opisującym błąd, w stworzonej aplikacji jest to.~\textit{,,Error: Couldn't retrieve weather data``}.
+Początkowo inicjalizowany jest jako wariant \texttt{Loading}, w przypadku niepowiedzenia zapytania przypisywany jest wariant \texttt{Failure} wraz z tekstem opisującym błąd, w stworzonej aplikacji jest to.~\textit{,,Error: Couldn't retrieve weather data''}.
 W przypadku powodzenia typ \texttt{WeatherStatus} przyjmuje wariant \texttt{Success} wraz z otrzymaną pogodą.
 Typ pogody \texttt{Weather} zawiera przeparsowane informacje z pliku JSON odebranego z zapytania HTTP, czyli krótki opis słowny pogody oraz aktualna temperatura w Gdańsku.
 
@@ -401,7 +415,7 @@ Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności 
 Następnie należy wskazać wiadomości, które mają zostać przetworzone przez funkcję \texttt{update} i wykonane przez program na początku działania programu.
 W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
 
-\section{Update}
+\subsection{Update}
 Na listingu~\ref{lst:impl_update} znajduje się implementacja typu \texttt{Msg} definiującego rodzaje wiadomości, jakie mogą zostać odebrane i obsłużone przez funkcję \texttt{update}.
 
 \begin{lstlisting}[caption={Implementacja typu \texttt{Msg} i funkcji \texttt{update}},label={lst:impl_update},language={Elm}]
@@ -471,7 +485,7 @@ Implementacja funkcji dekodującej wynika bezpośrednio ze struktury odebranej o
 Funkcja \texttt{Json.field} pozwala na wyciągniecie wartości pola o danej nazwie, a \texttt{Json.index} wartości znajdującej się pod wskazanym indeksem.
 Na końcu, funkcja \texttt{Json.map2} pozwala na przypisanie wyłuskanych wartości do wskazanego typu, tutaj \texttt{Weather}.
 
-Znając działanie tych funkcji można zauważyć że implementacja funkcji dekodującej jest dość prosta:~,,sprecyzuj typ i miejsce potrzebnych pól z odpowiedzi JSON, a następnie zmapuj je do wskazanego typu``.
+Znając działanie tych funkcji można zauważyć że implementacja funkcji dekodującej jest dość prosta:~,,sprecyzuj typ i miejsce potrzebnych pól z odpowiedzi JSON, a następnie zmapuj je do wskazanego typu''.
 
 \begin{lstlisting}[mathescape,caption={Implementacja dekodera JSON},label={lst:impl_decoder},language={Elm}]
 weatherDecoder : Json.Decoder Weather
@@ -498,7 +512,7 @@ subscriptions _ =
     Time.every 10 Tick
 \end{lstlisting}
 
-\section{View}
+\subsection{View}
 Na listingu~\ref{lst:impl_view} przedstawiona została implementacja głównej funkcji wyświetlającej elementy na ekranie użytkownika --- \texttt{view}.
 Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocnicznych.
 Każda z nich wyświetla jeden z pięciu elementów funkcjonalnych, które zostały wymienione na początku tego rozdziału.
@@ -518,6 +532,8 @@ view model =
     }
 \end{lstlisting}
 
+\section{React}
+
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Instrukcja laboratoryjna}
@@ -526,12 +542,13 @@ W poniższym rozdziale przedstawiam przykładową instrukcję laboratoryjną, kt
 \section{Przygotowanie środowiska}
 Pierwszą rzeczą, którą należy się zająć przed rozpoczęciem nowego projektu jest przygotowanie odpowiedniego środowiska deweloperskiego.
 Należy upewnić się, że wszystkie narzędzia potrzebne do wykonania pracy są zainstalowane i prawidłowo skonfigurowane.
-W przypadku pracy z Elm'em będziemy korzystać przede wszystkim z platformy dostarczanej przez autora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
+W przypadku pracy z Elm'em zalecane będzie korzystanie przede wszystkim z platformy dostarczanej przez autora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
 
 \subsection{Platforma Elm}
-Najważniejszą rzeczą, jaka będzie nam potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
-Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows. Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
-Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, powinniśmy ujrzeć widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}.
+Najważniejszą rzeczą, jaka będzie potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
+Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows.
+Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
+Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie powinien pojawić się widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{elm_output.png}
@@ -553,11 +570,13 @@ Posłuży do tego polecenie:
 \end{lstlisting}
 Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
 Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy w wierszu poleceń uruchomić komendę \texttt{elm}.
-Naszym oczom powinien ukazać się widok podobny do rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
+Jeżeli wszystkie kroki przebiegły pomyślnie, na ekranie powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
+
 \subsubsection{Windows}
 Osoby korzystające z systemu operacyjnego Windows mogą skorzystać z npm, tak jak to było opisane w powyższej sekcji dotyczącej Linuxa lub posłużyć się dedykowanym \href{https://github.com/elm/compiler/releases/download/0.19.1/installer-for-windows.exe}{instalatorem Elm'a}~\cite{elm_installer} na system Windows.
 W tym drugim przypadku wystarczy przejść przez wszystkie kroki zostawiając opcje domyślne i w rezultacie Elm zostanie pomyślnie zainstalowany i będzie gotowy do użytkowania.
-W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}. Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
+W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}.
+Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
 
 \subsection{Edytor}
 Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni edytor tekstowy, który jest w stanie podświetlać składnię języka, z którego aktualnie korzystamy.
@@ -593,18 +612,91 @@ Po wypisaniu zawartości katalogu \texttt{elm\_project} z użyciem polecenia \te
 \end{itemize}
 
 Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowoutworzonym katalogu \texttt{src/}.
-Będzie się tam znajdował kod naszej aplikacji, którą stworzymy w kolejnych krokach.
+Będzie się tam znajdował kod aplikacji, która zostanie stworzona w kolejnych krokach.
 
 \section{Podstawy języka Elm}
-W celu nauki podstaw języka Elm skorzystamy z narzędzia \texttt{elm repl}, pozwalającego na korzystanie z interaktywnej sesji programistycznej.
+W celu nauki podstaw języka Elm użyte zostanie narzędzie \texttt{elm repl}, pozwalającego na korzystanie z interaktywnej sesji programistycznej.
+Należy otworzyć wiersz poleceń i wpisać polecenie \texttt{elm repl}.
+Powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{fig:elm_repl_output} poniżej.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{elm_repl_output.png}
+    \caption{Otwarta interaktywna sesja \texttt{elm repl}}\label{fig:elm_repl_output}
+\end{figure}
 
 \subsection{Wartości}
+Najmniejszym budulcem aplikacji w Elmie są \textbf{wartości}.
+Mogą to być liczby, ciągi znaków, czy typy logiczne, np. 10,~,,Hello'', True.
+Po wpisaniu do okna \texttt{elm repl} danej wartości, na ekranie powinna zostać pokazana powtórzona wartość, a po dwukropku jej typ.
+
+Wartości można także łączyć z operatorami.
+Dla liczb będą to typowe operatory matematyczne, jak \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, dla ciągów znaków operatorem konkatenacji jest \texttt{++}, a dla typów logicznych dostępne są operatory logiczne~,,\texttt{\&\&}'' (AND) oraz~,,\texttt{||}'' (OR).
+
+Na rysunku~\ref{fig:repl_values} pokazane został przykłady efektów takich wywołań.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.29\textwidth}
+        \centering
+        \includegraphics[height=1cm]{repl_number}
+        \caption{Liczba}\label{fig:repl_number}
+    \end{subfigure}
+    \begin{subfigure}{.4\textwidth}
+        \centering
+        \includegraphics[height=1cm]{repl_string}
+        \caption{Ciąg znaków}\label{fig:repl_string}
+    \end{subfigure}
+    \begin{subfigure}{.29\textwidth}
+        \centering
+        \includegraphics[height=1cm]{repl_bool}
+        \caption{Typ logiczny}\label{fig:repl_bool}
+    \end{subfigure}
+    \caption{Przykłady wartości w Elmie}\label{fig:repl_values}
+\end{figure}
 
 \subsection{Funkcje}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{repl_func}
+    \caption{Przykładowa funkcja w Elmie}\label{fig:repl_func}
+\end{wrapfigure}
+
+Funkcje w Elmie określają, w jaki sposób wartości mogą zostać przetworzone.
+Na rysunku~\ref{fig:repl_func} pokazana została przykładowa funkcja \texttt{hello}, która przyjmuje argument \texttt{name} i zwraca nowy ciąg znaków.
+
+Można zauważyć, że typ argumentu \texttt{name} nie został sprecyzowany.
+Elm sam potrafi określić, czy dana funkcja wykona się poprawnie na podstawie operacji w niej zawartych.
+W pokazanym przykładzie argument \texttt{name} jest wykorzystany jako operand operatora konkatenacji~,,\texttt{++}'', który potrzebuje dwóch operandów typu \texttt{String} do prawidłowego działania programu.
+Jeśli użytkownik zamiast ciągu znaków podałby jako argument inny typ, np.~liczbę, to kompilator Elma zwróciłby na to uwagę i wystosował użytkownikowi odpowiedni komunikat.
+
+Przykład takiego komunikatu został przedstawiony na rysunku~\ref{fig:repl_error}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{repl_error}
+    \caption{Komunikar kompilatora o błędzie}\label{fig:repl_error}
+\end{figure}
+
+\subsection{Listy}
+
+Listy są jednymi z najczęściej używanych struktur danych w Elmie.
+Ich przeznaczeniem jest trzymanie sekwencji wielu elementów tego samego typu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{repl_lists}
+    \caption{Przykładowe operacje na listach}\label{fig:repl_lists}
+\end{figure}
+
+\subsection{Rekordy}
 
 \section{Aplikacja frontendowa}
 W ramach większego projektu zbudujemy stronę internetową typu \texttt{startpage}, czyli strony startowej przeglądarki zawierającej najważniejsze i najczęściej używane elementy.
 W naszym przypadku będą to cztery moduły --- zegar, pogoda, wyszukiwarka oraz pasek zakładek.
+
+Każda z funkcjonalności będzie dodawana inkrementalnie poprzez dokładanie kolejnych fragmentów kodu do każdej z części architektury Elma, tj. \texttt{Model}, \texttt{Update} oraz \texttt{View}, czyli elementów odpowiedzialnych odpowiednio za stan, logikę i wygląd aplikacji.
 
 \subsection{Zegar}
 
@@ -650,13 +742,34 @@ Na rysunku~\ref{fig:cicd_pipeline} przedstawiony został przykład potoku CI/CD\
 
 \subsection{Ciągła integracja}
 
+,,Ciągłą integracją'' (CI) nazywa się praktyki wykorzystywane przy tworzeniu oprogramowania, polegające na regularnym kontrybuowaniu do zdalnego repozytorium kodu przez zespół deweloperski, gdzie za każdym razem następuje weryfikacja wprowadzonych zmian.
+Dzieje się to poprzez automatyczne budowanie projektu oraz wykonanie testów jednostkowych, a na końcu udostępnienie artefaktów
+
+Korzyści wynikające z używania ciągłej integracji obejmują między innymi:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item wczesne wykrywanie błędów
+    \item zmniejszenie kosztów i ilości pracy manualnej
+\end{itemize}
+
 Na rynku dostępnych jest wiele narzędzi oferujących usługi wspierające CI\@. Kilka najpopularniejszych z nich to m.in. Jenkins, TeamCity i CircleCI\@.
 Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami ciągłej integracji nawet w przypadku bardzo rozbudowanych projektów prowadzonych przez największe firmy informatyczne.
+
+Ciągła integracja skupia się głównie na pracy zespołu deweloperskiego i to właśnie jego dotyczy informacja zwrotna przekazywana przez wyniki potoku.
+Mogą to być błędy kompilacji, problemy z łączeniem gałęzi repozytorium (\textit{merge conflicts}) czy wskazanie testów, które zakończyły się niepowodzeniem.
+
+Ciągłe wdrażanie jednakże skupia się dostarczeniu produktu do użytkownika końcowego, aby uzyskać informację zwrotną od klienta.
+W następnej sekcji postaram się opisać procesy CD w sposób bardziej szczegółowy.
+
 \subsection{Ciągłe wdrażanie}
 
 \section{GitHub Actions}
-Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}. Ze względu na ten wybór jak i niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
+Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}.
+Ze względu na ten wybór jak i niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
 
+W odróżnieniu od standardowych przypadków użycia potoków CI/CD, gdzie oprogramowanie jest tworzone przez zespół deweloperski składający się z wielu osób, aplikacja powstała w ramach niniejszej pracy magisterskiej została stworzona przez jedną osobę.
+Jest to specyficzny przypadek, gdyż w takiej sytuacji nie ma możliwości wystąpienia problemów, które często mogą pojawić się w zespołach deweloperskich podczas próby integracji, na przykład konflikty łączenia gałęzi.
+
+Jednakże, celem mojej implementacji było pokazanie, że techniki CI/CD mogą zostać efektywnie wykorzystane podczas pracy z językiem Elm.
 
 \section{GitHub Pages}
 Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
