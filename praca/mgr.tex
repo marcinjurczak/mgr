@@ -54,7 +54,7 @@ sorting=none
 }
 
 \lstdefinelanguage{Elm}{
-    keywords={type, alias, update, case, of, init, view},
+    keywords={type, alias, update, case, of, init, view, subscriptions, let, in, viewDate, viewTime},
 }
 
 \lstset{
@@ -148,6 +148,7 @@ The created application is a \textit{startpage}, meaning a starting page of a we
     \includegraphics[width=0.28\textwidth]{elm_logo.png}
     \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
+
 Głównym celem niniejszej pracy jest zapoznanie się z funkcyjnym językiem programowania Elm oraz stworzenie przykładowej frontendowej aplikacji internetowej.
 Ponadto chciałbym przeprowadzić porównanie tej technologii z innymi, bardziej powszechnie używanymi rozwiązaniami do tworzenia aplikacji internetowych.
 Ostatnim celem pracy jest przygotowanie części dydaktycznej w postaci instrukcji laboratoryjnej, która mogłaby zostać potencjalnie wykorzystana w ramach przedmiotu Współczesne Aplikacje Programowania Funkcyjnego, prowadzonego przez mojego promotora, dra inż. Krzysztofa Manuszewskiego.
@@ -190,12 +191,12 @@ Według dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane
 
 Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa --- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
 
-\begin{lstlisting}[caption={Przykład funkcyjnego komponentu},label={lst:func_comp},language=JavaScript]
+\begin{lstlisting}[caption={Funkcyjny komponent},label={lst:func_comp},language=JavaScript]
 function Hello(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 \end{lstlisting}
-\begin{lstlisting}[caption={Przykład klasowego komponentu},label={lst:class_comp},language=JavaScript]
+\begin{lstlisting}[caption={Klasowy komponent},label={lst:class_comp},language=JavaScript]
 class Hello extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -217,10 +218,19 @@ Warto także wspomnieć, że React określany jest jako~,,biblioteka'', a nie fr
 Biblioteka Angular~\cite{angulardocs} została stworzona przez firmę Google w 2016 roku z wykorzystaniem języka TypeScript --- nadzbioru języka JavaScript, który dodatkowo udostępnia takie funkcjonalności jak statyczne typowanie czy programowanie zorientowane obiektowo. Bycie~,,nadzbiorem'' oznacza, że każdy program napisany w JavaScript jest także prawidłowym programem TypeScript. Angular początkowo miał być drugą wersją biblioteki AngularJS, jednak w ostateczności Google zdecydował się wydać tę bibliotekę jako osobny produkt.
 
 Głównym przeznaczeniem Angulara, podobnie jak w przypadku React.js, jest tworzenie aplikacji typu SPA\@. Jednak w przeciwieństwie do Reacta, jest to pełnoprawny \textit{framework}. Oznacza to, że
+
+// TODO
+
 ~\cite{angulardocs}
+
 \section{Vue.js}
 Biblioteka Vue.js~\cite{vuejsdocs}
+
+// TODO
+
 \section{Podobieństwa i różnice}
+
+// TODO
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -233,8 +243,9 @@ Największym atutem tego języka jest zdecydowanie silnie promowany przez autora
 
 \section{Programowanie funkcyjne}
 
-\section{The Elm Architecture}
+// TODO
 
+\section{The Elm Architecture}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{elm_arch.png}
@@ -294,6 +305,7 @@ update msg model =
 
     Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty --- \texttt{Increment} i \texttt{Decrement}. Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
 \end{minipage}\hfill
+
 \subsection{View}
 Funkcja \texttt{view}, która została zaprezentowana na listingu~\ref{lst:View}, jako argument przyjmuje model i zwraca kod HTML\@.
 Wykorzystany został tutaj handler \texttt{onClick} z biblioteki \texttt{Html.Events}, który po kliknięciu guzika, do którego został przypisany, generuje odpowiednią wiadomość.
@@ -312,6 +324,7 @@ view model =
 
 \section{Narzędzia}
 Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elma, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
+
 \begin{center}
     \begin{tabularx}{\textwidth}{clX}
         \texttt{elm repl} &---& otwiera interaktywną sesję programistyczną.\\
@@ -338,6 +351,7 @@ Dokumentacja techniczna zawiera takie informacje, jak ogólne przeznaczenie dane
 \chapter{Implementacja}
 W ramach części praktycznej niniejszej pracy stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
 W ramach tejże aplikacji postanowiłem zaimplementować następujące funkcjonalności:
+
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika
     \item Aktualna data
@@ -400,7 +414,6 @@ Lista przekazywana jest do programu przy pomocy machanizmu flag, co zostanie opi
 Typ zakładki składa się z dwóch elementów --- nazwy, która ma zostać wyświetlona na stronie oraz adresu URL, do którego prowadzi kliknięcie hiperlinku.
 
 \begin{lstlisting}[caption={Funkcja inicjalizująca model},label={lst:impl_init},language={Elm}]
-init : List Bookmark -> ( Model, Cmd Msg )
 init bookmarks =
     ( Model (ClockTime Time.utc (Time.millisToPosix 0)) Loading "" bookmarks
     , Cmd.batch [ Task.perform AdjustTimeZone Time.here, getWeather ]
@@ -426,7 +439,7 @@ type Msg
     | GotWeather (Result Http.Error Weather)
     | UpdateField String
     | Search
-update : Msg -> Model -> ( Model, Cmd Msg )
+
 update msg model =
   case msg of
     Tick newTime ->
@@ -469,7 +482,6 @@ Program \textit{nie wie} jaki typ ma odebrane zapytanie, więc obowiązkiem prog
 
 W przypadku stworzonej aplikacji jako odpowiedź zapytania GET spodziewanym formatem pliku jest JSON (\texttt{Http.expectJson}), następnie zostaje przekazany typ odebranej wiadomości (\texttt{GotWeather}), a na końcu dekoder (\texttt{weatherDecoder}), użyty do wydobycia konkretnych informacji.
 \begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{getWeather}},label={lst:impl_weather},language={Elm}]
-getWeather : Cmd Msg
 getWeather =
   Http.get
     { url = Config.weatherApi ++ ("&q=" ++ Config.city) ++ ("&units=" ++ Config.unit) ++ ("&appid=" ++ Config.apiKey)
@@ -488,13 +500,12 @@ Na końcu, funkcja \texttt{Json.map2} pozwala na przypisanie wyłuskanych warto�
 Znając działanie tych funkcji można zauważyć że implementacja funkcji dekodującej jest dość prosta:~,,sprecyzuj typ i miejsce potrzebnych pól z odpowiedzi JSON, a następnie zmapuj je do wskazanego typu''.
 
 \begin{lstlisting}[mathescape,caption={Implementacja dekodera JSON},label={lst:impl_decoder},language={Elm}]
-weatherDecoder : Json.Decoder Weather
 weatherDecoder =
   Json.map2 Weather
     (Json.field "weather" (Json.index 0 (Json.field "description" Json.string)))
     (Json.field "main" (Json.field "temp" Json.float))
 \end{lstlisting}
-\begin{lstlisting}[mathescape,caption={Przykład odebranego zapytania GET w formacie JSON},label={lst:impl_json}]
+\begin{lstlisting}[mathescape,caption={Odebrane zapytanie GET w formacie JSON},label={lst:impl_json}]
 "weather": [ {
     "description": "broken clouds",
   }
@@ -507,7 +518,6 @@ weatherDecoder =
 Przechodząc do implementacji cyfrowego zegara, do jego prawidłowego działania potrzebne jest wykorzystanie funkcji \texttt{subscriptions}, której zadaniem jest cykliczne generowanie wiadomości typu \texttt{Msg}. Na listingu~\ref{lst:impl_subs} przedstawiona została implementacja tej funkcji dla stworzonej aplikacji. Wykorzystanie biblioteki \texttt{elm/time} pozwala na użycie funkcji \texttt{Time.every} z argumentem \texttt{10}. W praktyce oznacza to, że co 10 \textit{ms} zostanie wygenerowana wiadomość typu \texttt{Tick} wraz z aktualnym czasem POSIX przekazanym jako argument, a następnie funkcja \texttt{update} na podstawie tej wiadomości odpowiednio zaktualizuje wartość \texttt{clockTime.time} w zdefiniowanym modelu.
 
 \begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{subscriptions}},label={lst:impl_subs}]
-subscriptions : Model -> Sub Msg
 subscriptions _ =
     Time.every 10 Tick
 \end{lstlisting}
@@ -517,7 +527,6 @@ Na listingu~\ref{lst:impl_view} przedstawiona została implementacja głównej f
 Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocnicznych.
 Każda z nich wyświetla jeden z pięciu elementów funkcjonalnych, które zostały wymienione na początku tego rozdziału.
 \begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{view}},label={lst:impl_view},language={Elm}]
-view : Model -> Browser.Document Msg
 view model =
     { title = "Startpage"
     , body =
@@ -532,7 +541,11 @@ view model =
     }
 \end{lstlisting}
 
+// TODO
+
 \section{React}
+
+// TODO
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -549,6 +562,7 @@ Najważniejszą rzeczą, jaka będzie potrzebna podczas pracy z Elm'em, będzie 
 Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows.
 Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
 Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie powinien pojawić się widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{elm_output.png}
@@ -559,15 +573,19 @@ Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie 
 Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia \texttt{npm}~-- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
 Aby zainstalować \texttt{npm} należy skorzystać z systemowego menadżera pakietów.
 Na przykładzie dystrybucji Ubuntu będą to komendy:
+
 \begin{lstlisting}
   $ sudo apt update
   $ sudo apt install npm
 \end{lstlisting}
+
 Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
 Posłuży do tego polecenie:
+
 \begin{lstlisting}
   $ npm install -g elm
 \end{lstlisting}
+
 Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
 Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy w wierszu poleceń uruchomić komendę \texttt{elm}.
 Jeżeli wszystkie kroki przebiegły pomyślnie, na ekranie powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}, tak jak zostało to już wcześniej wspomniane.
@@ -581,6 +599,7 @@ Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{fi
 \subsection{Edytor}
 Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni edytor tekstowy, który jest w stanie podświetlać składnię języka, z którego aktualnie korzystamy.
 Żeby osiągnąć ten cel, w przypadku Elm'a potrzebna będzie instalacja dodatkowej wtyczki do jednego z następujących edytorów:
+
 \begin{itemize}[noitemsep,topsep=0pt]
     \item{\href{https://atom.io/packages/language-elm}{Atom}}
     \item{\href{https://github.com/jcollard/elm-mode}{Emacs}}
@@ -594,17 +613,20 @@ Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni e
 Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
 Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jeden z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
 
+// TODO
+
 \subsection{Tworzenie projektu}
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
 Jednym z nich jest \texttt{elm init}, które posłuży nam do stworzenia nowego projektu.
 W tym celu należy otworzyć wiersz poleceń i wykonać następujące instrukcje:
+
 \begin{lstlisting}
-  $ mkdir elm_project
-  $ cd elm_project
+  $ mkdir lab
+  $ cd lab
   $ elm init
 \end{lstlisting}
 
-Po wypisaniu zawartości katalogu \texttt{elm\_project} z użyciem polecenia \texttt{ls} powinny pojawić się dwa nowe elementy:
+Po wypisaniu zawartości katalogu \texttt{lab} z użyciem polecenia \texttt{ls} powinny pojawić się dwa nowe elementy:
 
 \begin{itemize}[noitemsep,topsep=0pt]
     \item{Plik \texttt{elm.json} opisujący projekt oraz jego zależności}
@@ -652,15 +674,14 @@ Na rysunku~\ref{fig:repl_values} pokazane został przykłady efektów takich wyw
         \includegraphics[height=1cm]{repl_bool}
         \caption{Typ logiczny}\label{fig:repl_bool}
     \end{subfigure}
-    \caption{Przykłady wartości w Elmie}\label{fig:repl_values}
+    \caption{Wartości w Elmie}\label{fig:repl_values}
 \end{figure}
 
 \subsection{Funkcje}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{repl_func}
-    \caption{Przykładowa funkcja w Elmie}\label{fig:repl_func}
+    \includegraphics[width=0.45\textwidth]{repl_func}
+    \caption{Definicja funkcji w Elmie}\label{fig:repl_func}
 \end{wrapfigure}
 
 Funkcje w Elmie określają, w jaki sposób wartości mogą zostać przetworzone.
@@ -676,38 +697,238 @@ Przykład takiego komunikatu został przedstawiony na rysunku~\ref{fig:repl_erro
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{repl_error}
-    \caption{Komunikar kompilatora o błędzie}\label{fig:repl_error}
+    \caption{Komunikat kompilatora o błędzie}\label{fig:repl_error}
 \end{figure}
 
 \subsection{Listy}
-
 Listy są jednymi z najczęściej używanych struktur danych w Elmie.
 Ich przeznaczeniem jest trzymanie sekwencji wielu elementów tego samego typu.
+
+Na rysunku~\ref{fig:repl_lists} zostały pokazane przykłady użycia list. Została zdefiniowania lista \texttt{names}, zawierająca trzy elementy typu \texttt{String}, a także tablica \texttt{numbers}, która zawiera 4 liczby (typ \texttt{Int}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{repl_lists}
-    \caption{Przykładowe operacje na listach}\label{fig:repl_lists}
+    \caption{Operacje na listach}\label{fig:repl_lists}
 \end{figure}
 
 \subsection{Rekordy}
+Rekordy służą do trzymania wielu wartości, gdzie każda z nich jest przypisana do konkretnej nazwy. Na rysunku~\ref{fig:repl_records} pokazane zostały przykładowe operacje związane z rekordami. Zdefiniowany został rekord \texttt{bob}, który zawiera informacje o imieniu, nazwisku oraz wieku.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \caption{Definicja rekordu i dostęp do jednego z pól}\label{fig:repl_record_bob}
+        \includegraphics[width=1\textwidth]{repl_record_bob}
+    \end{subfigure}
+    \begin{subfigure}{.7\textwidth}
+        \centering
+        \caption{Nadpisanie zawartości rekordu}\label{fig:repl_record_update}
+        \includegraphics[width=1\textwidth]{repl_record_update}
+    \end{subfigure}
+    \caption{Przykłady pracy z rekordami}\label{fig:repl_records}
+\end{figure}
+
+W przypadku rekordów, które zawierają wiele pól, praca z nimi może stawać się problematyczna.
+Wygodne może być wtedy wykorzystanie tzw.~,,aliasów typów'', które pozwalają na definicję typu rekordu i korzystanie z niego w skróconej wersji.
+
+Na rysunku~\ref{fig:repl_type_alias} zdefiniowany został nowy typ \texttt{Person}, który jest równoznaczny ze zdefiniowanym na rys.~\ref{fig:repl_record_bob} rekordem \texttt{bob}.
+Jednakże tak zdefiniowany typ sprawia, że kod staje się krótszy, bardziej czytelny, a praca z nim dużo wygodniejsza.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{repl_type_alias}
+    \caption{Definicja aliasu typu \texttt{Person}}\label{fig:repl_type_alias}
+\end{figure}
 
 \section{Aplikacja frontendowa}
-W ramach większego projektu zbudujemy stronę internetową typu \texttt{startpage}, czyli strony startowej przeglądarki zawierającej najważniejsze i najczęściej używane elementy.
-W naszym przypadku będą to cztery moduły --- zegar, pogoda, wyszukiwarka oraz pasek zakładek.
+W ramach większego projektu zbudowana zostanie strona internetową typu \texttt{startpage}, czyli strona startowa przeglądarki zawierająca najważniejsze i najczęściej używane elementy.
+Zaimplementowane zostaną cztery moduły --- Data i czas, pogoda, wyszukiwarka oraz pasek zakładek.
 
 Każda z funkcjonalności będzie dodawana inkrementalnie poprzez dokładanie kolejnych fragmentów kodu do każdej z części architektury Elma, tj. \texttt{Model}, \texttt{Update} oraz \texttt{View}, czyli elementów odpowiedzialnych odpowiednio za stan, logikę i wygląd aplikacji.
 
-\subsection{Zegar}
+Plik źródłowy \texttt{Main.elm} został stworzony w jednym z poprzednich kroków --- należy go otworzyć w swoim wybranym edytorze i przejść do kolejnych kroków.
+
+\subsection{Szkielet aplikacji}
+W pierwszej kolejności należy uruchomić aplikację typu~,,Hello World!'', aby upewnić się, że środowisko zostało prawidłowo skonfigurowane.
+W załączonym pliku \texttt{Main.elm} znajdują się wszystkie potrzebne do działana klauzule importujące biblioteki podstawowe Elma.
+Ponadto zaimplementowana została podstawowa architektura aplikacji.
+Aby uruchomić aplikację~,,Hello, World!'' należy otworzyć wiersz poleceń i wykonać polecenie:
+
+\begin{lstlisting}
+  $ elm reactor
+\end{lstlisting}
+
+Powinien pokazać się następujący widok:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{elm_reactor}
+\end{figure}
+
+Po otwarciu w przeglądarce adresu \texttt{http://localhost:8000} należy znaleźć plik \texttt{Main.elm} i go otworzyć.
+Powinien wyświetlić się napis~,,Hello, World!'' oraz guzik \texttt{Click me!}, który zamienia ciąg tekstowy na~,,Hello, again!''.
+
+Celem dalszych sekcji będzie rozwinięcie tego programu poprzez implementację wymaganych funkcjonalności omówionych na początku instrukcji.
+
+\subsection{Czas}
+Do wydobycia informacji o aktualnym czasie wykorzystana zostanie biblioteka \texttt{elm/time}.
+W celu zainstalowania tej biblioteki w wierszu poleceń należy wykonać komendę \texttt{\$ elm install elm/time}, a następnie załączyć bibliotekę do tworzonego programu używając klauzuli \texttt{import Time exposing (..)}.
+
+Przechodząc do edycji kodu, pierwszą rzeczą jest zdefiniowanie modelu programu.
+Potrzebne będą informacje o strefie czasowej oraz aktualny czas.
+W tym celu należy stworzyć nowy typ \texttt{DateTime}, który będzie przechowywał te dane, a następnie dodać go do modelu.
+
+\begin{lstlisting}[language=Elm]
+type alias Model =
+    { dateTime : DateTime }
+type alias DateTime =
+    { zone : Time.Zone
+    , time : Time.Posix
+    }
+\end{lstlisting}
+
+Kolejnym krokiem będzie zdefiniowanie typów wiadomości, które może odebrać program.
+Do prawidłowego działania zegara potrzebne będzie dostosowanie strefy czasowej oraz pobranie aktulnago czasu.
+Oznacza to, że należy zdefiniować dwie wiadomości --- \texttt{AdjustTimeZone} oraz \texttt{Tick}.
+
+\begin{lstlisting}[language=Elm]
+type Msg
+    = Tick Time.Posix
+    | AdjustTimeZone Time.Zone
+\end{lstlisting}
+
+Oba typy wiadomości muszą zostać odpowiednio przetworzone w funkcji \texttt{update}.
+W obu przypadkach wystarczające będzie nadpisanie stworzonego modelu nowymi wartościami.
+Przykład nadpisania rekordu został przedstawiony wcześniej na rys.~\ref{fig:repl_record_update}.
+
+Następnie należy zdefiniować funkcję \texttt{init}, gdzie wskazany zostanie sposób inicjalizacji modelu oraz operacje, jakie mają zostać wykonane na początku programu.
+W przypadku daty i czasu należy początkowo wyzerować obie wartości, a następnie pobrać aktualne informacje wykorzystując stworzone przed chwilą wiadomości.
+
+\begin{lstlisting}[language=Elm]
+init _ =
+    ( Model (DateTime Time.utc (Time.millisToPosix 0))
+    , Cmd.batch [ Task.perform AdjustTimeZone Time.here, Task.perform Tick Time.now ]
+    )
+\end{lstlisting}
+
+Jednakże czas zmienia się z sekundy na sekundę, więc jednorazowe ustawienie wartości modelu niestety nie jest wystarczające --- trzeba aktualizować model co sekundę.
+Aby to osiągnąć, wykorzystana zostanie funkcja \texttt{subscriptions}.
+Pozwala na nasłuchiwanie zewnętrznych zdarzeń, takich jak kliknięcie myszki, naciśnięcie klawisza na klawiaturze, zmiany w geolokacji lub --- tykanie zegara.
+
+W przypadku tworzonej aplikacji należy co sekundę generować nową wiadomość \texttt{Tick}, która po jej przetworzeniu w funkcji \texttt{update} zaktualizuje aktualny czas w modelu.
+
+\begin{lstlisting}[language=Elm]
+subscriptions _ =
+    Time.every 1000 Tick
+\end{lstlisting}
+
+Ostatnim elementem architektury Elma jest funkcja \texttt{view}, której zadaniem jest wyświetalnie programu na ekranie.
+
+\begin{lstlisting}[language=Elm]
+view model =
+    { title = "Hello"
+    , body =
+        [ viewTime model.dateTime
+        , viewDate model.dateTime
+        ]
+    }
+\end{lstlisting}
+
+W celu polepszenia czytelności kodu, funkcja \texttt{view} wykorzystuje dwie funkcje pomocnicze --- \texttt{viewTime} oraz \texttt{viewDate}.
+Część implementacji jednej z nich została przedstawiona poniżej.
+W ramach ćwiczenia należy dokończyć implementację funkcji \texttt{viewDate} oraz stworzyć analogiczną funkcję \texttt{viewTime}.
+Ponadto przedstawiony został początek funkcji \texttt{toEnglishWeekday}, która przymuje wartość typu \texttt{Time.Weekday} i zwraca typ \texttt{String}, który może zostać następnie wyświetlony w funkcji \texttt{viewDate}.
+Implementację tej funkcji także należy dokończyć oraz stworzyć analogiczną funkcję pozwalającą na dekodowanie nazw miesięcy.
+
+\begin{lstlisting}[language=Elm]
+viewDate dateTime =
+    let
+        weekday =
+            Time.toWeekday dateTime.zone dateTime.time
+        ...
+    in
+    div [] [ text (toEnglishWeekday weekday) ]
+toEnglishWeekday weekday =
+    case weekday of
+        Mon ->
+            "Monday"
+        ...
+\end{lstlisting}
+
+Jeżeli wszystko udało się pomyślnie, w przeglądarce internetowej powinien wyświetlić się aktualny czas, zmieniający się co sekundę, a pod nim data.
+Następnie można przejść do kolejnej sekcji.
 
 \subsection{Pogoda}
+Pogoda będzie pobierana wykorzystując zapytania HTTP do portalu OpenWeatherAPI\@.
+Potrzebne będą do tego dwie biblioteki --- \texttt{elm/http} do wysłania zapytania oraz \texttt{elm/json} do odebrania i przetworzenia odpowiedzi w formacie JSON\@.
+Podobnie jak poprzednio, należy je zainstalować używając poleceń:
+\begin{lstlisting}
+  $ elm install elm/http
+  $ elm install elm/json
+\end{lstlisting}
+Następnie należy dodać do pliku \texttt{Main.elm} następujące klauzule:
 
+\begin{lstlisting}[language=Elm]
+import Http
+import Json.Decode as Json
+\end{lstlisting}
+
+Przed przejściem do edycji kodu należy założyć darmowe konto na stronie \href{https://openweathermap.org/}{OpenWeatherMap}, a następnie wygenerować klucz API, który będzie konieczny do prawidłowego działania aplikacji.
+Po stworzeniu klucza API można przejść do kolejnych kroków.
+
+W przypadku pogody potrzebne będzie stworzenie dwóch nowych typów: jeden będzie zawierał informacje o faktycznym stanie pogody, tj.~temperatura i krótki opis słowny, a drugi informacje o statusie zapytania HTTP\@.
+
+\begin{lstlisting}[language=Elm]
+type WeatherStatus
+    = Failure String
+    | Loading
+    | Success Weather
+type alias Weather =
+    { description : String
+    , temperature : Float
+    }
+\end{lstlisting}
+
+Powyższy typ \texttt{WeatherStatus} należy dodać do głównego modelu.
+Ponadto należy zdefiniować w programie dane potrzebne do wysłania zapytania.
+Są to:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item URL do wysłania zapytania
+    \item Prywatny klucz API do OpenWeatherMap
+    \item Miasto
+    \item Jednostki
+\end{itemize}
+Należy
+
+W przypadku wiadomości \texttt{Msg} będzie podobna sytuacja jak przy tworzeniu typów --- potrzebny będzie jeden rodzaj wiadomości odpowiedzialny za wysłanie zapytania oraz drugi odpowiedzialny za jego odebranie i odpowiednie zaktualizowanie modelu.
+
+\begin{lstlisting}[language=Elm]
+type Msg
+    = ...
+    | UpdateWeather
+    | GotWeather (Result Http.Error Weather)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Elm]
+update msg model =
+  case msg of
+    ...
+    UpdateWeather ->
+      ( { model | weatherStatus = Loading }, getWeather )
+    GotWeather result ->
+      case result of
+        Ok weather ->
+          ( { model | weatherStatus = Success weather }, Cmd.none )
+        Err _ ->
+          ( { model | weatherStatus = Failure "Error: Couldn't retrieve weather data" }, Cmd.none)
+\end{lstlisting}
 \subsection{Wyszukiwarka}
 
 \subsection{Zakładki}
 
 \subsection{Dokument hipertekstowy}
-\begin{lstlisting}[caption={Zawartość pliku \texttt{index.html}},label={lst:index.html},language=html]
+\begin{lstlisting}[language=html]
 <head>
   <link rel="stylesheet" href="assets/styles.css" />
   <script src="assets/main.js"></script>
@@ -741,7 +962,6 @@ Mianem CI/CD określa się zbiór praktyk pozwających na ciągłą integrację 
 Na rysunku~\ref{fig:cicd_pipeline} przedstawiony został przykład potoku CI/CD\@.
 
 \subsection{Ciągła integracja}
-
 ,,Ciągłą integracją'' (CI) nazywa się praktyki wykorzystywane przy tworzeniu oprogramowania, polegające na regularnym kontrybuowaniu do zdalnego repozytorium kodu przez zespół deweloperski, gdzie za każdym razem następuje weryfikacja wprowadzonych zmian.
 Dzieje się to poprzez automatyczne budowanie projektu oraz wykonanie testów jednostkowych, a na końcu udostępnienie artefaktów
 
