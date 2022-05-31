@@ -1,6 +1,8 @@
 template
 elm/elm-stuff
 elm/assets/main.js
+lab/elm-stuff
+lab/assets/elm.js
 praca/mgr.pdf
 
 ## Core latex/pdflatex auxiliary files:
