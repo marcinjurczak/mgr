@@ -1,4 +1,4 @@
-module MainWeather exposing (..)
+module MainSearch exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
-import Json.Decode exposing (..)
+import Json.Decode exposing (Decoder, andThen, fail, field, float, index, map2, string, succeed)
 import Task
 import Time exposing (..)
 
@@ -32,6 +32,7 @@ main =
 type alias Model =
     { dateTime : DateTime
     , weatherStatus : WeatherStatus
+    , searchText : String
     }
 
 
@@ -55,7 +56,7 @@ type alias Weather =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model (DateTime Time.utc (Time.millisToPosix 0)) Loading
+    ( Model (DateTime Time.utc (Time.millisToPosix 0)) Loading ""
     , Cmd.batch [ Task.perform AdjustTimeZone Time.here, Task.perform Tick Time.now, getWeather ]
     )
 
@@ -69,6 +70,8 @@ type Msg
     | AdjustTimeZone Time.Zone
     | UpdateWeather
     | GotWeather (Result Http.Error Weather)
+    | UpdateField String
+    | Search
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -101,6 +104,16 @@ update msg model =
                     , Cmd.none
                     )
 
+        UpdateField searchText ->
+            ( { model | searchText = searchText }
+            , Cmd.none
+            )
+
+        Search ->
+            ( model
+            , Nav.load ("https://google.com/search?q=" ++ model.searchText)
+            )
+
 
 
 -- SUBSCRIPTIONS
@@ -122,6 +135,7 @@ view model =
         [ viewTime model.dateTime
         , viewDate model.dateTime
         , viewWeather model.weatherStatus
+        , viewSearchBar
         ]
     }
 
@@ -325,3 +339,34 @@ getTemp weather =
 getDesc : Weather -> String
 getDesc weather =
     weather.description
+
+
+
+-- Search
+
+
+viewSearchBar : Html Msg
+viewSearchBar =
+    div [ id "search" ]
+        [ input
+            [ id "search-field"
+            , type_ "text"
+            , placeholder "Search"
+            , onInput UpdateField
+            , onEnter Search
+            ]
+            []
+        ]
+
+
+onEnter : Msg -> Attribute Msg
+onEnter msg =
+    let
+        isEnter code =
+            if code == 13 then
+                succeed msg
+
+            else
+                fail "not ENTER"
+    in
+    on "keydown" (andThen isEnter keyCode)

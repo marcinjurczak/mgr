@@ -1,4 +1,4 @@
-module Main exposing (..)
+module MainHello exposing (..)
 
 import Browser
 import Browser.Navigation as Nav
