@@ -386,16 +386,14 @@ onEnter msg =
 
 viewBookmarks : List Bookmark -> Html Msg
 viewBookmarks bookmarks =
-    div [ id "bookmark-container" ]
-        [ div [ class "bookmark-set" ]
-            [ div [ class "bookmark-title" ]
-                [ text "Bookmarks" ]
-            , div [ class "bookmark-inner-container" ]
-                [ ul [] (List.map viewBookmark bookmarks) ]
-            ]
+    div []
+        [ text "Bookmarks"
+        , div
+            []
+            [ ul [] (List.map viewBookmark bookmarks) ]
         ]
 
 
 viewBookmark : Bookmark -> Html Msg
 viewBookmark bookmark =
-    li [ class "bookmark" ] [ a [ class "bookmark", href bookmark.url ] [ text bookmark.name ] ]
+    li [] [ a [ href bookmark.url ] [ text bookmark.name ] ]

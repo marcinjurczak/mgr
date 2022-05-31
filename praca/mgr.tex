@@ -219,18 +219,18 @@ Biblioteka Angular~\cite{angulardocs} została stworzona przez firmę Google w 2
 
 Głównym przeznaczeniem Angulara, podobnie jak w przypadku React.js, jest tworzenie aplikacji typu SPA\@. Jednak w przeciwieństwie do Reacta, jest to pełnoprawny \textit{framework}. Oznacza to, że
 
-// TODO
+// TODO opisać angulara
 
 ~\cite{angulardocs}
 
 \section{Vue.js}
 Biblioteka Vue.js~\cite{vuejsdocs}
 
-// TODO
+// TODO opisać vue
 
 \section{Podobieństwa i różnice}
 
-// TODO
+// TODO porównać frameworki
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -243,7 +243,7 @@ Największym atutem tego języka jest zdecydowanie silnie promowany przez autora
 
 \section{Programowanie funkcyjne}
 
-// TODO
+// TODO opisać programowanie funkcyjne
 
 \section{The Elm Architecture}
 \begin{figure}[H]
@@ -530,7 +530,7 @@ Każda z nich wyświetla jeden z pięciu elementów funkcjonalnych, które zosta
 view model =
     { title = "Startpage"
     , body =
-        [ div [ class "container" ]
+        [ div []
             [ viewTime model.clockTime
             , viewDate model.clockTime
             , viewWeather model.weatherStatus
@@ -541,11 +541,11 @@ view model =
     }
 \end{lstlisting}
 
-// TODO
+// TODO opisać view
 
 \section{React}
 
-// TODO
+// TODO porównanie implementacji
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -613,7 +613,7 @@ Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni e
 Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
 Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jeden z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
 
-// TODO
+// TODO instrukcja vscode
 
 \subsection{Tworzenie projektu}
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
@@ -840,7 +840,7 @@ Część implementacji jednej z nich została przedstawiona poniżej.
 W ramach ćwiczenia należy dokończyć implementację funkcji \texttt{viewDate} oraz stworzyć analogiczną funkcję \texttt{viewTime}.
 Ponadto przedstawiony został początek funkcji \texttt{toEnglishWeekday}, która przymuje wartość typu \texttt{Time.Weekday} i zwraca typ \texttt{String}, który może zostać następnie wyświetlony w funkcji \texttt{viewDate}.
 Implementację tej funkcji także należy dokończyć oraz stworzyć analogiczną funkcję pozwalającą na dekodowanie nazw miesięcy.
-
+Dla lepszego wyglądu zegara warto także stworzyć funkcję dodającą znak 0 dla liczb mniejszych od 10.
 \begin{lstlisting}[language=Elm]
 viewDate dateTime =
     let
@@ -860,7 +860,7 @@ Jeżeli wszystko udało się pomyślnie, w przeglądarce internetowej powinien w
 Następnie można przejść do kolejnej sekcji.
 
 \subsection{Pogoda}
-Pogoda będzie pobierana wykorzystując zapytania HTTP do portalu OpenWeatherAPI\@.
+Pogoda będzie pobierana wykorzystując zapytania HTTP do API portalu OpenWeatherMap\@.
 Potrzebne będą do tego dwie biblioteki --- \texttt{elm/http} do wysłania zapytania oraz \texttt{elm/json} do odebrania i przetworzenia odpowiedzi w formacie JSON\@.
 Podobnie jak poprzednio, należy je zainstalować używając poleceń:
 \begin{lstlisting}
@@ -871,11 +871,11 @@ Następnie należy dodać do pliku \texttt{Main.elm} następujące klauzule:
 
 \begin{lstlisting}[language=Elm]
 import Http
-import Json.Decode as Json
+import Json.Decode exposing (..)
 \end{lstlisting}
 
-Przed przejściem do edycji kodu należy założyć darmowe konto na stronie \href{https://openweathermap.org/}{OpenWeatherMap}, a następnie wygenerować klucz API, który będzie konieczny do prawidłowego działania aplikacji.
-Po stworzeniu klucza API można przejść do kolejnych kroków.
+Przed przejściem do edycji kodu programu należy założyć darmowe konto na stronie \href{https://openweathermap.org/}{OpenWeatherMap}, a następnie wygenerować klucz API, który będzie konieczny do prawidłowego działania aplikacji.
+Po stworzeniu prywatnego klucza API można przejść do kolejnych kroków.
 
 W przypadku pogody potrzebne będzie stworzenie dwóch nowych typów: jeden będzie zawierał informacje o faktycznym stanie pogody, tj.~temperatura i krótki opis słowny, a drugi informacje o statusie zapytania HTTP\@.
 
@@ -891,7 +891,7 @@ type alias Weather =
 \end{lstlisting}
 
 Powyższy typ \texttt{WeatherStatus} należy dodać do głównego modelu.
-Ponadto należy zdefiniować w programie dane potrzebne do wysłania zapytania.
+Ponadto należy zdefiniować w programie dane potrzebne do wysłania zapytania, a następnie wykorzystać je w funkcji odpowiedzialnej za wysłanie zapytania GET do OpenWeatherAPI\@.
 Są to:
 \begin{itemize}[noitemsep,topsep=0pt]
     \item URL do wysłania zapytania
@@ -899,9 +899,40 @@ Są to:
     \item Miasto
     \item Jednostki
 \end{itemize}
-Należy
+Przykład implementacji został przedstawiony poniżej:
 
-W przypadku wiadomości \texttt{Msg} będzie podobna sytuacja jak przy tworzeniu typów --- potrzebny będzie jeden rodzaj wiadomości odpowiedzialny za wysłanie zapytania oraz drugi odpowiedzialny za jego odebranie i odpowiednie zaktualizowanie modelu.
+\begin{lstlisting}[language=Elm]
+getWeather =
+  Http.get
+    { url = weatherApi ++ ("&q=" ++ city) ++ ("&units=" ++ unit) ++ ("&appid=" ++ apiKey)
+    , expect = Http.expectJson GotWeather weatherDecoder
+    }
+\end{lstlisting}
+Szczegóły użycia API opisane są w \href{https://openweathermap.org/current#name}{dokumentacji OpenWeatherMap}.
+
+Z perspektywy Elma najważniejsze jest sprecyzowanie rodzaju zapytania (tutaj GET) oraz adresu URL, na który ma został wysłane zapytanie.
+Konieczne jest także określenie formy spodziewanej odpowiedzi (JSON), a także przekazanie funkcji jej dekodującej.
+Na końcu należy przekazać rodzaj wiadomości do wygenerowania po odebraniu odpowiedzi (\texttt{GotWeather}).
+
+A jak wygląda funkcja i dekodująca i do czego służy?
+Przykład prostego dekodera został przedstawiony poniżej.
+Celem dekodera jest przetworzenie pliku w formacie JSON w taki sposób, aby był zrozumiały dla Elma.
+Należy w nim określić nazwy oczekiwanych pól oraz opisać jak się do nich dostać.
+
+Funkcja \texttt{personDecoder} spodziewa się trzech wartości --- dwóch ciągów znaków i jednej liczby, które znajdują się w polach nazwanych odpowiednio \texttt{first}, \texttt{last} oraz \texttt{age}.
+Typ \texttt{Person} został stworzony na rys.~\ref{fig:repl_record_update} i zawiera w sobie takie same typy jak dekoder.
+Oznacza to, że taka odpowiedź JSON powinna zostać prawidłowo zmapowana na typ \texttt{Person}.
+\begin{lstlisting}[language=Elm]
+personDecoder =
+  map3 Person
+      (field "first" string)
+      (field "last" string)
+      (field "age" int)
+\end{lstlisting}
+
+W ramach ćwiczenia należy zaimplementować funkcję \texttt{weatherDecoder}, która zmapuje odpowiednie pola z odpowiedzi JSON na typ \texttt{Weather} zaimplementowany wcześniej w modelu.
+
+W przypadku wiadomości \texttt{Msg} sytuacja będzie podobna jak przy tworzeniu typów --- potrzebny będzie jeden rodzaj wiadomości odpowiedzialny za wysłanie zapytania oraz drugi odpowiedzialny za jego odebranie i odpowiednie zaktualizowanie modelu na podstawie danych odebranych z dekodera.
 
 \begin{lstlisting}[language=Elm]
 type Msg
@@ -923,15 +954,68 @@ update msg model =
         Err _ ->
           ( { model | weatherStatus = Failure "Error: Couldn't retrieve weather data" }, Cmd.none)
 \end{lstlisting}
+
+
 \subsection{Wyszukiwarka}
+Wyszukiwarka jest jedną z prostszych funkcjonalności do implementacji.
+Potrzebne będzie jedynie stworzenie pola tekstowego, gdzie użytkownik może wpisać wybraną frazę, oraz jego odpowiednie obsłużenie.
+Po wpisaniu frazy i wciśnięciu klawisza Enter użytkownik powinien zostać przeniesiony do strony wyszukiwarki z wyszukanym wpisanym już wcześniej hasłem.
+
+Można zauważyć, że tym razem do modelu należy dołożyć jedynie jedną wartość --- ciąg znaków wpisany przez użytkownika.
+Wiadomości typu \texttt{Msg} natomiast będą dwie --- jedna standardowo odpowiedzialna za zaktualizowanie modelu, a druga za przekierowanie strony do wyszukiwarki.
+Przekierowanie odbywa się za pomocą funkcji \texttt{load} z biblioteki \texttt{Navigation}, która powinna już być załączona do programu w początkowym szkielecie.
+Poniżej zostały przedstawione propozycje implementacji wiadomości \texttt{Search} obsługującej przekierowanie do wyszukiwarki oraz funkcji \texttt{viewSearchBar} wyświetlającej pole tekstowe.
+Dodatkowo zaimplementowana została funkcja \texttt{onEnter} pozwalająca na wykrycie czy użytkownik wcisnął klawisz Enter.
+\begin{lstlisting}[language=Elm]
+Search ->
+  ( model
+  , Nav.load ("https://google.com/search?q=" ++ model.searchText)
+  )
+\end{lstlisting}
+\begin{minipage}{.56\textwidth}
+\begin{lstlisting}[language=Elm]
+onEnter msg =
+  let
+    isEnter code =
+      if code == 13 then
+        succeed msg
+      else
+        fail "not ENTER"
+  in
+  on "keydown" (andThen isEnter keyCode)
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.38\textwidth}
+\begin{lstlisting}[language=Elm]
+viewSearchBar =
+  div []
+    [ input
+      [ type_ "text"
+      , placeholder "Search"
+      , onInput UpdateField
+      , onEnter Search
+      ] []
+    ]
+\end{lstlisting}
+\end{minipage}\hfill
+
+W ramach ćwiczenia należy zaimplementować model oraz rozszerzyć funkcję \texttt{update} o dwie nowe wiadomości, jak i główną funkcję \texttt{view} o przedstawioną wyżej propozycję \texttt{viewSearchBar}.
+Po prawidłowym złączeniu wszystkich fragmentów kodu program powinien się kompilować i wyświetlać nowy pasek pola tekstowego, a po wciśnięciu klawisza Enter strona powinna został przekierowana do wyszukiwarki Google.
+
+Jeżeli wszystko udało się zaimplementować pomyślnie, można przejść do kolejnego kroku.
 
 \subsection{Zakładki}
+W dalszej części implementacji
+Do prawidłowego działania zakładek potrzebne będzie stworzenie dwóch dodatkowych plików --- \texttt{bookmarks.js} oraz \texttt{index.html}.
+Pierwszy posłuży do trzymania listy zakładek, gdzie każda składa się z adresu URL oraz nazwy, która zostanie wyświetlona na tworzonej stronie.
+Natomiast drugi plik \texttt{index.html} potrzebny będzie do załadowania do programu poprzedniego pliku z zakładkami jak i pliku wynikowego stworzonego przez kompilator Elma z użyciem następującej komendy:
+\begin{lstlisting}
+  $ elm make src/MainBookmarks.elm --output=elm.js
+\end{lstlisting}
 
-\subsection{Dokument hipertekstowy}
 \begin{lstlisting}[language=html]
 <head>
-  <link rel="stylesheet" href="assets/styles.css" />
-  <script src="assets/main.js"></script>
+  <script src="assets/elm.js"></script>
   <script src="assets/bookmarks.js"></script>
 </head>
 <body>
@@ -946,6 +1030,8 @@ update msg model =
 \end{lstlisting}
 
 \subsection{Style}
+W załączonym pliku \texttt{styles.css} znajdują się kaskadowe arkusze stylów, które mogą zostać wykorzystane wraz ze stworzoną aplikacją.
+W tym celu należy odpowiednio zmienić w programie funkcje odpowiedzialne za wyświetlanie
 
 % ---------------------------------------------------------------------------------------------------------------------
 
