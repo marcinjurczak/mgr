@@ -45,8 +45,6 @@ sorting=none
 \pagestyle{fancy}
 \fancyhf{}
 
-\graphicspath{{img}}
-
 \renewcommand{\lstlistlistingname}{Spis listingów}
 
 \lstdefinelanguage{JavaScript}{
@@ -145,7 +143,7 @@ The created application is a \textit{startpage}, meaning a starting page of a we
 \chapter{Wstęp i cel pracy}
 \begin{wrapfigure}{r}{0.28\textwidth}
     \centering
-    \includegraphics[width=0.28\textwidth]{elm_logo.png}
+    \includegraphics[width=0.28\textwidth]{img/elm_logo.png}
     \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
 
@@ -248,7 +246,7 @@ Największym atutem tego języka jest zdecydowanie silnie promowany przez autora
 \section{The Elm Architecture}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{elm_arch.png}
+    \includegraphics[width=0.5\textwidth]{img/elm_arch.png}
     \caption{Diagram działania programu w Elmie}\label{fig:elm_arch}
 \end{figure}
 
@@ -501,21 +499,19 @@ Znając działanie tych funkcji można zauważyć że implementacja funkcji deko
 
 \begin{lstlisting}[mathescape,caption={Implementacja dekodera JSON},label={lst:impl_decoder},language={Elm}]
 weatherDecoder =
-  Json.map2 Weather
-    (Json.field "weather" (Json.index 0 (Json.field "description" Json.string)))
-    (Json.field "main" (Json.field "temp" Json.float))
+  map2 Weather
+    (field "weather" (index 0 (field "description" string)))
+    (field "main" (field "temp" float))
 \end{lstlisting}
 \begin{lstlisting}[mathescape,caption={Odebrane zapytanie GET w formacie JSON},label={lst:impl_json}]
-"weather": [ {
-    "description": "broken clouds",
-  }
-],
-"main": {
-  "temp": 20.58,
-}
+"weather": [ { "description": "broken clouds", ... } ],
+"main": { "temp": 20.58, ... }
 \end{lstlisting}
 
-Przechodząc do implementacji cyfrowego zegara, do jego prawidłowego działania potrzebne jest wykorzystanie funkcji \texttt{subscriptions}, której zadaniem jest cykliczne generowanie wiadomości typu \texttt{Msg}. Na listingu~\ref{lst:impl_subs} przedstawiona została implementacja tej funkcji dla stworzonej aplikacji. Wykorzystanie biblioteki \texttt{elm/time} pozwala na użycie funkcji \texttt{Time.every} z argumentem \texttt{10}. W praktyce oznacza to, że co 10 \textit{ms} zostanie wygenerowana wiadomość typu \texttt{Tick} wraz z aktualnym czasem POSIX przekazanym jako argument, a następnie funkcja \texttt{update} na podstawie tej wiadomości odpowiednio zaktualizuje wartość \texttt{clockTime.time} w zdefiniowanym modelu.
+Przechodząc do implementacji cyfrowego zegara, do jego prawidłowego działania potrzebne jest wykorzystanie funkcji \texttt{subscriptions}, której zadaniem jest cykliczne generowanie wiadomości typu \texttt{Msg}.
+Na listingu~\ref{lst:impl_subs} przedstawiona została implementacja tej funkcji dla stworzonej aplikacji.
+Wykorzystanie biblioteki \texttt{elm/time} pozwala na użycie funkcji \texttt{Time.every} z argumentem \texttt{10}.
+W praktyce oznacza to, że co 10 \textit{ms} zostanie wygenerowana wiadomość typu \texttt{Tick} wraz z aktualnym czasem POSIX przekazanym jako argument, a następnie funkcja \texttt{update} na podstawie tej wiadomości odpowiednio zaktualizuje wartość \texttt{clockTime.time} w zdefiniowanym modelu.
 
 \begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{subscriptions}},label={lst:impl_subs}]
 subscriptions _ =
@@ -565,7 +561,7 @@ Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{elm_output.png}
+    \includegraphics[width=0.95\textwidth]{img/elm_output.png}
     \caption{Wyjście instrukcji \texttt{elm}}\label{fig:elm_output}
 \end{figure}
 
@@ -643,7 +639,7 @@ Powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{fig:elm_r
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{elm_repl_output.png}
+    \includegraphics[width=0.95\textwidth]{img/elm_repl_output.png}
     \caption{Otwarta interaktywna sesja \texttt{elm repl}}\label{fig:elm_repl_output}
 \end{figure}
 
@@ -661,17 +657,17 @@ Na rysunku~\ref{fig:repl_values} pokazane został przykłady efektów takich wyw
     \centering
     \begin{subfigure}{.29\textwidth}
         \centering
-        \includegraphics[height=1cm]{repl_number}
+        \includegraphics[height=1cm]{img/repl_number}
         \caption{Liczba}\label{fig:repl_number}
     \end{subfigure}
     \begin{subfigure}{.4\textwidth}
         \centering
-        \includegraphics[height=1cm]{repl_string}
+        \includegraphics[height=1cm]{img/repl_string}
         \caption{Ciąg znaków}\label{fig:repl_string}
     \end{subfigure}
     \begin{subfigure}{.29\textwidth}
         \centering
-        \includegraphics[height=1cm]{repl_bool}
+        \includegraphics[height=1cm]{img/repl_bool}
         \caption{Typ logiczny}\label{fig:repl_bool}
     \end{subfigure}
     \caption{Wartości w Elmie}\label{fig:repl_values}
@@ -680,7 +676,7 @@ Na rysunku~\ref{fig:repl_values} pokazane został przykłady efektów takich wyw
 \subsection{Funkcje}
 \begin{wrapfigure}{r}{0.45\textwidth}
     \centering
-    \includegraphics[width=0.45\textwidth]{repl_func}
+    \includegraphics[width=0.45\textwidth]{img/repl_func}
     \caption{Definicja funkcji w Elmie}\label{fig:repl_func}
 \end{wrapfigure}
 
@@ -696,7 +692,7 @@ Przykład takiego komunikatu został przedstawiony na rysunku~\ref{fig:repl_erro
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{repl_error}
+    \includegraphics[width=0.7\textwidth]{img/repl_error}
     \caption{Komunikat kompilatora o błędzie}\label{fig:repl_error}
 \end{figure}
 
@@ -708,7 +704,7 @@ Na rysunku~\ref{fig:repl_lists} zostały pokazane przykłady użycia list. Zosta
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{repl_lists}
+    \includegraphics[width=0.5\textwidth]{img/repl_lists}
     \caption{Operacje na listach}\label{fig:repl_lists}
 \end{figure}
 
@@ -720,12 +716,12 @@ Rekordy służą do trzymania wielu wartości, gdzie każda z nich jest przypisa
     \begin{subfigure}{0.7\textwidth}
         \centering
         \caption{Definicja rekordu i dostęp do jednego z pól}\label{fig:repl_record_bob}
-        \includegraphics[width=1\textwidth]{repl_record_bob}
+        \includegraphics[width=1\textwidth]{img/repl_record_bob}
     \end{subfigure}
     \begin{subfigure}{.7\textwidth}
         \centering
         \caption{Nadpisanie zawartości rekordu}\label{fig:repl_record_update}
-        \includegraphics[width=1\textwidth]{repl_record_update}
+        \includegraphics[width=1\textwidth]{img/repl_record_update}
     \end{subfigure}
     \caption{Przykłady pracy z rekordami}\label{fig:repl_records}
 \end{figure}
@@ -737,7 +733,7 @@ Na rysunku~\ref{fig:repl_type_alias} zdefiniowany został nowy typ \texttt{Perso
 Jednakże tak zdefiniowany typ sprawia, że kod staje się krótszy, bardziej czytelny, a praca z nim dużo wygodniejsza.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{repl_type_alias}
+    \includegraphics[width=0.85\textwidth]{img/repl_type_alias}
     \caption{Definicja aliasu typu \texttt{Person}}\label{fig:repl_type_alias}
 \end{figure}
 
@@ -763,7 +759,7 @@ Powinien pokazać się następujący widok:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{elm_reactor}
+    \includegraphics[width=0.9\textwidth]{img/elm_reactor}
 \end{figure}
 
 Po otwarciu w przeglądarce adresu \texttt{http://localhost:8000} należy znaleźć plik \texttt{Main.elm} i go otworzyć.
@@ -1010,28 +1006,67 @@ Do prawidłowego działania zakładek potrzebne będzie stworzenie dwóch dodatk
 Pierwszy posłuży do trzymania listy zakładek, gdzie każda składa się z adresu URL oraz nazwy, która zostanie wyświetlona na tworzonej stronie.
 Natomiast drugi plik \texttt{index.html} potrzebny będzie do załadowania do programu poprzedniego pliku z zakładkami jak i pliku wynikowego stworzonego przez kompilator Elma z użyciem następującej komendy:
 \begin{lstlisting}
-  $ elm make src/MainBookmarks.elm --output=elm.js
+  $ elm make src/MainBookmarks.elm --output=assets/elm.js
 \end{lstlisting}
 
+W sekcji \texttt{<head>} pliku \texttt{index.html} należy załączyć plik z zakładkami oraz wynikowy plik kompilatora.
+W sekcji \texttt{<body>} należy dodać fragment kodu przedstawiony poniżej, który pozwoli na wykorzystanie programu w Elmie razem z zewnętrznym plikiem HTML\@.
+
+\noindent
+\begin{minipage}{.41\textwidth}
 \begin{lstlisting}[language=html]
 <head>
-  <script src="assets/elm.js"></script>
-  <script src="assets/bookmarks.js"></script>
+  <script
+    src="assets/elm.js">
+  </script>
+  <script
+    src="assets/bookmarks.js">
+  </script>
 </head>
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.55\textwidth}
+\begin{lstlisting}[language=html]
 <body>
-  <div id="myapp"></div>
+  <div id="app"></div>
   <script>
     var app = Elm.Main.init({
-      node: document.getElementById("myapp"),
+      node: document.getElementById("app"),
       flags: bookmarks,
     });
   </script>
 </body>
 \end{lstlisting}
+\end{minipage}\hfill
+
+Po otwarciu pliku \texttt{index.html} z użyciem programu \texttt{elm reactor} aplikacja wraz z zakładkami powinna pojawić się na ekranie.
 
 \subsection{Style}
 W załączonym pliku \texttt{styles.css} znajdują się kaskadowe arkusze stylów, które mogą zostać wykorzystane wraz ze stworzoną aplikacją.
-W tym celu należy odpowiednio zmienić w programie funkcje odpowiedzialne za wyświetlanie
+W tym celu należy odpowiednio zmienić w programie funkcje odpowiedzialne za wyświetlanie elementów, dodając do nich tagi \texttt{div[][]}.
+Funkcja \texttt{div} przyjmuje dwa argumenty: listę atrybutów oraz listę elementów HTML\@.
+W tej części należy skupić się na pierwszym argumencie, gdyż dotychczas nie był on jeszcze używany.
+Atrybuty HTML to np. \texttt{class}, \texttt{id} oraz \texttt{style}.
+
+Na przykładzie głównej funkcji \texttt{view}, wykorzystanie klasy \texttt{container} wygląda następująco:
+\begin{lstlisting}[language=Elm]
+view model =
+  { ...
+  , body =
+    [ div [ class "container" ]
+      [ viewTime model.clockTime
+        ... ] ]
+  }
+\end{lstlisting}
+
+Jako, że plik \texttt{styles.css} został dostarczony w załączniku, w ramach ćwiczenia w aplikacji wystarczy jedynie dodać w odpowiednich miejscach funkcje \texttt{div} wraz z pasującymi atrybutami, które zostały zdefiniowane w arkuszu stylów.
+
+\subsection{Efekt}
+Jeżeli wszystkie funkcjonalności zostały prawidłowo zaimplementowane, a arkusze stylów właściwie użyte w programie, finalna aplikacja powinna wyglądać następująco:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/final_app.png}
+\end{figure}
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -1042,7 +1077,7 @@ W poniższym rozdziale chciałbym opisać procesy CI/CD oraz korzyści płynące
 Mianem CI/CD określa się zbiór praktyk pozwających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{cicd_pipeline.png}
+    \includegraphics[width=1\textwidth]{img/cicd_pipeline.png}
     \caption{Przykładowy potok CI/CD}\label{fig:cicd_pipeline}
 \end{figure}
 Na rysunku~\ref{fig:cicd_pipeline} przedstawiony został przykład potoku CI/CD\@.
