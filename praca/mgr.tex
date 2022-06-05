@@ -155,10 +155,10 @@ W drugim rozdziale skupiam się na przedstawieniu technologii powszechnie używa
 Prezentuję ich zalety i wady względem siebie, a także przedstawiam cechy charakterystyczne dla każdego z nich oraz co je odróżnia między sobą.
 
 Trzeci rozdział poświęcam na wysokopoziomowe wprowadzenie do języka Elm.
-Mówię o idei jaka przyświęcała autorowi podczas tworzenia tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii, włączając w to dokumentację.
+Mówię o idei jaka przyświecała autorowi podczas tworzenia tego języka, jakie są jego potencjalne zastosowania, gdzie sprawdza się najlepiej oraz przedstawiam narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii, włączając w to dokumentację.
 
-W czwartm rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elmie.
-Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągniecia wybranego celu.
+W czwartym rozdziale przedstawiam implementację przygotowanej aplikacji frontendowej napisanej w Elmie.
+Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań, jakie zostały wykorzystane do osiągnięcia wybranego celu.
 
 Piąty rozdział zawiera instrukcję laboratoryjną, w której przeprowadzam czytelnika nieposiadającego żadnego doświadczenia z Elmem przez proces tworzenia oprogramowania z wykorzystaniem tej technologii, zaczynając od przygotowania środowiska, przez podstawy języka, aż po stworzenie aplikacji frontendowej przedstawionej we wcześniejszym rozdziale.
 
@@ -173,7 +173,7 @@ Na końcu dokumentu znajdują się spisy użytych rysunków i listingów, a tak�
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Powszechne rozwiązania}
-W poniższym rozdziale chciałbym przedstawić najpopularniejsze rozwiązania do tworzenia frontendowych stron internetowych, które są powszechnie stosowane zarówno przez największych gigantów technologicznych, tj. Google, Facebook, Netflix, ale także małe, dopiero wchodządzące na rynek firmy startupowe.
+W poniższym rozdziale chciałbym przedstawić najpopularniejsze rozwiązania do tworzenia frontendowych stron internetowych, które są powszechnie stosowane zarówno przez największych gigantów technologicznych, tj. Google, Facebook, Netflix, ale także małe, dopiero wchodzące na rynek firmy startupowe.
 
 Według ankiety przeprowadzonej w 2021 roku przez StackOverflow~\cite{stacksurvey}, najczęściej wybieranym przez programistów frameworkiem do tworzenia stron internetowych był React.js (40,14\% odpowiedzi), a na czwartym i piątym miejscu znajdowały się odpowiednio biblioteki Angular (22,96\% odpowiedzi) oraz Vue.js (18,97\% odpowiedzi).
 Są to biblioteki, na których chciałbym się skupić w poniższych podrozdziałach.
@@ -207,7 +207,7 @@ Dzięki temu kod pisany przy pomocy biblioteki React jest bardzo reużywalny i p
 
 Jedną z zalet tego rozwiązania jest jego niesamowita popularność oraz dostępność gotowych rozwiązań.
 W Internecie znajduje się mnóstwo poradników i instrukcji pomagających nowym użytkownikom zapoznać się z biblioteką i stworzyć pierwsze proste projekty.
-Istnieje także dostatek pomocy dla bardziej zaawansowych programistów Reacta oraz szeroka społeczność użytkowników chętnych do pomocy przy rozwiązywaniu bardziej skomplikowanych problemów.
+Istnieje także dostatek pomocy dla bardziej zaawansowanych programistów Reacta oraz szeroka społeczność użytkowników chętnych do pomocy przy rozwiązywaniu bardziej skomplikowanych problemów.
 Dostępność gotowych rozwiązań pozwala na relatywnie łatwy rozwój oprogramowania poprzez ich wykorzystanie.
 
 Warto także wspomnieć, że React określany jest jako~,,biblioteka'', a nie framework. Oznacza to
@@ -239,9 +239,7 @@ Podczas jego tworzenia nacisk został położony na użyteczność, wydajność
 
 Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elma.
 
-\section{Programowanie funkcyjne}
-
-// TODO opisać programowanie funkcyjne
+Celem kolejnych sekcji jest pokazanie na prostym przykładzie czym jest \textit{The Elm Architecture}, a także przedstawienie i opisanie narzędzi dostępnych podczas pracy z językiem Elm, zarówno tych dostarczanych domyślnie z platformą jak i tych od niezależnych twórców.
 
 \section{The Elm Architecture}
 \begin{figure}[H]
@@ -368,7 +366,7 @@ Ponadto zaimplementowany został odpowiednik aplikacji z użyciem biblioteki Rea
 \section{Elm}
 
 \subsection{Model}
-Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocniczne wykorzystane w głównym typie Model.
+Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocnicze wykorzystane w głównym typie Model.
 
 \begin{lstlisting}[caption={\textit{}Pełen model aplikacji},label={lst:impl_model},language={Elm}]
 type alias Model =
@@ -400,7 +398,7 @@ Informacje potrzebne do przedstawienia daty i godziny zawarte zostały w zmienne
 
 Kolejnym elementem modelu jest zmienna typu \texttt{WeatherStatus}, która może przyjąć jedną z trzech wartości --- \texttt{Failure}, \texttt{Loading} lub \texttt{Success}.
 Odpowiada ona za trzymanie informacji o statusie zapytania HTTP do API dostarczanego przez serwis OpenWeather~\cite{openweather}.
-Początkowo inicjalizowany jest jako wariant \texttt{Loading}, w przypadku niepowiedzenia zapytania przypisywany jest wariant \texttt{Failure} wraz z tekstem opisującym błąd, w stworzonej aplikacji jest to.~\textit{,,Error: Couldn't retrieve weather data''}.
+Początkowo inicjalizowany jest jako wariant \texttt{Loading}, w przypadku niepowodzenia zapytania przypisywany jest wariant \texttt{Failure} wraz z tekstem opisującym błąd, w stworzonej aplikacji jest to.~\textit{,,Error: Couldn't retrieve weather data''}.
 W przypadku powodzenia typ \texttt{WeatherStatus} przyjmuje wariant \texttt{Success} wraz z otrzymaną pogodą.
 Typ pogody \texttt{Weather} zawiera przeparsowane informacje z pliku JSON odebranego z zapytania HTTP, czyli krótki opis słowny pogody oraz aktualna temperatura w Gdańsku.
 
@@ -408,7 +406,7 @@ Następny element o nazwie \texttt{searchText} odpowiada za trzymanie informacji
 
 Ostatni zdefiniowany element modelu jest listą elementów typu \texttt{Bookmark}.
 Zadaniem elementu \texttt{bookmarks} jest trzymanie informacji o zakładkach zdefiniowanych przez użytkownika w oddzielnym pliku.
-Lista przekazywana jest do programu przy pomocy machanizmu flag, co zostanie opisane w kolejnych podrozdziałach.
+Lista przekazywana jest do programu przy pomocy mechanizmu flag, co zostanie opisane w kolejnych podrozdziałach.
 Typ zakładki składa się z dwóch elementów --- nazwy, która ma zostać wyświetlona na stronie oraz adresu URL, do którego prowadzi kliknięcie hiperlinku.
 
 \begin{lstlisting}[caption={Funkcja inicjalizująca model},label={lst:impl_init},language={Elm}]
@@ -421,7 +419,7 @@ init bookmarks =
 Na listingu~\ref{lst:impl_init} przedstawiona została funkcja \texttt{init}, której zadaniem jest wstępne zainicjalizowanie modelu odpowiednimi wartościami.
 
 Przyjmuje jeden argument, którym jest lista zakładek przekazana jako flaga, a zwraca tuplę zawierającą nowy, zainicjalizowany model oraz komendy, jakie mają zostać wykonane przez program.
-Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności przekazać wartości dla każdego z elementów. Zegar zostaje wyzerowany, status pogody przymuje wartosć \texttt{Loading}, a zakładki zostają przypisane bezpośrednio z argumentu funkcji.
+Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności przekazać wartości dla każdego z elementów. Zegar zostaje wyzerowany, status pogody przyjmuje wartość \texttt{Loading}, a zakładki zostają przypisane bezpośrednio z argumentu funkcji.
 
 Następnie należy wskazać wiadomości, które mają zostać przetworzone przez funkcję \texttt{update} i wykonane przez program na początku działania programu.
 W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
@@ -492,7 +490,7 @@ Funkcja \texttt{weatherDecoder}, przedstawiona na listingu~\ref{lst:impl_decoder
 
 Przykład odpowiedzi w formacie JSON, który na potrzeby prezentacji został zmodyfikowany tak, aby zawierał tylko potrzebne nam informacje, został pokazany na listingu~\ref{lst:impl_json}.
 Implementacja funkcji dekodującej wynika bezpośrednio ze struktury odebranej odpowiedzi.
-Funkcja \texttt{Json.field} pozwala na wyciągniecie wartości pola o danej nazwie, a \texttt{Json.index} wartości znajdującej się pod wskazanym indeksem.
+Funkcja \texttt{Json.field} pozwala na wyciągnięcie wartości pola o danej nazwie, a \texttt{Json.index} wartości znajdującej się pod wskazanym indeksem.
 Na końcu, funkcja \texttt{Json.map2} pozwala na przypisanie wyłuskanych wartości do wskazanego typu, tutaj \texttt{Weather}.
 
 Znając działanie tych funkcji można zauważyć że implementacja funkcji dekodującej jest dość prosta:~,,sprecyzuj typ i miejsce potrzebnych pól z odpowiedzi JSON, a następnie zmapuj je do wskazanego typu''.
@@ -520,7 +518,7 @@ subscriptions _ =
 
 \subsection{View}
 Na listingu~\ref{lst:impl_view} przedstawiona została implementacja głównej funkcji wyświetlającej elementy na ekranie użytkownika --- \texttt{view}.
-Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocnicznych.
+Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocniczych.
 Każda z nich wyświetla jeden z pięciu elementów funkcjonalnych, które zostały wymienione na początku tego rozdziału.
 \begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{view}},label={lst:impl_view},language={Elm}]
 view model =
@@ -539,9 +537,57 @@ view model =
 
 // TODO opisać view
 
-\section{React}
+% ---------------------------------------------------------------------------------------------------------------------
 
-// TODO porównanie implementacji
+\chapter{Porównanie}
+Celem tego rozdziału jest przeprowadzenie porównania języka Elm z najpopularniejszymi bibliotekami do tworzenia interfejsów użytkownika.
+Skupiam się przede wszystkim na porównaniu wydajności Elma w stosunku do innych rozwiązań, a także dokonuję porównania narzędzi deweloperskich dostarczanych przez Elma z tymi, które są dostępne w przypadku pracy z biblioteką React.
+Na końcu rozdziału przedstawiam swoją subiektywną opinię na temat języka.
+
+\section{Wydajność}
+Celem tego podrozdziału jest porównanie wydajności wybranych bibliotek/frameworków na przykładzie TodoMVC\@.
+Jest to projekt, którego celem jest implementacja tej samej aplikacji typu Todo (listy rzeczy do zrobienia) z użyciem różnych bibliotek JavaScriptowych (lub kompilujących się do JavaScriptu, tak jak ma to miejsce w przypadku Elma).
+W momencie pisania tej pracy dostępnych jest ponad 40 aplikacji stworzonych z użyciem różnych rozwiązań.
+
+Na potrzeby niniejszego porównania zdecydowałem się wybrać biblioteki React, Angular i Vue, jak i aplikację napisaną w~,,czystym'' języku JavaScript.
+Aplikacja w języku Elm jest oczywiście także częścią testu.
+
+Celem testu było dodanie 200 nowych elementów do listy rzeczy do zrobienia, następnie wszystkie z nich zostały oznaczone jako wykonane, a na koniec każdy element został usunięty.
+Pomiar składał się z 10 uruchomień testu i wybrane zostały wyniki z najkrótszym czasem.
+Jako, że obiektem pomiaru jest aplikacja internetowa, do przeprowadzenia testu zostały wykorzystane przeglądarki Chromium oraz Firefox.
+
+Ostateczne wyniki pomiaru zostały przedstawione na rys.~\ref{fig:perf}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{img/perf_chromium}
+        \caption{Test w przeglądarce Chromium 102.0.5005.61}\label{fig:perf_chromium}
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{img/perf_firefox}
+        \caption{Test w przeglądarce Firefox 101.0}\label{fig:perf_firefox}
+    \end{subfigure}
+    \caption{Testy wydajnościowe aplikacji TodoMVC}\label{fig:perf}
+\end{figure}
+
+Można zauważyć, że wyniki różnią się w zależności od użytej przeglądarki internetowej.
+W obu przypadkach najszybsza okazała się implementacja w Vue, a najwolniejsza implementacja z użyciem Angulara.
+Aplikacja w Elmie uplasowała się na drugim miejscu.
+We wszystkich przypadkach aplikacje uruchamiane w przeglądarce Chromium działały szybciej niż w konkurencyjnym Firefoxie.
+Największą różnicę można zauważyć w przypadku Reacta, gdzie aplikacja poradziła sobie w Chromium o ok.~35\% lepiej niż w przeglądarce od Mozilli.
+
+\section{Narzędzia}
+W tej części pracy chciałbym porównać narzędzia dostępne w Elmie z zestawami narzędzi zalecanymi do pracy z Reactem.
+
+
+
+\section{Opinia}
+Celem tej sekcji jest przedstawienie mojej subiektywnej opinii na temat Elma, biorąc pod uwagę moje doświadczenia zarówno z tym językiem, jak i innymi, z którymi miałem możliwość pracować.
+
+Przed rozpoczęciem pracy nad aplikacją miałem jedynie podstawowe doświadczenie z językami funkcyjnymi, jednakże nauka Elma okazała się bardzo przyjemna.
+Oficjalny poradnik języka okazał się być bardzo przydatny i zdecydowanie pomógł mi zrozumieć składnię języka i architekturę tworzenia aplikacji w Elmie.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -555,7 +601,7 @@ W przypadku pracy z Elm'em zalecane będzie korzystanie przede wszystkim z platf
 
 \subsection{Platforma Elm}
 Najważniejszą rzeczą, jaka będzie potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
-Poniżej przedstawiam instukcję instalacji tej platformy na systemach operacyjnych Linux i Windows.
+Poniżej przedstawiam instrukcję instalacji tej platformy na systemach operacyjnych Linux i Windows.
 Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
 Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie powinien pojawić się widok podobny do przedstawionego na rysunku~\ref{fig:elm_output}.
 
@@ -607,7 +653,7 @@ Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni e
 \end{itemize}
 
 Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
-Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jeden z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
+Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jedno z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
 
 // TODO instrukcja vscode
 
@@ -626,10 +672,10 @@ Po wypisaniu zawartości katalogu \texttt{lab} z użyciem polecenia \texttt{ls} 
 
 \begin{itemize}[noitemsep,topsep=0pt]
     \item{Plik \texttt{elm.json} opisujący projekt oraz jego zależności}
-    \item{Katalog \texttt{src/} zawierący nasze przyszłe pliki Elm'a}
+    \item{Katalog \texttt{src/} zawierający nasze przyszłe pliki Elm'a}
 \end{itemize}
 
-Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowoutworzonym katalogu \texttt{src/}.
+Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowo utworzonym katalogu \texttt{src/}.
 Będzie się tam znajdował kod aplikacji, która zostanie stworzona w kolejnych krokach.
 
 \section{Podstawy języka Elm}
@@ -651,7 +697,7 @@ Po wpisaniu do okna \texttt{elm repl} danej wartości, na ekranie powinna zosta�
 Wartości można także łączyć z operatorami.
 Dla liczb będą to typowe operatory matematyczne, jak \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, dla ciągów znaków operatorem konkatenacji jest \texttt{++}, a dla typów logicznych dostępne są operatory logiczne~,,\texttt{\&\&}'' (AND) oraz~,,\texttt{||}'' (OR).
 
-Na rysunku~\ref{fig:repl_values} pokazane został przykłady efektów takich wywołań.
+Na rysunku~\ref{fig:repl_values} pokazane zostały przykłady efektów takich wywołań.
 
 \begin{figure}[H]
     \centering
@@ -700,7 +746,7 @@ Przykład takiego komunikatu został przedstawiony na rysunku~\ref{fig:repl_erro
 Listy są jednymi z najczęściej używanych struktur danych w Elmie.
 Ich przeznaczeniem jest trzymanie sekwencji wielu elementów tego samego typu.
 
-Na rysunku~\ref{fig:repl_lists} zostały pokazane przykłady użycia list. Została zdefiniowania lista \texttt{names}, zawierająca trzy elementy typu \texttt{String}, a także tablica \texttt{numbers}, która zawiera 4 liczby (typ \texttt{Int}).
+Na rysunku~\ref{fig:repl_lists} zostały pokazane przykłady użycia list. Została zdefiniowana lista \texttt{names}, zawierająca trzy elementy typu \texttt{String}, a także tablica \texttt{numbers}, która zawiera 4 liczby (typ \texttt{Int}).
 
 \begin{figure}[H]
     \centering
@@ -747,7 +793,7 @@ Plik źródłowy \texttt{Main.elm} został stworzony w jednym z poprzednich krok
 
 \subsection{Szkielet aplikacji}
 W pierwszej kolejności należy uruchomić aplikację typu~,,Hello World!'', aby upewnić się, że środowisko zostało prawidłowo skonfigurowane.
-W załączonym pliku \texttt{Main.elm} znajdują się wszystkie potrzebne do działana klauzule importujące biblioteki podstawowe Elma.
+W załączonym pliku \texttt{Main.elm} znajdują się wszystkie potrzebne do działania klauzule importujące biblioteki podstawowe Elma.
 Ponadto zaimplementowana została podstawowa architektura aplikacji.
 Aby uruchomić aplikację~,,Hello, World!'' należy otworzyć wiersz poleceń i wykonać polecenie:
 
@@ -785,7 +831,7 @@ type alias DateTime =
 \end{lstlisting}
 
 Kolejnym krokiem będzie zdefiniowanie typów wiadomości, które może odebrać program.
-Do prawidłowego działania zegara potrzebne będzie dostosowanie strefy czasowej oraz pobranie aktulnago czasu.
+Do prawidłowego działania zegara potrzebne będzie dostosowanie strefy czasowej oraz pobranie aktualnego czasu.
 Oznacza to, że należy zdefiniować dwie wiadomości --- \texttt{AdjustTimeZone} oraz \texttt{Tick}.
 
 \begin{lstlisting}[language=Elm]
@@ -819,7 +865,7 @@ subscriptions _ =
     Time.every 1000 Tick
 \end{lstlisting}
 
-Ostatnim elementem architektury Elma jest funkcja \texttt{view}, której zadaniem jest wyświetalnie programu na ekranie.
+Ostatnim elementem architektury Elma jest funkcja \texttt{view}, której zadaniem jest wyświetlanie programu na ekranie.
 
 \begin{lstlisting}[language=Elm]
 view model =
@@ -834,7 +880,7 @@ view model =
 W celu polepszenia czytelności kodu, funkcja \texttt{view} wykorzystuje dwie funkcje pomocnicze --- \texttt{viewTime} oraz \texttt{viewDate}.
 Część implementacji jednej z nich została przedstawiona poniżej.
 W ramach ćwiczenia należy dokończyć implementację funkcji \texttt{viewDate} oraz stworzyć analogiczną funkcję \texttt{viewTime}.
-Ponadto przedstawiony został początek funkcji \texttt{toEnglishWeekday}, która przymuje wartość typu \texttt{Time.Weekday} i zwraca typ \texttt{String}, który może zostać następnie wyświetlony w funkcji \texttt{viewDate}.
+Ponadto przedstawiony został początek funkcji \texttt{toEnglishWeekday}, która przyjmuje wartość typu \texttt{Time.Weekday} i zwraca typ \texttt{String}, który może zostać następnie wyświetlony w funkcji \texttt{viewDate}.
 Implementację tej funkcji także należy dokończyć oraz stworzyć analogiczną funkcję pozwalającą na dekodowanie nazw miesięcy.
 Dla lepszego wyglądu zegara warto także stworzyć funkcję dodającą znak 0 dla liczb mniejszych od 10.
 \begin{lstlisting}[language=Elm]
@@ -996,7 +1042,7 @@ viewSearchBar =
 \end{minipage}\hfill
 
 W ramach ćwiczenia należy zaimplementować model oraz rozszerzyć funkcję \texttt{update} o dwie nowe wiadomości, jak i główną funkcję \texttt{view} o przedstawioną wyżej propozycję \texttt{viewSearchBar}.
-Po prawidłowym złączeniu wszystkich fragmentów kodu program powinien się kompilować i wyświetlać nowy pasek pola tekstowego, a po wciśnięciu klawisza Enter strona powinna został przekierowana do wyszukiwarki Google.
+Po prawidłowym złączeniu wszystkich fragmentów kodu program powinien się kompilować i wyświetlać nowy pasek pola tekstowego, a po wciśnięciu klawisza Enter strona powinna zostać przekierowana do wyszukiwarki Google.
 
 Jeżeli wszystko udało się zaimplementować pomyślnie, można przejść do kolejnego kroku.
 
@@ -1071,10 +1117,10 @@ Jeżeli wszystkie funkcjonalności zostały prawidłowo zaimplementowane, a arku
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Automatyzacja}
-W poniższym rozdziale chciałbym opisać procesy CI/CD oraz korzyści płynące z ich użytkowania, a także zaprezententować implementację takiego rozwiązania na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
+W poniższym rozdziale chciałbym opisać procesy CI/CD oraz korzyści płynące z ich użytkowania, a także zaprezentować implementację takiego rozwiązania na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
 
 \section{CI/CD}
-Mianem CI/CD określa się zbiór praktyk pozwających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
+Mianem CI/CD określa się zbiór praktyk pozwalających na ciągłą integrację oraz ciągłe wdrażanie projektów informatycznych.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/cicd_pipeline.png}
@@ -1098,10 +1144,22 @@ Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami c
 Ciągła integracja skupia się głównie na pracy zespołu deweloperskiego i to właśnie jego dotyczy informacja zwrotna przekazywana przez wyniki potoku.
 Mogą to być błędy kompilacji, problemy z łączeniem gałęzi repozytorium (\textit{merge conflicts}) czy wskazanie testów, które zakończyły się niepowodzeniem.
 
-Ciągłe wdrażanie jednakże skupia się dostarczeniu produktu do użytkownika końcowego, aby uzyskać informację zwrotną od klienta.
-W następnej sekcji postaram się opisać procesy CD w sposób bardziej szczegółowy.
+Martin Fowler w swojej książce~,,Continuous Integration''~\cite{fowler2006continuous} przedstawia i opisuje następujące praktyki:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item Utrzymuj jedno repozytorium kodu --- systemy kontroli wersji są integralną częścią większości projektów deweloperskich. Repozytorium powinno zawierać wszystkie pliki źródłowe i każdy członek zespołu powinien mieć do niego dostęp.
+    \item Zautomatyzuj budowanie projektu --- często jest to skomplikowany proces, jednak jak większość zadań w procesie deweloperskim może zostać zautomatyzowany, i w rezultacie powinien.
+    \item Przygotuj testy --- pozwala to bardzo szybko i efektywnie wychwycić błędy, szczególnie jeśli będą uruchamiane przy każdym budowaniu projektu.
+    \item Każdy deweloper codziennie nanosi zmiany w głównej gałęzi --- codzienne zmiany, które są automatycznie budowane i testowane pozwalają na szybkie wykrycie błędów, nawet tych potencjalnych, które mogą wynikać z konfliktu pracy dwóch deweloperów.
+    \item Każda zmiana powininna zostać zbudowana na maszynie integracyjnej --- zmiana jest uznana za~,,gotową'' dopiero wtedy, gdy powiedzie się na maszynie integracyjnej.
+    \item Naprawiaj nieudane buildy natychmiastowo --- głównym zamysłem ciągłej integracji jest praca na stabilnej gałęzi repozytorium. Jeżeli budowa projektu się nie powiodła, naprawienie zmian powinno być najważniejszym i najpilniejszym zadaniem do wykonania.
+    \item Budowa ma odbywać się szybko --- ciągła integracja ma zapewniać błyskawiczną informację zwrotną. Czas jest mocno zależny od danego projektu, ale 10--15 minutowa budowa projektu jest uznawana za odpowiednią długość.
+    \item Testuj w odpowiedniku środowiska produkcyjnego --- celem testów jest upewnienie się, że system działa prawidłowo w docelowym środowisku, więc uruchamianie ich w środowisku innym niż produkcyjne mija się z celem.
+    \item Ułatw dostęp do ostatnich plików wynikowych --- po zakończeniu budowania wszystkie artefakty powinny być dostępne do pobrania.
+    \item Wszyscy widzą co się dzieje --- użytkownicy ciągłej integracji powinni mieć możliwość zobaczenia co się dzieje w systemie. Oznacza to wprowadzenie znaczników określających, czy dany build się powiódł.
+\end{itemize}
 
 \subsection{Ciągłe wdrażanie}
+// TODO CD
 
 \section{GitHub Actions}
 Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}.
@@ -1120,7 +1178,7 @@ Domyślnie mogą być to jedynie katalogi \texttt{/} (\texttt{root}) oraz \textt
 
 Jednakże wykorzystując GitHub Actions możliwe jest bardziej szczegółowe dostosowanie tej strony do swoich potrzeb.
 W przypadku stworzonej w ramach tej pracy aplikacji w Elmie, kod źródłowy znajdował się w podkatalogu \texttt{/elm}.
-W wyniku stworzonej konfiguracji, na gałęzi \texttt{gh-pages} zostaje opublikowana aktualna zawartość katalogu \texttt{/elm}, a następnie do tej samej gałęzi dodoawany jest otrzymany podczas przeprowadzonej wcześniej fazy budowania wynikowy plik \texttt{main.js}.
+W wyniku stworzonej konfiguracji, na gałęzi \texttt{gh-pages} zostaje opublikowana aktualna zawartość katalogu \texttt{/elm}, a następnie do tej samej gałęzi dodawany jest otrzymany podczas przeprowadzonej wcześniej fazy budowania wynikowy plik \texttt{main.js}.
 GitHub Pages znajduje w wybranym miejscu plik \texttt{index.html}, który zostaje wystawiony i strona staje się dostępna do oglądania.
 
 % ---------------------------------------------------------------------------------------------------------------------
