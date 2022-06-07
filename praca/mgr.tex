@@ -276,6 +276,9 @@ Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym 
 Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}.
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
+Składnia Elma jest mocno zbliżona do Haskella, a sam język jest kompilowany do JavaScriptu.
+Wykorzystuje wirtualny DOM, co pozwala na znacznie szybsze renderowanie stron internetowych w porównaniu do~,,regularnego'' DOM\@.
+
 Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elma.
 
 Celem kolejnych sekcji jest pokazanie na prostym przykładzie czym jest \textit{The Elm Architecture}, a także przedstawienie i opisanie narzędzi dostępnych podczas pracy z językiem Elm, zarówno tych dostarczanych domyślnie z platformą jak i tych od niezależnych twórców.
@@ -615,7 +618,10 @@ Największą różnicę można zauważyć w przypadku Reacta, gdzie aplikacja po
 \section{Narzędzia}
 W kolejnej części pracy chciałbym porównać narzędzia dostępne w Elmie z zestawami narzędzi zalecanymi do pracy z Reactem.
 
+Pierwszą rzeczą, na która od razu zwróciłem uwagę jest różnica w ilości dostępnych narzędzi wspomagających pracę z tymi rozwiązaniami.
+Jest to spodziewana sytuacja ze względu na ich rozbieżną popularność --- dużo więcej dostępnych jest zestawów narzędziowych oferujących pomoc do pracy z Reactem niż z Elmem.
 
+Ponadto są to często narzędzia oferujące ogromne możliwości
 
 
 \section{Opinia}
@@ -624,8 +630,10 @@ Celem tej sekcji jest przedstawienie mojej subiektywnej opinii na temat Elma, bi
 Przed rozpoczęciem pracy nad aplikacją miałem jedynie podstawowe doświadczenie z językami funkcyjnymi, jednakże nauka Elma okazała się bardzo przyjemna.
 Oficjalny poradnik języka okazał się być bardzo przydatny i zdecydowanie pomógł mi zrozumieć składnię języka i architekturę tworzenia aplikacji w Elmie.
 
-Elm - 288 linii kodu i 2 pliki
-React -
+Całe doświadczenie z językiem oceniam jako bardzo pozytywne.
+Wielkim atutem okazał się tutaj kompilator Elma, który dostarczał wnikliwe uwagi na temat pisanego kodu i proponował rozsądne propozycje rozwiązań problemów, jeżeli takie wystąpiły.
+Było to szczególnie pożyteczne w przypadku refaktoryzacji kodu, gdzie jako programista nie musiałem się martwić, czy program po wszystkich zmianach będzie dalej działał prawidłowo.
+Wystarczyło zastosować się po kolei do wszystkich komunikatów kompilatora i pozwoliło to przeprowadzić efektywną i bezbolesną refaktoryzację.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -1165,6 +1173,7 @@ Mianem CI/CD określa się zbiór praktyk pozwalających na ciągłą integracj�
     \caption{Przykładowy potok CI/CD}\label{fig:cicd_pipeline}
 \end{figure}
 Na rysunku~\ref{fig:cicd_pipeline} przedstawiony został przykład potoku CI/CD\@.
+Jego kroki zostaną omówione w kolejnych podrozdziałach.
 
 \subsection{Ciągła integracja}
 ,,Ciągłą integracją'' (CI) nazywa się praktyki wykorzystywane przy tworzeniu oprogramowania, polegające na regularnym kontrybuowaniu do zdalnego repozytorium kodu przez zespół deweloperski, gdzie za każdym razem następuje weryfikacja wprowadzonych zmian.
@@ -1188,7 +1197,7 @@ Martin Fowler w swojej książce~,,Continuous Integration''~\cite{fowler2006cont
     \item Zautomatyzuj budowanie projektu --- często jest to skomplikowany proces, jednak jak większość zadań w procesie deweloperskim może zostać zautomatyzowany, i w rezultacie powinien.
     \item Przygotuj testy --- pozwala to bardzo szybko i efektywnie wychwycić błędy, szczególnie jeśli będą uruchamiane przy każdym budowaniu projektu.
     \item Każdy deweloper codziennie nanosi zmiany w głównej gałęzi --- codzienne zmiany, które są automatycznie budowane i testowane pozwalają na szybkie wykrycie błędów, nawet tych potencjalnych, które mogą wynikać z konfliktu pracy dwóch deweloperów.
-    \item Każda zmiana powininna zostać zbudowana na maszynie integracyjnej --- zmiana jest uznana za~,,gotową'' dopiero wtedy, gdy powiedzie się na maszynie integracyjnej.
+    \item Każda zmiana powinna zostać zbudowana na maszynie integracyjnej --- zmiana jest uznana za~,,gotową'' dopiero wtedy, gdy powiedzie się na maszynie integracyjnej.
     \item Naprawiaj nieudane buildy natychmiastowo --- głównym zamysłem ciągłej integracji jest praca na stabilnej gałęzi repozytorium. Jeżeli budowa projektu się nie powiodła, naprawienie zmian powinno być najważniejszym i najpilniejszym zadaniem do wykonania.
     \item Budowa ma odbywać się szybko --- ciągła integracja ma zapewniać błyskawiczną informację zwrotną. Czas jest mocno zależny od danego projektu, ale 10--15 minutowa budowa projektu jest uznawana za odpowiednią długość.
     \item Testuj w odpowiedniku środowiska produkcyjnego --- celem testów jest upewnienie się, że system działa prawidłowo w docelowym środowisku, więc uruchamianie ich w środowisku innym niż produkcyjne mija się z celem.
@@ -1204,7 +1213,7 @@ Skrót \textit{CD} powoduje nieraz pewne zamieszanie, gdyż często używany jes
 Są to procesy bardzo zbliżone, gdyż oba polegają na automatyzacji procesu dostarczania oprogramowania do środowiska produkcyjnego.
 Różnica polega na tym, że ciągłe dostarczanie wymaga ręcznej interakcji człowieka, który określi kiedy ma zostać wykonane wdrożenie, gdzie w ciągłym wdrażaniu cały proces dzieje się automatycznie, bez wpływu człowieka.
 
-W praktyce ciągłe wdrażanie jest zdecydowanie rzadziej spotykane, gdyż pełna automatyzacja, obejmująca m.in.~testy integracyjne, wydajnościowe i akceptacyjne, jest niesamowicie trudna do osiągniecia.
+W praktyce ciągłe wdrażanie jest zdecydowanie rzadziej spotykane, gdyż pełna automatyzacja, obejmująca m.in.~testy integracyjne, wydajnościowe i akceptacyjne, jest niesamowicie trudna do osiągnięcia.
 
 \section{GitHub Actions}
 Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}.
@@ -1246,8 +1255,22 @@ Na rysunku~\ref{fig:deploy_yml} został zaprezentowany domyślny widok potoku po
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Podsumowanie}
+Niniejszy rozdział ma na celu wskazanie efektów końcowych pracy magisterskiej i przedstawienie wyciągniętych wniosków na temat tworzenia aplikacji frontendowych wykorzystując język programowania Elm.
+
+\section{Efekty}
+W ramach pracy magisterskiej powstały dwie implementacje tej samej aplikacji internetowej typu \textit{startpage}, czyli strony startowej przeglądarki.
+Pierwsza, główna implementacja została stworzona z wykorzystaniem języka funkcyjnego Elm, a druga w celach porównawczych przy pomocy biblioteki React.
+Ponadto wdrożona została automatyzacja procesów ciągłej integracji i ciągłego dostarczania z wykorzystaniem zdalnego repozytorium kodu źródłowego GitHub i usług dostarczanych przez ten serwis, tj.~GitHub Actions oraz GitHub Pages.
+
+Kolejnym efektem pracy magisterskiej jest niniejszy dokument, zawierający przede wszystkim opis implementacji stworzonej aplikacji, porównanie Elma z innymi rozwiązaniami tego typu pod kątem wydajnościowym jak i uwzględniając subiektywne odczucia towarzyszące podczas pracy z językiem.
+Przygotowana została także instrukcja laboratoryjna przeprowadzająca czytelnika przez proces tworzenia oprogramowania z użyciem języka Elm, od przygotowania środowiska, przez podstawy języka, aż po stworzenie pełnej aplikacji frontendowej, wraz z ćwiczeniami.
 
 \section{Wnioski}
+Elm jest zdecydowanie bardzo ciekawym rozwiązaniem do tworzenia aplikacji frontedowych.
+Zawiera świetną dokumentację i zestaw najpotrzebniejszych narzędzi, które umożliwiają szybkie i przyjemne tworzenie oprogramowania.
+
+Stanowczo sprawdzi się w środowiskach produkcyjnych ze względu na swój brak występowania wyjątków w czasie działania programu, a także na możliwość automatyzacji procesów CI/CD, co udało mi się pokazać.
+Kod źródłowy wymaga trzymania sie ustalonej architektury, jednak w przypadku Elma przychodzi to dość naturalnie i powoduje, że kod jest bardzo czytelny i łatwy do zrozumienia.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -1260,3 +1283,4 @@ Na rysunku~\ref{fig:deploy_yml} został zaprezentowany domyślny widok potoku po
 % ---------------------------------------------------------------------------------------------------------------------
 
 \end{document}
+
