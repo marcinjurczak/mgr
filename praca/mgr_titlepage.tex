@@ -15,51 +15,52 @@
 \def\spec#1{\def\@spec{#1}}
 
 \def\maketitle{
-  %removal of header
-  \thispagestyle{empty}%
-
-  \begin{center}
-      \begin{tabularx}{\textwidth}{CcC}
-          \multirow{4}{*}{\includegraphics[height=2.35cm]{img/logo_pg.png}}
+    %removal of header
+    \keepXColumns
+    \thispagestyle{empty}%
+    \begin{center}
+        \begin{tabularx}{\textwidth}{CcC}
+            \multirow{4}{*}{\includegraphics[height=2.35cm]{img/logo_pg.png}}
           & \textsc{\textbf{Politechnika Gdańska}} &
           \multirow{4}{*}{\includegraphics[height=2.35cm]{img/logo_eti.png}}
-          \\ & & \\
+       \\ & & \\
           & \textsc{\textbf{Wydział Elektroniki, }}& \\
           & \textsc{\textbf{Telekomunikacji i Informatyki }}& \\
-      \end{tabularx}
-  \end{center}
-  \vspace{1cm}
-  \begin{tabularx}{\textwidth}{XX}
-    \textbf{Katedra:} & \@dept\\
-    &\\
-    \textbf{Imię i nazwisko dyplomanta:} & \@author\\
-    &\\
-    \textbf{Nr albumu:} & \@indeks\\
-    &\\
-    \textbf{Forma i poziom studiów:} & \@studies\\
-    &\\
-    \textbf{Kierunek studiów:} & Informatyka\\
-    &\\
-    \textbf{Specjalność:} & \@spec
-  \end{tabularx}
-  \begin{center}
+        \end{tabularx}
+    \end{center}
     \vspace{1cm}
-    \Large{\textbf{Praca dyplomowa magisterska}}
-  \end{center}
-  \vspace{1cm}
-  \begin{tabular}{l}
-    \textbf{Temat pracy:} \\ \@tytul\\
-    \\
-    \textbf{Title of thesis:} \\ \@title\\
-    \\
-    \textbf{Opiekun pracy:} \\ \@promotor\\
-    \\
-    \textbf{Data ostatecznego zatwierdzenia raportu podobieństw w JSA:} TBA
-  \end{tabular}
-  \vspace*{\stretch{6}}
-  \begin{center}
-    \@miasto, \@date
-  \end{center}
+    \begin{center}
+        \begin{tabularx}{\textwidth}{XX}
+            \textbf{Katedra:} & \@dept\\
+                              &\\
+            \textbf{Imię i nazwisko dyplomanta:} & \@author\\
+                                                 &\\
+            \textbf{Nr albumu:} & \@indeks\\
+                                &\\
+            \textbf{Forma i poziom studiów:} & \@studies\\
+                                             &\\
+            \textbf{Kierunek studiów:} & Informatyka\\
+                                       &\\
+            \textbf{Specjalność:} & \@spec
+        \end{tabularx}
+    \end{center}
+    \begin{center}
+        \Large{\textbf{Praca dyplomowa magisterska}}
+    \end{center}
+    \vspace{1cm}
+    \begin{tabular}{l}
+        \textbf{Temat pracy:} \\ \@tytul\\
+        \\
+        \textbf{Title of thesis:} \\ \@title\\
+        \\
+        \textbf{Opiekun pracy:} \\ \@promotor\\
+        \\
+        \textbf{Data ostatecznego zatwierdzenia raportu podobieństw w JSA:} TBA
+    \end{tabular}
+    \vspace*{\stretch{6}}
+    \begin{center}
+        \@miasto, \@date
+    \end{center}
 
 }
 

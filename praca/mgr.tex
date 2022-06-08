@@ -33,6 +33,7 @@ sorting=none
 \usepackage{fancyhdr}
 \usepackage{multirow}
 \usepackage{tabularx}
+\usepackage{ltablex}
 \usepackage{indentfirst}
 \usepackage{gensymb}
 \raggedbottom
@@ -131,16 +132,18 @@ The created application is a \textit{startpage}, meaning a starting page of a we
 
 \chapter*{Wykaz najważniejszych skrótów}
 \begin{tabular}{rcl}
-    \textbf{API} &---& ang.~Application Programming Interface,\\
-                 &   & pol.~interfejs programowania aplikacji\\
-    \textbf{CD} &---& ang.~Continuous Delivery, pol.~ciągłe dostarczanie\\
-    \textbf{CI} &---& ang.~Continuous Integration, pol.~ciągła integracja\\
-    \textbf{CSS} &---& ang.~Cascading Style Sheets, pol.~kaskadowe arkusze stylów\\
-    \textbf{HTML} &---& ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników\\
-    \textbf{HTTP} &---& ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu\\
-    \textbf{JSON} &---& ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
-    \textbf{SPA} &---& ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
-    \textbf{DOM} &---& ang.~Document Object Model, pol.~obiektowy model dokumentu\\
+    \textbf{API}  & ---& ang.~Application Programming Interface,\\
+                  &    & pol.~interfejs programowania aplikacji\\
+    \textbf{CD}   & ---& ang.~Continuous Delivery, pol.~ciągłe dostarczanie\\
+    \textbf{CI}   & ---& ang.~Continuous Integration, pol.~ciągła integracja\\
+    \textbf{CLI}  & ---& ang.~Command Line Interface, pol.~interfejs wiersza poleceń\\
+    \textbf{CSS}  & ---& ang.~Cascading Style Sheets, pol.~kaskadowe arkusze stylów\\
+    \textbf{HTML} & ---& ang.~Hypertext Markup Language, pol.~hipertekstowy język znaczników\\
+    \textbf{HTTP} & ---& ang.~Hypertext Transfer Protocol, pol.~protokół przesyłania hipertekstu\\
+    \textbf{JSON} & ---& ang.~JavaScript Object Notation, pol.~tekstowy format zapisu danych\\
+    \textbf{MVC}  & ---& ang.~Model-View-Controller, pol.~Model-Widok-Kontroler\\
+    \textbf{SPA}  & ---& ang.~Single Page Application, pol.~jednostronicowa aplikacja internetowa\\
+    \textbf{DOM}  & ---& ang.~Document Object Model, pol.~obiektowy model dokumentu\\
 \end{tabular}
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -186,7 +189,7 @@ W poniższym rozdziale chciałbym przedstawić najpopularniejsze rozwiązania do
 Według ankiety przeprowadzonej w 2021 roku przez StackOverflow~\cite{stacksurvey}, najczęściej wybieranym przez programistów rozwiązaniem do tworzenia stron internetowych była biblioteka React.js (40,14\% odpowiedzi), a na czwartym i piątym miejscu znajdowały się odpowiednio frameworki Angular (22,96\% odpowiedzi) oraz Vue.js (18,97\% odpowiedzi).
 
 Ze względu na popularność wspomnianych rozwiązań, są to biblioteki i frameworki, na których chciałbym się skupić w poniższych podrozdziałach.
-Opiszę, czym się charakteryzują, jakie są ich wady i zalety, a także co je ze sobą łączy oraz w jaki sposób są od siebie różne.
+Opiszę, czym się charakteryzują, jakie są ich najważniejsze funkcjonalności, a także co je ze sobą łączy oraz w jaki sposób są od siebie różne.
 
 \section{React.js}
 \begin{wrapfigure}{r}{0.2\textwidth}
@@ -277,8 +280,8 @@ export class AppComponent {
 }
 \end{lstlisting}
 
-Komponent, podobnie jak w przypadku Reacta, może zostać deklaratywnie wywołany w głównym pliku \texttt{main.ts} za pomocą zdefiniowanego selektora (tutaj \texttt{app-root}).
 W trakcie generowania kodu zostają także dodane szablonowe pliki HTML oraz arkusze stylów CSS\@.
+Komponent, podobnie jak w przypadku Reacta, może zostać deklaratywnie wywołany w głównym pliku \texttt{main.ts} za pomocą zdefiniowanego selektora (tutaj \texttt{app-root}).
 
 \section{Vue.js}
 \begin{wrapfigure}{r}{0.2\textwidth}
@@ -291,9 +294,30 @@ Vue.js~\cite{vuejsdocs} jest otwortoźródłowym frameworkiem JavaScript, które
 Wykorzystuje wirtualny DOM pozwalający na szybsze renderowanie stron.
 Dzieje się to dzięki wirtualnej reprezentacji drzewa DOM jako obiekt JavaScriptowy, gdzie po każdej naniesionej zmianie tworzony jest nowy obiekt, a następnie są one między sobą porównywane i na koniec faktyczny DOM jest aktualizowany, co pozwala na znacznie przyspieszenie procesu renderowania strony, w porównaniu do każdorazowego nadpisywania drzewa DOM\@.
 
-\section{Podobieństwa i różnice}
+Aplikacje w Vue także buduje się z użyciem komponentów, którego prosty przykład typu \textit{Hello, World!} został przedstawiony na listingu~\ref{lst:vue_comp}.
 
-// TODO porównać frameworki
+\begin{lstlisting}[caption={Komponent w Vue},label={lst:vue_comp},language=JavaScript]
+<template>
+  <h1>{{ greeting }} World!</h1>
+</template>
+<script>
+module.exports = {
+  data: function () {
+    return {
+      greeting: "Hello",
+    };
+  },
+};
+</script>
+\end{lstlisting}
+
+Jak wcześniej zostało wspomniane, Vue jest frameworkiem, podobnie jak Angular.
+Jednakże w porównaniu do Angulara jest to bardzo lekkie rozwiązanie umożliwiające progrmiście dużo więcej swobody w tworzeniu aplikacji.
+Angular zdecydowanie bardziej wymusza na użytkowniku pewne rozwiązania architektoniczne, gdzie w Vue jest to jak najbardziej możliwe, ale nie koniczne.
+Twórca aplikacji może wykorzystywać, jeśli tylko chce, jedynie lekkie funkcjonalności pozwalające na odpowiednie dostosowanie wyglądu strony, które są dostarczane przez framework.
+
+Kolejnym podobieństwem do obu poprzednich rozwiązań jest możliwość wykorzystania narzędzi CLI umożliwiających zarządzanie środowiskiem deweloperskim i projektem, a także generowanie kodu, np.~szablonów nowych komponentów.
+W przypadku Vue narzędzie to nazywa się \textit{vue-cli}.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -365,7 +389,8 @@ update msg model =
 \begin{minipage}{.50\textwidth}
     Funkcja \texttt{update}, która została przedstawiona na listingu~\ref{lst:Update}, ma za zadanie opisywać jak nasz model będzie się zmieniał w czasie.
 
-    Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty --- \texttt{Increment} i \texttt{Decrement}. Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
+    Jako argument przyjmuje nowo zdefiniowany typ \texttt{Msg}, który ma dwa warianty --- \texttt{Increment} i \texttt{Decrement}.
+    Typ zostaje dopasowany i w zależności od otrzymanego wariantu, model zostanie odpowiednio zaktualizowany (zmniejszony lub zwiększony) i zwrócony z funkcji.
 \end{minipage}\hfill
 
 \subsection{View}
@@ -384,7 +409,7 @@ view model =
     ]
 \end{lstlisting}
 
-\section{Narzędzia}
+\section{Narzędzia}\label{tools}
 Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na kompilację plików źródłowych czy instalację dodatkowych modułów. Poniżej postaram się opisać większość z tych narzędzi, tj.~dostarczanych przez Elma, ale wskazać również te dostarczane przez zewnętrznych twórców, a które znacząco ułatwiły mi pracę z tym językiem.
 \begin{center}
     \begin{tabularx}{\textwidth}{clX}
@@ -426,7 +451,8 @@ Powyżej wymienione elementy wykorzystują różne mechanizmy języka, dodatkowe
 W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechanizmów, bazując bezpośrednio na kodzie źródłowym stworzonej aplikacji.
 Przejdę przez każdy fragment architektury Elma, tj. \texttt{Model}, \texttt{View} i \texttt{Update}, opisując działanie najważniejszych według mnie fragmentów kodu oraz wyjaśniając decyzje stojące za wyborem danych rozwiązań.
 
-Ponadto zaimplementowany został odpowiednik aplikacji z użyciem biblioteki React, udostępniający identyczne funkcjonalności jak w przypadku aplikacji w Elmie. Celem stworzenia drugiego programu jest pokazanie różnic w implementacji obu
+Ponadto zaimplementowany został odpowiednik aplikacji z użyciem biblioteki React, udostępniający identyczne funkcjonalności jak w przypadku aplikacji w Elmie.
+Celem stworzenia drugiego programu było zaznajomienie się z bardziej powszechnym rozwiązaniem do tworzenia aplikacji frontedowych i następnie porównanie go z Elmem.
 
 \section{Model}
 Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocnicze wykorzystane w głównym typie Model.
@@ -482,7 +508,8 @@ init bookmarks =
 Na listingu~\ref{lst:impl_init} przedstawiona została funkcja \texttt{init}, której zadaniem jest wstępne zainicjalizowanie modelu odpowiednimi wartościami.
 
 Przyjmuje jeden argument, którym jest lista zakładek przekazana jako flaga, a zwraca tuplę zawierającą nowy, zainicjalizowany model oraz komendy, jakie mają zostać wykonane przez program.
-Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności przekazać wartości dla każdego z elementów. Zegar zostaje wyzerowany, status pogody przyjmuje wartość \texttt{Loading}, a zakładki zostają przypisane bezpośrednio z argumentu funkcji.
+Inicjalizacja modelu jest trywialna, należy jedynie w odpowiedniej kolejności przekazać wartości dla każdego z elementów.
+Zegar zostaje wyzerowany, status pogody przyjmuje wartość \texttt{Loading}, a zakładki zostają przypisane bezpośrednio z argumentu funkcji.
 
 Następnie należy wskazać wiadomości, które mają zostać przetworzone przez funkcję \texttt{update} i wykonane przez program na początku działania programu.
 W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
@@ -598,7 +625,26 @@ view model =
     }
 \end{lstlisting}
 
-// TODO opisać view
+Działanie funkcji odpowiedzialnych za widok jest bardzo podobne, dlatego opisana zostanie jedynie funkcja \texttt{viewSearchBar}, która została przedstawiona na listingu~\ref{lst:impl_search}.
+\begin{lstlisting}[mathescape,caption={Implementacja funkcji \texttt{viewSearchBar}},label={lst:impl_search},language={Elm}]
+viewSearchBar =
+    div []
+        [ input
+            [ type_ "text"
+            , placeholder "Search"
+            , onInput UpdateField
+            , onEnter Search
+            ] []
+        ]
+\end{lstlisting}
+
+Wykorzystany został tutaj formularz typu \texttt{text} wyświetlający okno z polem tekstowym.
+Najważniejszymi elementami są użyte tutaj funkcje \texttt{onInput} oraz \texttt{onEnter}.
+Funkcja \texttt{onInput} jest częścią biblioteki \texttt{Html.Events} i pozwala na wysłanie do funkcji \texttt{update} wiadomości \texttt{UpdateField} z zawartością wpisaną do pola tekstowego.
+Dzięki temu model zostaje odpowiednio zaktualizowany.
+Funkcja \texttt{onEnter} została zaimplementowana w aplikacji i pozwala na wykrycie wciśniętego klawisza Enter.
+Kiedy takie zdarzenie zostanie wykryte, wysłana zostaje wiadomość \texttt{Search}.
+Następnie wiadomość jest odpowiednio przetworzana przez funkcję \texttt{update} i w wyniku aktualna strona zostaje przekierowana do wyszukiwarki wraz z aktualnym stanem modelu, czyli wartością \texttt{searchText}.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -642,15 +688,13 @@ We wszystkich przypadkach aplikacje uruchamiane w przeglądarce Chromium działa
 Największą różnicę można zauważyć w przypadku Reacta, gdzie aplikacja poradziła sobie w Chromium o ok.~35\% lepiej niż w przeglądarce od Mozilli.
 
 \section{Narzędzia}
-W kolejnej części pracy chciałbym porównać narzędzia dostępne w Elmie z zestawami narzędzi zalecanymi do pracy z Reactem.
+W kolejnej części pracy chciałbym porównać narzędzia dostępne w Elmie z zestawami narzędzi oferowanymi wraz przedstawionymi wcześniej powszechnymi rozwiązaniami tego typu.
 
-Pierwszą rzeczą, na która od razu zwróciłem uwagę jest różnica w ilości dostępnych narzędzi wspomagających pracę z tymi rozwiązaniami.
-Jest to spodziewana sytuacja ze względu na ich rozbieżną popularność --- dużo więcej dostępnych jest zestawów narzędziowych oferujących pomoc do pracy z Reactem niż z Elmem.
+Pierwszą rzeczą, na którą warto zwrócić uwagę jest różnica w ilości dostępnych narzędzi wspomagających pracę z tymi rozwiązaniami.
+Jest to spodziewana sytuacja ze względu na ich rozbieżną popularność --- Elm jest dość niszowym językiem, więc dużo więcej dostępnych jest zestawów narzędziowych oferujących pomoc do pracy z rozwiązaniami takimi jak React, Angular czy Vue.
 
-Przykładem są narzędzia takie jak~,,Create React App'', które pozwalają na zainicjalizowanie nowego projektu wraz z wygenerowaniem kodu, który spełnia minimalne wymagania do prawidłowego działania aplikacji.
-Znacznie przyspiesza to początek pracy nad aplikacją.
-
-
+Elm domyślnie udostępnia jedynie podstawowe narzędzia, które zostały opisane w sekcji~\ref{tools}.
+Istnieją proste frameworki stworzone przez niezależnych programistów oferujące funkcjonalności generowania w Elmie szablonów aplikacji typu SPA, jednak nie są one tak zaawansowane jak narzędzia stworzone np.~dla Angulara.
 
 \section{Opinia}
 Celem tej sekcji jest przedstawienie mojej subiektywnej opinii na temat Elma, biorąc pod uwagę moje doświadczenia zarówno z tym językiem, jak i innymi, z którymi miałem możliwość pracować.
@@ -731,9 +775,14 @@ Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni e
 \end{itemize}
 
 Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
-Na potrzeby niniejszej instrukcji przedstawię proces instalacji i konfiguracji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jedno z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
+Na potrzeby niniejszej instrukcji przedstawię proces instalacji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jedno z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
 
-// TODO instrukcja vscode
+W tym celu należy otworzyć edytor VS Code, otworzyć konsolę \textit{Quick Open} przy pomocy skrótu \textit{Ctrl+P} i wpisać następującą komendę:
+\begin{lstlisting}
+  ext install Elmtooling.elm-ls-vscode
+\end{lstlisting}
+Wtyczka powinna zostać automatycznie zainstalowana i dalsza konfiguracja nie jest konieczna, edytor powinien być gotowy do pracy.
+Po instalacji można przejść do kolejnego kroku.
 
 \subsection{Tworzenie projektu}
 Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
@@ -833,7 +882,9 @@ Na rysunku~\ref{fig:repl_lists} zostały pokazane przykłady użycia list. Zosta
 \end{figure}
 
 \subsection{Rekordy}
-Rekordy służą do trzymania wielu wartości, gdzie każda z nich jest przypisana do konkretnej nazwy. Na rysunku~\ref{fig:repl_records} pokazane zostały przykładowe operacje związane z rekordami. Zdefiniowany został rekord \texttt{bob}, który zawiera informacje o imieniu, nazwisku oraz wieku.
+Rekordy służą do trzymania wielu wartości, gdzie każda z nich jest przypisana do konkretnej nazwy.
+Na rysunku~\ref{fig:repl_records} pokazane zostały przykładowe operacje związane z rekordami.
+Zdefiniowany został rekord \texttt{bob}, który zawiera informacje o imieniu, nazwisku oraz wieku.
 
 \begin{figure}[H]
     \centering
@@ -1217,7 +1268,8 @@ Korzyści wynikające z używania ciągłej integracji obejmują między innymi:
     \item zmniejszenie kosztów i ilości pracy manualnej
 \end{itemize}
 
-Na rynku dostępnych jest wiele narzędzi oferujących usługi wspierające CI\@. Kilka najpopularniejszych z nich to m.in. Jenkins, TeamCity i CircleCI\@.
+Na rynku dostępnych jest wiele narzędzi oferujących usługi wspierające CI\@.
+Kilka najpopularniejszych z nich to m.in. Jenkins, TeamCity i CircleCI\@.
 Są to potężne narzędzia, umożliwiające tworzenie i zarządzanie potokami ciągłej integracji nawet w przypadku bardzo rozbudowanych projektów prowadzonych przez największe firmy informatyczne.
 
 Ciągła integracja skupia się głównie na pracy zespołu deweloperskiego i to właśnie jego dotyczy informacja zwrotna przekazywana przez wyniki potoku.
@@ -1257,7 +1309,7 @@ Jest to specyficzny przypadek, gdyż w takiej sytuacji nie ma możliwości wyst�
 Jednakże, celem mojej implementacji było pokazanie, że techniki CI/CD mogą zostać efektywnie wykorzystane podczas pracy z językiem Elm.
 
 Zaimplementowany potok CI/CD dla aplikacji w Elmie został przedstawiony na rys.~\ref{fig:elm_yml}.
-Składa się z kroku \textit{build}, którego celem jest przygotowanie środowiska, tj.~instalacja platformy Elm oraz pobranie kodu źródłowego, a następnie zbudowanie aplikacji i udostępnienie artefaktu kompilacji oraz z kroku \textit{deploy}, który przygotowuje oddzielną gałąź \textit{gh-pages} poprzez pobranie i aktualizację udostępnionego wcześniej pliku wynikowego.
+Składa się z kroku \textit{build}, którego celem jest przygotowanie środowiska, tj.~instalacja platformy Elm oraz pobranie kodu źródłowego, a następnie zbudowanie aplikacji i udostępnienie artefaktu kompilacji (plik \texttt{main.js}) oraz z kroku \textit{deploy}, który przygotowuje oddzielną gałąź \textit{gh-pages} poprzez pobranie i aktualizację udostępnionego wcześniej pliku wynikowego.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\textwidth]{img/elm_yml.png}
@@ -1267,7 +1319,9 @@ Składa się z kroku \textit{build}, którego celem jest przygotowanie środowis
 Następnie przygotowana gałąź zostaje wystawiona przez GitHub Pages, co zostanie szczegółowiej opisane w kolejnej sekcji.
 
 \section{GitHub Pages}
-Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu. Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu. Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
+Serwis GitHub udostępnia możliwość hostowania stron internetowych prosto z repozytorium kodu.
+Warto zaznaczyć, że ta opcja jest dostępna za darmo, pod warunkiem, że hostowana strona znajduje się w \textbf{publicznym} repozytorium kodu.
+Aby skorzystać z usług GitHub Pages dla prywatnego repozytorium konieczne jest wykupienie jednej z płatnych opcji.
 
 Wykorzystanie funkcjonalności Pages jest dość proste --- w ustawieniach repozytorium należy ustawić gałąź (\textit{branch}), która ma zostać wystawiona na stronie, a także wybrać odpowiedni katalog.
 Domyślnie mogą być to jedynie katalogi \texttt{/} (\texttt{root}) oraz \texttt{/docs}.
