@@ -242,7 +242,7 @@ Istnieją także bardziej elastyczne zestawy narzędziowe oferujące większą d
     \caption*{Logo Angulara}\label{fig:logo_angular}
 \end{wrapfigure}
 Angular~\cite{angulardocs} został stworzony przez firmę Google w 2016 roku z wykorzystaniem języka TypeScript --- nadzbioru języka JavaScript, który dodatkowo udostępnia takie funkcjonalności jak statyczne typowanie czy programowanie zorientowane obiektowo.
-Bycie~,,nadzbiorem'' oznacza, że każdy program napisany w JavaScript jest także prawidłowym programem TypeScript.
+Pojęcie~,,nadzbioru'' oznacza w tym przypadku, że każdy program napisany w JavaScript jest także prawidłowym programem TypeScript.
 Angular początkowo miał być drugą wersją biblioteki AngularJS, jednak w ostateczności Google zdecydował się wydać tę bibliotekę jako osobny produkt.
 
 Angular, w przeciwieństwie do biblioteki React, jest pełnoprawnym \textit{frameworkiem}.
@@ -256,7 +256,29 @@ Znacznie ułatwia to proces tworzenia aplikacji, gdyż umożliwia uniknąć prog
 Oznacza to także, że framework sprawuje większą kontrolę nad aplikacją niż programista, który~,,dowodzi'' jedynie chwilowo, po czym kontrola wraca do frameworka.
 
 Głównym przeznaczeniem Angulara, podobnie jak w przypadku React.js, jest tworzenie aplikacji typu SPA\@.
-Kolejnym podobieństwem jest jego modularność i zorientowanie na komponenty.
+Kolejnym podobieństwem jest jego deklaratywność, modularność i zorientowanie na komponenty, które mogą być reużywalne pomiędzy różnymi projektami.
+
+Do stowrzenia nowego środowiska i projektu bardzo pomocne jest wykorzystanie narzędzia CLI od Angulara --- \texttt{ng}.
+Komenda \texttt{ng new hello-world} pobierze wymagane dependencje przy użyciu menadżera paczek \texttt{npm}, utworzy nowe środowisko o wybranej nazwie (tutaj \textit{hello-world}), stworzy szkielet aplikacji w podfolderze \texttt{src/app}, a także doda odpowiednie plki konfiguracyjne.
+
+Program jest od razu gotowy do uruchomienia w lokalnym środowisku przy pomocy polecenia \texttt{ng serve --open}.
+Jest to prosta aplikacja powitalna, zawierająca jeden komponent \texttt{AppComponent}.
+Kolejne komponenty mogą być dodawane z użyciem polecenia \texttt{ng generate component xyz}.
+Na listingu~\ref{lst:angular_comp} został przedstawiony domyślny komponent w Angularze utworzony przy pomocy wspomnianego narzędzia.
+
+\begin{lstlisting}[caption={Domyślny komponent w Angularze},label={lst:angular_comp},language=JavaScript]
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'hello-world';
+}
+\end{lstlisting}
+
+Komponent, podobnie jak w przypadku Reacta, może zostać deklaratywnie wywołany w głównym pliku \texttt{main.ts} za pomocą zdefiniowanego selektora (tutaj \texttt{app-root}).
+W trakcie generowania kodu zostają także dodane szablonowe pliki HTML oraz arkusze stylów CSS\@.
 
 \section{Vue.js}
 \begin{wrapfigure}{r}{0.2\textwidth}
