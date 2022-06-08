@@ -226,6 +226,9 @@ W Internecie znajduje się mnóstwo poradników i instrukcji pomagających nowym
 Istnieje także dostatek pomocy dla bardziej zaawansowanych programistów Reacta oraz szeroka społeczność użytkowników chętnych do pomocy przy rozwiązywaniu bardziej skomplikowanych problemów.
 Dostępność gotowych rozwiązań pozwala na relatywnie łatwy rozwój oprogramowania poprzez ich wykorzystanie.
 
+Warto także wspomnieć, że React jest jedynie biblioteką, a nie pełnoprawnym frameworkiem.
+Daje to programiście większą kontrolę nad tworzonym oprogramowaniem, ale także wymaga od niego większej odpowiedzialności w organizacji i utrzymaniu architektury aplikacji.
+
 Istnieją także różne zestawy narzędzi do Reacta, które pozwalają na łatwiejsze tworzenie aplikacji z użyciem tej biblioteki, w zależności od potrzeb.
 \textit{Create React App} pozwala na szybkie stworzenie prostej aplikacji jednostronicowej i zapewnia dogodne środowisko do nauki Reacta.
 Do stworzenia strony internetowej renderowanej po stronie serwera z użyciem Node.js można skorzystać z \textit{Next.js}.
@@ -261,9 +264,10 @@ Kolejnym podobieństwem jest jego modularność i zorientowanie na komponenty.
     \includegraphics[width=0.2\textwidth]{img/logo_vue.png}
     \caption*{Logo Vue}\label{fig:logo_vue}
 \end{wrapfigure}
-Biblioteka Vue.js~\cite{vuejsdocs}
+Vue.js~\cite{vuejsdocs} jest otwortoźródłowym frameworkiem JavaScript, którego celem jest, podobnie jak w poprzednich przykładach, tworzenie interfejsów użytkownika w aplikacjach internetowych.
 
-// TODO opisać vue
+Wykorzystuje wirtualny DOM pozwalający na szybsze renderowanie stron.
+Dzieje się to dzięki wirtualnej reprezentacji drzewa DOM jako obiekt JavaScriptowy, gdzie po każdej naniesionej zmianie tworzony jest nowy obiekt, a następnie są one między sobą porównywane i na koniec faktyczny DOM jest aktualizowany, co pozwala na znacznie przyspieszenie procesu renderowania strony, w porównaniu do każdorazowego nadpisywania drzewa DOM\@.
 
 \section{Podobieństwa i różnice}
 
@@ -277,7 +281,7 @@ Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm:
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
 Składnia Elma jest mocno zbliżona do Haskella, a sam język jest kompilowany do JavaScriptu.
-Wykorzystuje wirtualny DOM, co pozwala na znacznie szybsze renderowanie stron internetowych w porównaniu do~,,regularnego'' DOM\@.
+Wykorzystuje wirtualny DOM, czyli wirtualną reprezentację~,,prawdziwego'' drzewa DOM w postaci obiektu JavScriptowegoco pozwala na znacznie szybsze renderowanie stron internetowych w porównaniu do~,,regularnego'' DOM\@.
 
 Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elma.
 
@@ -621,7 +625,9 @@ W kolejnej części pracy chciałbym porównać narzędzia dostępne w Elmie z z
 Pierwszą rzeczą, na która od razu zwróciłem uwagę jest różnica w ilości dostępnych narzędzi wspomagających pracę z tymi rozwiązaniami.
 Jest to spodziewana sytuacja ze względu na ich rozbieżną popularność --- dużo więcej dostępnych jest zestawów narzędziowych oferujących pomoc do pracy z Reactem niż z Elmem.
 
-Ponadto są to często narzędzia oferujące ogromne możliwości
+Przykładem są narzędzia takie jak~,,Create React App'', które pozwalają na zainicjalizowanie nowego projektu wraz z wygenerowaniem kodu, który spełnia minimalne wymagania do prawidłowego działania aplikacji.
+Znacznie przyspiesza to początek pracy nad aplikacją.
+
 
 
 \section{Opinia}
@@ -634,6 +640,10 @@ Całe doświadczenie z językiem oceniam jako bardzo pozytywne.
 Wielkim atutem okazał się tutaj kompilator Elma, który dostarczał wnikliwe uwagi na temat pisanego kodu i proponował rozsądne propozycje rozwiązań problemów, jeżeli takie wystąpiły.
 Było to szczególnie pożyteczne w przypadku refaktoryzacji kodu, gdzie jako programista nie musiałem się martwić, czy program po wszystkich zmianach będzie dalej działał prawidłowo.
 Wystarczyło zastosować się po kolei do wszystkich komunikatów kompilatora i pozwoliło to przeprowadzić efektywną i bezbolesną refaktoryzację.
+
+Jednakże dużym problemem Elma jest częsty brak kompatybilności wstecznej pomiędzy wersjami platformy.
+Aplikacje napisane z uzyciem Elma w wersji 0.18 zwyczajnie nie będą działać po aktualizacji kompilatora do wersji 0.19.
+Wymaga to dodatkowego nakładu pracy związanego z refaktoryzacją, która jak często wspomniałem jest bezbolesna, jednakowoż czasami potrzebne jest niestety całkowite przepisanie wielu funkcji i szukanie nowych rozwiązań dla powstałych problemów.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -1269,7 +1279,7 @@ Przygotowana została także instrukcja laboratoryjna przeprowadzająca czytelni
 Elm jest zdecydowanie bardzo ciekawym rozwiązaniem do tworzenia aplikacji frontedowych.
 Zawiera świetną dokumentację i zestaw najpotrzebniejszych narzędzi, które umożliwiają szybkie i przyjemne tworzenie oprogramowania.
 
-Stanowczo sprawdzi się w środowiskach produkcyjnych ze względu na swój brak występowania wyjątków w czasie działania programu, a także na możliwość automatyzacji procesów CI/CD, co udało mi się pokazać.
+Stanowczo sprawdzi się w środowiskach produkcyjnych ze względu na swój brak występowania wyjątków w czasie działania programu, a także na możliwość automatyzacji procesów CI/CD, co udało mi się pokazać w poprzednim rozdziale.
 Kod źródłowy wymaga trzymania sie ustalonej architektury, jednak w przypadku Elma przychodzi to dość naturalnie i powoduje, że kod jest bardzo czytelny i łatwy do zrozumienia.
 
 % ---------------------------------------------------------------------------------------------------------------------
