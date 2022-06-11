@@ -100,7 +100,6 @@ sorting=none
 \spec{Algorytmów i Technologii Internetowych}
 
 \maketitle
-\clearpage
 \pagenumbering{arabic}
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -118,7 +117,7 @@ Wytworzona aplikacja to strona internetowa typu \textit{startpage}, czyli starto
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
 The goal of this master thesis is to use the Elm language to create a frontend web application, comparing this technology to existing, more popular solutions, as well as preparing a lab instruction, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics.
-The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to search engine and the most visited websites.
+The created application is a \textit{startpage}, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to the search engine and the most visited websites.
 
 \textbf{Keywords:} Elm, functional programming, web development
 
@@ -203,7 +202,7 @@ Została stworzona w 2013 roku przez ówczesnego programistę Facebook'a, Jordan
 Rozwój Reacta utrzymywany jest po dzień dzisiejszy przez~,,matczyną'' firmę Meta (dawniej znaną jako Facebook), a także przez społeczność indywidualnych programistów i innych organizacji ze względu na swoją otwartoźródłową naturę.
 
 Tworzenie oprogramowania z użyciem tej biblioteki odbywa się poprzez budowanie nowych komponentów, które za pośrednictwem metody \texttt{render()} decydują, co ma zostać wyświetlane na ekranie użytkownika.
-Odnosząc się do dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane na dwa sposoby: poprzez stworzenie JavaScript'owej funkcji lub wykorzystując klasę bazującą na \texttt{React.Component}.
+Odnosząc się do dokumentacji Reacta~\cite{reactdocs}, komponenty mogą być zdefiniowane na dwa sposoby: poprzez stworzenie JavaScriptowej funkcji lub wykorzystując klasę bazującą na \texttt{React.Component}.
 
 Przykłady wspomnianych definicji zostały przedstawione odpowiednio na listingach~\ref{lst:func_comp} oraz~\ref{lst:class_comp}, a ich funkcjonalność jest jednakowa --- wyświetlenie napisu w formie nagłówka tagu \texttt{<h1>} o treści~,,\textit{Hello, }'' + imię zawarte w zmiennej \texttt{props}.
 
@@ -261,8 +260,8 @@ Oznacza to także, że framework sprawuje większą kontrolę nad aplikacją ni�
 Głównym przeznaczeniem Angulara, podobnie jak w przypadku React.js, jest tworzenie aplikacji typu SPA\@.
 Kolejnym podobieństwem jest jego deklaratywność, modularność i zorientowanie na komponenty, które mogą być reużywalne pomiędzy różnymi projektami.
 
-Do stowrzenia nowego środowiska i projektu bardzo pomocne jest wykorzystanie narzędzia CLI od Angulara --- \texttt{ng}.
-Komenda \texttt{ng new hello-world} pobierze wymagane dependencje przy użyciu menadżera paczek \texttt{npm}, utworzy nowe środowisko o wybranej nazwie (tutaj \textit{hello-world}), stworzy szkielet aplikacji w podfolderze \texttt{src/app}, a także doda odpowiednie plki konfiguracyjne.
+Do stworzenia nowego środowiska i projektu bardzo pomocne jest wykorzystanie narzędzia CLI od Angulara --- \texttt{ng}.
+Komenda \texttt{ng new hello-world} pobierze wymagane dependencje przy użyciu menadżera paczek \texttt{npm}, utworzy nowe środowisko o wybranej nazwie (tutaj \textit{hello-world}), stworzy szkielet aplikacji w podfolderze \texttt{src/app}, a także doda odpowiednie pliki konfiguracyjne.
 
 Program jest od razu gotowy do uruchomienia w lokalnym środowisku przy pomocy polecenia \texttt{ng serve --open}.
 Jest to prosta aplikacja powitalna, zawierająca jeden komponent \texttt{AppComponent}.
@@ -289,7 +288,7 @@ Komponent, podobnie jak w przypadku Reacta, może zostać deklaratywnie wywołan
     \includegraphics[width=0.2\textwidth]{img/logo_vue.png}
     \caption*{Logo Vue}\label{fig:logo_vue}
 \end{wrapfigure}
-Vue.js~\cite{vuejsdocs} jest otwortoźródłowym frameworkiem JavaScript, którego celem jest, podobnie jak w poprzednich przykładach, tworzenie interfejsów użytkownika w aplikacjach internetowych.
+Vue.js~\cite{vuejsdocs} jest otwartoźródłowym frameworkiem JavaScript, którego celem jest, podobnie jak w poprzednich przykładach, tworzenie interfejsów użytkownika w aplikacjach internetowych.
 
 Wykorzystuje wirtualny DOM pozwalający na szybsze renderowanie stron.
 Dzieje się to dzięki wirtualnej reprezentacji drzewa DOM jako obiekt JavaScriptowy, gdzie po każdej naniesionej zmianie tworzony jest nowy obiekt, a następnie są one między sobą porównywane i na koniec faktyczny DOM jest aktualizowany, co pozwala na znacznie przyspieszenie procesu renderowania strony, w porównaniu do każdorazowego nadpisywania drzewa DOM\@.
@@ -312,8 +311,8 @@ module.exports = {
 \end{lstlisting}
 
 Jak wcześniej zostało wspomniane, Vue jest frameworkiem, podobnie jak Angular.
-Jednakże w porównaniu do Angulara jest to bardzo lekkie rozwiązanie umożliwiające progrmiście dużo więcej swobody w tworzeniu aplikacji.
-Angular zdecydowanie bardziej wymusza na użytkowniku pewne rozwiązania architektoniczne, gdzie w Vue jest to jak najbardziej możliwe, ale nie koniczne.
+Jednakże w porównaniu do Angulara jest to bardzo lekkie rozwiązanie umożliwiające programiście dużo więcej swobody w tworzeniu aplikacji.
+Angular zdecydowanie bardziej wymusza na użytkowniku pewne rozwiązania architektoniczne, gdzie w Vue jest to jak najbardziej możliwe, ale niekonieczne.
 Twórca aplikacji może wykorzystywać, jeśli tylko chce, jedynie lekkie funkcjonalności pozwalające na odpowiednie dostosowanie wyglądu strony, które są dostarczane przez framework.
 
 Kolejnym podobieństwem do obu poprzednich rozwiązań jest możliwość wykorzystania narzędzi CLI umożliwiających zarządzanie środowiskiem deweloperskim i projektem, a także generowanie kodu, np.~szablonów nowych komponentów.
@@ -416,10 +415,10 @@ Platforma Elm jest dostarczana wraz z zestawem narzędzi pozwalających m.in.~na
         \texttt{elm repl} &---& otwiera interaktywną sesję programistyczną.\\
         \texttt{elm init} &---& inicjalizuje bieżący katalog jako nowy projekt Elma poprzez stworzenie pliku \texttt{elm.json} opisującego projekt i jego zależności, a także tworzy katalog \texttt{src/}, w którym będą znajdowały się pliki \texttt{.elm}.\\
         \texttt{elm reactor} &---& uruchamia serwer deweloperski, który poprzez przeglądarkę pozwala wybrać dany plik źródłowy, skompilować go i sprawdzić jak wygląda po zbudowaniu.\\
-        \texttt{elm make} &---& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScript'u. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
+        \texttt{elm make} &---& pozwala na kompilację kodu źródłowego do HTML'a lub JavaScriptu. Jest to najbardziej ogólna forma kompilacji, jaką udostępnia Elm, ale jest to niezwykle przydatne narzędzie, kiedy projekt stanie się zbyt skomplikowany na korzystanie z \texttt{elm reactor.}\\
         \texttt{elm install} &---& pozwala instalować paczki dostępne na stronie \url{package.elm-lang.org}, które udostępniają nowe funkcjonalności, jak np.~obsługa plików JSON czy praca z zapytaniami HTTP.\\
         \makecell{\texttt{elm-format}~\cite{elm-format}} &---& formater kodu~,,upiększający'' kod źródłowy Elm'a zgodnie z oficjalną dokumentacją opisującą styl jego tworzenia\\
-        \makecell{\texttt{elm-live}~\cite{elm-live}} &---& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScript'u, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
+        \makecell{\texttt{elm-live}~\cite{elm-live}} &---& podobnie jak \texttt{elm reactor}, uruchamia serwer deweloperski, jednak jest to znacznie bardziej rozbudowane narzędzie, oferujące m.in.~takie funkcjonalności jak kompilowanie Elm'a do JavaScriptu, załączanie go do pliku HTML i wyświetlanie w przeglądarce stworzonej strony\\
     \end{tabularx}
 \end{center}
 
@@ -644,7 +643,7 @@ Funkcja \texttt{onInput} jest częścią biblioteki \texttt{Html.Events} i pozwa
 Dzięki temu model zostaje odpowiednio zaktualizowany.
 Funkcja \texttt{onEnter} została zaimplementowana w aplikacji i pozwala na wykrycie wciśniętego klawisza Enter.
 Kiedy takie zdarzenie zostanie wykryte, wysłana zostaje wiadomość \texttt{Search}.
-Następnie wiadomość jest odpowiednio przetworzana przez funkcję \texttt{update} i w wyniku aktualna strona zostaje przekierowana do wyszukiwarki wraz z aktualnym stanem modelu, czyli wartością \texttt{searchText}.
+Następnie wiadomość jest odpowiednio przetwarzana przez funkcję \texttt{update} i w wyniku aktualna strona zostaje przekierowana do wyszukiwarki wraz z aktualnym stanem modelu, czyli wartością \texttt{searchText}.
 
 % ---------------------------------------------------------------------------------------------------------------------
 
@@ -708,7 +707,7 @@ Było to szczególnie pożyteczne w przypadku refaktoryzacji kodu, gdzie jako pr
 Wystarczyło zastosować się po kolei do wszystkich komunikatów kompilatora i pozwoliło to przeprowadzić efektywną i bezbolesną refaktoryzację.
 
 Jednakże dużym problemem Elma jest częsty brak kompatybilności wstecznej pomiędzy wersjami platformy.
-Aplikacje napisane z uzyciem Elma w wersji 0.18 zwyczajnie nie będą działać po aktualizacji kompilatora do wersji 0.19.
+Aplikacje napisane z użyciem Elma w wersji 0.18 zwyczajnie nie będą działać po aktualizacji kompilatora do wersji 0.19.
 Wymaga to dodatkowego nakładu pracy związanego z refaktoryzacją, która jak często wspomniałem jest bezbolesna, jednakowoż czasami potrzebne jest niestety całkowite przepisanie wielu funkcji i szukanie nowych rozwiązań dla powstałych problemów.
 
 % ---------------------------------------------------------------------------------------------------------------------
