@@ -1,13 +1,14 @@
 \documentclass[twoside,a4paper]{report}
 
+\usepackage[nottoc,notlof]{tocbibind}
 \usepackage[bottom]{footmisc}
 \usepackage[pdftex]{graphicx}
 \usepackage{textcomp}
 \usepackage[compact,nobottomtitles*]{titlesec}
-\titleformat{\chapter}[display]
-{\normalfont\bfseries}{}{0pt}{\huge}
+\titleformat{\chapter}[hang]{\huge\bfseries}{\thechapter{. }}{0pt}{\huge\bfseries}
 \usepackage{lipsum}
 \usepackage{wrapfig}
+\usepackage{diagbox}
 \usepackage{adjustbox}
 \usepackage[utf8]{inputenc}
 \usepackage[english,main=polish]{babel}
@@ -38,6 +39,8 @@ sorting=none
 \usepackage{gensymb}
 \raggedbottom
 
+\renewcommand\theadfont{\bfseries\sffamily}
+
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 
 \newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
@@ -53,7 +56,7 @@ sorting=none
 }
 
 \lstdefinelanguage{Elm}{
-    keywords={type, alias, update, case, of, init, view, subscriptions, let, in, viewDate, viewTime},
+    keywords={type, alias, update, case, of, init, view, subscriptions, let, in},
 }
 
 \lstset{
@@ -107,7 +110,7 @@ sorting=none
 \chapter*{Streszczenie}
 \noindent
 Celem niniejszej pracy magisterskiej jest zbadanie przydatności języka Elm oraz stojącego za nim ekosystemu w kontekście wytwarzania aplikacji internetowych.
-W ramach pracy stworzona została aplikacja typu \textit{startpage}, czyli strona startowa przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+W ramach części eksperymentalnej niniejszej pracy stworzona została aplikacja typu \textit{startpage}, czyli strona startowa przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
 Ponadto przygotowana została instrukcja laboratoryjna, która mogłaby zostać wykorzystana w ramach zajęć \textit{,,Współczesne Aplikacje Programowania Funkcyjnego''} przeprowadzanych na Wydziale Elektroniki, Telekomunikacji i Informatyki Politechniki Gdańskiej.
 
 \textbf{Słowa kluczowe:} Elm, programowanie funkcyjne, wytwarzane aplikacji internetowych
@@ -117,8 +120,8 @@ Ponadto przygotowana została instrukcja laboratoryjna, która mogłaby zostać 
 \vspace{80pt}
 {\let\clearpage\relax\chapter*{Abstract}}
 \noindent
-The goal of this master thesis is to examine a usefulness of the Elm programming language and it's ecosystem in the context of web applications development.
-As part of thesis a \textit{startpage} web application was created, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to the search engine and the most visited websites.
+The goal of this master thesis is to examine a the usefulness of the Elm programming language and its ecosystem in the context of web applications development.
+As part of this thesis a \textit{startpage} web application was created, meaning a starting page of a web browser consisting of the most useful information, such as time, weather and references to the search engine and the most visited websites.
 Moreover, a laboratory instruction was prepared, which could be used at \textit{,,Modern applications of functional programming''} class at Gdańsk University of Technology’s Faculty of Electronics, Telecommunications and Informatics.
 
 \textbf{Keywords:} Elm, functional programming, web development
@@ -156,21 +159,25 @@ Moreover, a laboratory instruction was prepared, which could be used at \textit{
     \caption*{Logo Elma}\label{fig:elm_logo}
 \end{wrapfigure}
 
-Głównym celem niniejszej pracy magisterskiej było zbadanie przydatności języka Elm, a więc języka typowo funkcyjnego, oraz dedykowanych dla niego narzędzi programistycznych do tworzenia nowoczesnych rozwiązań związanych z wytwarzaniem aplikacji internetowych.
-W ramach pracy stworzona została frontendowa aplikacja internetowa typu \textit{startpage}, czyli strona startowa przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron.
+Głównym celem niniejszej pracy magisterskiej było zbadanie przydatności języka Elm, a więc języka typowo funkcyjnego, oraz dedykowanych dla niego narzędzi programistycznych przeznaczonych do tworzenia nowoczesnych rozwiązań związanych z wytwarzaniem aplikacji internetowych.
+W ramach części eksperymentalnej niniejszej pracy stworzona została frontendowa aplikacja internetowa typu \textit{startpage}, czyli strona startowa przeglądarki, zawierająca najpotrzebniejsze informacje, takie jak czas, pogoda oraz odnośniki do wyszukiwarki i najczęściej odwiedzanych stron. Na tej podstawie dokonano ewaluacji Elma, jak również stało się to punktem wyjścia do przygotowania instrukcji laboratoryjnej, która może zostać wykorzystana w dydaktyce.
 
-Drugi rozdział przedstawia przykłady technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, t.j. React.js, Angular oraz Vue.js.
+Drugi rozdział przedstawia przykłady technologii powszechnie używanych do tworzenia frontendowych aplikacji internetowych, które stanowią bezpośrednią konkurencję dla języka Elm, t.j. React.js, Angular oraz Vue.js.
 Zaprezentowane zostały ich cechy charakterystyczne oraz proste przykłady tworzenia oprogramowania z ich użyciem.
 Ponadto zostały pokazane podobieństwa i różnice między tymi rozwiązaniami.
 
-Trzeci rozdział został poświęcony na wysokopoziomowe wprowadzenie do języka Elm.
+Trzeci rozdział został poświęcony wprowadzeniu do języka Elm.
 Opowiada o idei jaka przyświecała autorowi podczas tworzenia tego języka, jakie są jego potencjalne zastosowania i gdzie sprawdza się najlepiej.
 Wprowadzony zostaje koncept \textit{The Elm Architecture}, składnia oraz podstawy języka, a także narzędzia wspomagające tworzenie oprogramowania z użyciem tejże technologii, włączając w to dokumentację.
 
-W czwartym rozdziale opisana została implementacja przygotowanej aplikacji frontendowej napisanej w Elmie.
-Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwagę skupiam na przedstawieniu konkretnych rozwiązań technicznych, jakie zostały wykorzystane do osiągnięcia wybranego celu.
+W czwartym rozdziale opisany został eksperyment implementacyjny, polegający na przygotowaniu aplikacji frontendowej z użyciem języka Elm.
+Jest to poniekąd rozwinięcie poprzedniego rozdziału, ponieważ głównym celem jest dalej zapoznanie się z Elmem, jednak tutaj uwaga została skupiona na przedstawieniu konkretnych rozwiązań technicznych, jakie zostały wykorzystane do osiągnięcia wybranego celu.
 
-Piąty rozdział został poświęcony na omówienie zagadnień związanych z ciągłą integracją oraz ciągłym dostarczaniem, a także przedstawienie narzędzi wykorzystanych w tym celu podczas tworzenia omawianej aplikacji.
+Piąty rozdział zawiera porównanie języka Elm z innymi technologiami używanymi do tworzenia aplikacji internetowych, które zostały przedstawione w rozdziale drugim.
+Porównanie dotyczy aspektów wydajnościowych tychże rozwiązań, a także ich ekosystemu, czyli narzędzi, które są dostępne do pracy z nimi.
+Na końcu rozdziału znajduje się subiektywna opinia autora niniejszej pracy magisterskiej na temat tego języka.
+
+Szósty rozdział został poświęcony na omówienie zagadnień związanych z ciągłą integracją oraz ciągłym dostarczaniem, a także przedstawienie narzędzi wykorzystanych w tym celu podczas tworzenia omawianej aplikacji.
 Celem jest pokazanie, że Elm nie stanowi przeszkody w wykorzystywaniu tych technologii i całkowicie nadaje się do użytku produkcyjnego.
 
 Ostatni rozdział dotyczy przede wszystkim podsumowania niniejszej pracy magisterskiej.
@@ -183,8 +190,8 @@ Stworzona instrukcja mogłaby zostać potencjalnie wykorzystana w ramach przedmi
 
 % ---------------------------------------------------------------------------------------------------------------------
 
-\chapter{Powszechne rozwiązania}
-W poniższym rozdziale chciałbym przedstawić najpopularniejsze rozwiązania do tworzenia frontendowych stron internetowych, które są powszechnie stosowane zarówno przez największych gigantów technologicznych, tj. Google, Facebook, Netflix, ale także małe, dopiero wchodzące na rynek firmy startupowe.
+\chapter{Najpopularniejsi rywale Elma}
+W poniższym rozdziale przedstawiono najpopularniejsze rozwiązania do tworzenia frontendowych stron internetowych, które są powszechnie stosowane zarówno przez największych gigantów technologicznych, tj. Google, Facebook, Netflix, ale także małe, dopiero wchodzące na rynek firmy startupowe.
 
 Według ankiety przeprowadzonej w 2021 roku przez StackOverflow~\cite{stacksurvey}, najczęściej wybieranym przez programistów rozwiązaniem do tworzenia stron internetowych była biblioteka React.js (40,14\% odpowiedzi), a na czwartym i piątym miejscu znajdowały się odpowiednio frameworki Angular (22,96\% odpowiedzi) oraz Vue.js (18,97\% odpowiedzi).
 
@@ -291,7 +298,7 @@ Komponent, podobnie jak w przypadku Reacta, może zostać deklaratywnie wywołan
 \end{wrapfigure}
 Vue.js~\cite{vuejsdocs} jest otwartoźródłowym frameworkiem JavaScript, którego celem jest, podobnie jak w poprzednich przykładach, tworzenie interfejsów użytkownika w aplikacjach internetowych.
 
-Wykorzystuje wirtualny DOM pozwalający na szybsze renderowanie stron.
+Podobnie jak React, Vue wykorzystuje wirtualny DOM pozwalający na szybsze renderowanie stron.
 Dzieje się to dzięki wirtualnej reprezentacji drzewa DOM jako obiekt JavaScriptowy, gdzie po każdej naniesionej zmianie tworzony jest nowy obiekt, a następnie są one między sobą porównywane i na koniec faktyczny DOM jest aktualizowany, co pozwala na znacznie przyspieszenie procesu renderowania strony, w porównaniu do każdorazowego nadpisywania drzewa DOM\@.
 
 Aplikacje w Vue także buduje się z użyciem komponentów, którego prosty przykład typu \textit{Hello, World!} został przedstawiony na listingu~\ref{lst:vue_comp}.
@@ -326,15 +333,39 @@ Elm~\cite{elmdocs} jest czysto funkcyjnym językiem programowania przeznaczonym 
 Powstał w roku 2012 wraz z opublikowaniem przez Evana Czaplickiego pracy~,,Elm: Concurrent FRP for Functional GUIs''~\cite{Czaplicki2012ElmC}.
 Podczas jego tworzenia nacisk został położony na użyteczność, wydajność oraz niską podatność na błędy.
 
+Celem kolejnych sekcji jest przedstawienie najważniejszych cech języka Elm i jego podstaw oraz składni, a także pokazanie na prostym przykładzie czym jest \textit{The Elm Architecture}.
+Na końcu zostają opisane narzędzia dostępne podczas pracy z językiem Elm, zarówno te dostarczane domyślnie z platformą jak i część tych stworzonych przez zewnętrznych twórców.
+
+\section{Cechy języka}
 Składnia Elma jest mocno zbliżona do Haskella, a sam język jest kompilowany do JavaScriptu.
-Wykorzystuje wirtualny DOM, czyli wirtualną reprezentację~,,prawdziwego'' drzewa DOM w postaci obiektu JavScriptowegoco pozwala na znacznie szybsze renderowanie stron internetowych w porównaniu do~,,regularnego'' DOM\@.
+Wykorzystuje wirtualny DOM, czyli wirtualną reprezentację~,,prawdziwego'' drzewa DOM w postaci obiektu JavaScriptowegoco pozwala na znacznie szybsze renderowanie stron internetowych w porównaniu do~,,regularnego'' DOM\@.
+Jest to ta sama metoda, która została także wykorzystana w opisanym wcześniej rozwiązaniu Vue.js.
+
+Wiele cech języka obraca się wokół kompilatora Elma, który jest bardzo pomocnym narzędziem ze względu na niezwykle przemyślane komunikaty o błędach i ostrzeżeniach.
+Według twórcy języka, kompilator powinien być asystentem programisty, nie jego przeciwnikiem, a jego rola nie powinna ograniczać się jedynie do wykrywania błędów, ale także na pomocy w zrozumieniu, dlaczego przede wszystkim dany błąd wystąpił.
 
 Największym atutem tego języka jest zdecydowanie silnie promowany przez autora brak występowania wyjątków w czasie działania programu (tzw. \textit{runtime exception}), co jest możliwe dzięki statycznemu sprawdzaniu typów przez kompilator Elma.
+Należy podkreślić, że jest to doświadczenie typowe dla języków funkcyjnych, a z drugiej strony nieznane większości programistom zajmującym się wytwarzaniem frontendowych aplikacji internetowych.
+Wynika to z faktu, że przeważająca część rozwiązań w tej domenie wykorzystuje języki obiektowe lub posługujące się paradygmatami obiektowymi.
 
-Celem kolejnych sekcji jest pokazanie na prostym przykładzie czym jest \textit{The Elm Architecture}, a także przedstawienie i opisanie narzędzi dostępnych podczas pracy z językiem Elm, zarówno tych dostarczanych domyślnie z platformą jak i tych od niezależnych twórców.
+Kolejnym atutem języka jest bezbolesna refaktoryzacja kodu.
+Jest to~,,efekt uboczny'' działania kompilatora i jego przyjaznych komunikatów, co zostało wspomniane w poprzednim akapicie.
+Programista jest bezpiecznie prowadzony przez wszystkie wprowadzone zmiany, w razie potrzeby otrzymuje przydatne wskazówki, często pozwalające rozwiązać występujące problemy, a kiedy wskazówki okażą się niewystarczające --- kompilator udostępnia odnośniki do konkretnej części dokumentacji technicznej, która może okazać się najbardziej przydatna.
+
+Ważną cechą języka jest także jego czytelność.
+W przypadku pracy z innymi rozwiązaniami, np.~językiem JavaScript, często zdarza się, że po pewnym czasie programista przestaje rozumieć działanie kodu, nawet swojego!
+W Elmie ten problem jest zminimalizowany poprzez wykorzystanie tzw.~,,The Elm Architecture''.
+Oznacza to, że każdy program pisany w tym języku tworzony jest według ustalonego schematu, który zostanie opisany w kolejnych sekcjach.
+Pozwala to na szybkie zrozumienie działania kodu, nawet jeżeli widzi się go dopiero pierwszy raz.
+
+Jako że Elm jest językiem kompilowanym do JavaScriptu, umożliwia to jego interoperacyjność.
+Aby zacząć używać Elma w swoim istniejącym projekcie, nie jest konieczne całkowite przepisanie kodu do tego języka, gdyż mogłoby się to okazać bardzo kosztowne i czasochłonne.
+Lepszym rozwiązaniem może być przepisanie do Elma niewielkiej części projektu, nawet pojedynczego elementu, a następnie załączenie skompilowanego pliku \texttt{.js} do całości programu.
+Takie podejście pozwala na stopniowe zapoznanie się z językiem, jego możliwościami i ograniczeniami, bez podejmowania zbędnego ryzyka.
 
 \section{Składnia i podstawy języka}
-W celu nauki podstaw języka Elm użyte zostanie narzędzie \texttt{elm repl}, pozwalające na korzystanie z interaktywnej sesji programistycznej.
+W celu nauki podstaw języka Elm bardzo przydatne okazuje się być narzędzie \texttt{elm repl}, pozwalające na korzystanie z interaktywnej sesji programistycznej.
+Zostanie ono wykorzystane w dalszych sekcjach niniejszego rozdziału w celu przedstawienia składni oraz podstaw języka Elm.
 
 \subsection{Wartości}
 Najmniejszym budulcem aplikacji w Elmie są \textbf{wartości}.
@@ -439,7 +470,7 @@ Jednakże tak zdefiniowany typ sprawia, że kod staje się krótszy, bardziej cz
     \caption{Diagram działania programu w Elmie}\label{fig:elm_arch}
 \end{figure}
 
-\textit{The Elm Architecture} jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
+\textit{The Elm Architecture} (znane także jako MVU --- Model-View-Update) jest schematem tworzenia interaktywnych aplikacji internetowych lub gier.
 Zgodnie z rysunkiem~\ref{fig:elm_arch} typowa aplikacja Elm działa w następujący sposób:
 Program generuje pewien kod HTML, który zostaje wyświetlony na ekranie, a następnie komputer zwraca wiadomości informujące o tym co się dzieje, np.~użytkownik wcisnął guzik.
 
@@ -533,9 +564,9 @@ Dokumentacja techniczna zawiera takie informacje, jak ogólne przeznaczenie dane
 
 % ---------------------------------------------------------------------------------------------------------------------
 
-\chapter{Implementacja}
+\chapter{Eksperyment implementacyjny}
 W ramach części eksperymentalnej niniejszej pracy, mającej na celu ewaluację języka Elm, stworzona została aplikacja internetowa typu \textit{startpage}, czyli spersonalizowanej strony startowej przeglądarki zawierającej najpotrzebniejsze i najczęściej używane elementy oraz skróty.
-W ramach tejże aplikacji postanowiłem zaimplementować następujące funkcjonalności:
+W ramach tejże aplikacji zaimplementowane zostały następujące funkcjonalności:
 
 \begin{itemize}[noitemsep,topsep=0pt]
     \item Cyfrowy zegar wskazujący aktualny czas w strefie czasowej użytkownika,
@@ -551,7 +582,7 @@ W poniższych podrozdziałach skupię się na opisie wymienionych wyżej mechani
 Przejdę przez każdy fragment architektury Elma, tj. \texttt{Model}, \texttt{View} i \texttt{Update}, opisując działanie najważniejszych według mnie fragmentów kodu oraz wyjaśniając decyzje stojące za wyborem danych rozwiązań.
 
 Ponadto zaimplementowany został odpowiednik aplikacji z użyciem biblioteki React, udostępniający identyczne funkcjonalności jak w przypadku aplikacji w Elmie.
-Celem stworzenia drugiego programu było zaznajomienie się z bardziej powszechnym rozwiązaniem do tworzenia aplikacji frontedowych i następnie porównanie go z Elmem.
+Celem stworzenia drugiego programu było zaznajomienie się z bardziej powszechnym rozwiązaniem do tworzenia aplikacji frontendowych i następnie porównanie go z Elmem.
 
 \section{Model}
 Na listingu~\ref{lst:impl_model} przedstawiony został zaimplementowany model aplikacji, którego celem jest reprezentacja aktualnego stanu programu, a także pokazane zostają stworzone typy pomocnicze wykorzystane w głównym typie Model.
@@ -581,7 +612,7 @@ type alias Bookmark =
     }
 \end{lstlisting}
 
-W rozdziale powyżej wymienione zostały główne funkcjonalności aplikacji, które bezpośrednio przekładają się na implementację modelu.
+W sekcji powyżej wymienione zostały główne funkcjonalności aplikacji, które bezpośrednio przekładają się na implementację modelu.
 Informacje potrzebne do przedstawienia daty i godziny zawarte zostały w zmiennej typu \texttt{ClockTime}, który zawiera w sobie dane wykorzystujące bibliotekę \texttt{elm/time} do określenia strefy czasowej oraz aktualnego czasu, tj.~daty i godziny.
 
 Kolejnym elementem modelu jest zmienna typu \texttt{WeatherStatus}, która może przyjąć jedną z trzech wartości --- \texttt{Failure}, \texttt{Loading} lub \texttt{Success}.
@@ -612,6 +643,23 @@ Zegar zostaje wyzerowany, status pogody przyjmuje wartość \texttt{Loading}, a 
 
 Następnie należy wskazać wiadomości, które mają zostać przetworzone przez funkcję \texttt{update} i wykonane przez program na początku działania programu.
 W przypadku stworzonej aplikacji są to dwie wiadomości --- jedna odpowiedzialna za dostosowanie odpowiedniej strefy czasowej, druga za wysłanie zapytania HTTP w celu odebrania aktualnego stanu pogody.
+
+Do porównania, w aplikacji stworzonej z użyciem biblioteki React stan przykładowego komponentu jest trzymany w sposób przedstawiony na listingu~\ref{lst:react_weather}.
+\begin{lstlisting}[caption={Stan komponentu \texttt{Weather}},label={lst:react_weather},language={JavaScript}]
+class Weather extends Component {
+    constructor() {
+        super();
+        this.state = { desc: "", temp: 0 };
+    }
+}
+\end{lstlisting}
+W konstruktorze każdego z komponentów należy zdefiniować i zainicjalizować potrzebne dane przy użyciu zmiennej \texttt{this.state}.
+Jest to wygodne rozwiązanie, pozwalające na łatwe i szybkie stworzenie działającej aplikacji.
+Jednakże, nie gwarantuje to poprawności jej działania.
+W przypadku odebrania nieprawidłowych danych React mimo wszystko spróbuje je przetworzyć, co może skutkować ciężkimi do znalezienia błędami, a nawet naruszeniem bezpieczeństwa.
+
+Elm poprzez silne typowanie \textbf{wymaga}, aby dane aplikacji zostały prawidłowo przetworzone, a w przypadku niezgodności typów kompilacja nie powiedzie się.
+Pozwala to na szybkie zdiagnozowanie problemów z aplikacją i uniemożliwia wystąpienie błędów w czasie działania programu.
 
 \section{Update}
 Na listingu~\ref{lst:impl_update} znajduje się implementacja typu \texttt{Msg} definiującego rodzaje wiadomości, jakie mogą zostać odebrane i obsłużone przez funkcję \texttt{update}.
@@ -705,6 +753,22 @@ subscriptions _ =
     Time.every 10 Tick
 \end{lstlisting}
 
+W stworzonej analogicznej aplikacji w React, stan programu aktualizowany jest z użyciem funkcji \texttt{setState()}.
+Przykład aktualizacji stanu komponentu \texttt{Clock} został przedstawiony na listingu~\ref{lst:react_clock}.
+Metoda \texttt{componentDidMount()} jest uruchamiana po wyrenderowaniu komponentu do drzewa DOM\@.
+W tym miejscu należy zainicjalizować aktualny czas, a także zdefiniować jednosekundowy interwał, kiedy to komponent ma aktualizować czas z użyciem metody \texttt{currentTime()}.
+
+\begin{lstlisting}[caption={Aktualizacja czasu w komponencie \texttt{Clock}},label={lst:react_clock},language={JavaScript}]
+currentTime() {
+    this.setState({ date: new Date() });
+}
+componentDidMount() {
+    setInterval(() => this.currentTime(), 1000);
+}
+\end{lstlisting}
+
+
+
 \section{View}
 Na listingu~\ref{lst:impl_view} przedstawiona została implementacja głównej funkcji wyświetlającej elementy na ekranie użytkownika --- \texttt{view}.
 Dla lepszej czytelności kodu wykorzystuje ona wiele funkcji pomocniczych.
@@ -745,19 +809,113 @@ Funkcja \texttt{onEnter} została zaimplementowana w aplikacji i pozwala na wykr
 Kiedy takie zdarzenie zostanie wykryte, wysłana zostaje wiadomość \texttt{Search}.
 Następnie wiadomość jest odpowiednio przetwarzana przez funkcję \texttt{update} i w wyniku aktualna strona zostaje przekierowana do wyszukiwarki wraz z aktualnym stanem modelu, czyli wartością \texttt{searchText}.
 
+W aplikacji stworzonej w React wyświetlanie programu odbywa się za pomocą metody \texttt{render()}, która powinna znajdować się w każdym komponencie.
+Główny komponent \texttt{App} ma na celu wywołanie pozostałych komponentów aplikacji, a jego metoda \texttt{render()} została przedstawiona na listingu~\ref{lst:react_render} poniżej.
+Zawarte są tutaj podstawowe elementy HTML oraz deklaratywne wywołania komponentów \texttt{Clock}, \texttt{Weather}, \texttt{Search} oraz \texttt{Bookmarks}.
+
+\begin{lstlisting}[caption={Metoda \texttt{render()} komponentu \texttt{App}},label={lst:react_render},language={JavaScript}]
+render() {
+    return (
+        <div class="container">
+            <Clock />
+            <div class="weather-container">
+                <Weather />
+            </div>
+            <div id="search">
+                <Search />
+            </div>
+            <div id="bookmark-container">
+                <Bookmarks />
+            </div>
+        </div>
+    );
+}
+\end{lstlisting}
+
+Przechodząc do implementacji metody \texttt{render{}} jednego z komponentów, tutaj \texttt{Bookmarks} (listing~\ref{lst:react_bookmarks}), można zauważyć, że sposób tworzenia takiej aplikacji jest dość prosty.
+Lista zakładek została zaimportowana z oddzielnego pliku i jest trzymana w stanie komponentu w zmiennej \texttt{bookmarks}.
+Następnie z użyciem funkcji mapującej każdy element listy zostaje odpowiednio wyświetlony wykorzystując do tego odwołanie do aktualnej zawartości stanu komponentu.
+Metoda \texttt{render} ma za zadanie zwrócić kod HTML, a fragmenty kodu JavaScript wykonywane są wewnątrz nawiasów klamrowych.
+
+\begin{lstlisting}[caption={Metoda \texttt{render()} komponentu \texttt{Bookmarks}},label={lst:react_bookmarks},language={JavaScript}]
+render() {
+    const listBookmarks = this.state.bookmarks.map((b) => (
+        <li class="bookmark">
+            <a class="bookmark" href={b.url}>
+                {b.name}
+            </a>
+        </li>
+    ));
+    return (
+        <div class="bookmark-set">
+            <div class="bookmark-title">{this.state.title}</div>
+            <div class="bookmark-inner-container">
+                <ul>{listBookmarks}</ul>
+            </div>
+        </div>
+    );
+}
+\end{lstlisting}
+
+\section{Wnioski}
+Implementacja aplikacji z użyciem biblioteki React wymagała mniej czasu i wysiłku niż jej odpowiednik w języku Elm.
+Wynika to między innymi z dostępności materiałów w sieci jak, prostoty implementowanego rozwiązania, a także w dużej mierze doświadczenia autora z językami funkcyjnymi, które było ograniczone do wykonania kilku ćwiczeń laboratoryjnych z języka F\# w ramach zajęć na drugim semestrze studiów magisterskich.
+
+W poniższej tabeli zostały zestawione wybrane metryki dotyczące kodu źródłowego dwóch implementacji --- z użyciem języka Elm oraz biblioteki React.
+
+\begin{center}
+\begin{tabular}{ | l | c | c | }\hline
+    \thead{\backslashbox{Metryka}{Technologia}} & \thead{Aplikacja w Elmie} & \thead{Aplikacja w React.js}
+    \\\hline
+    Liczba plików źródłowych & 4 & 8
+    \\\hline
+    Linie kodu (bez plików \texttt{css}) & 361 & 178
+    \\\hline
+    Liczba klas & 0 & 5
+    \\\hline
+    Liczba funkcji/metod & 22 & 12
+    \\\hline
+    Rozmiar pliku wynikowego przed kompresją & 153 kB & 143 kB
+    \\\hline
+    Rozmiar pliku wynikowego po kompresji \texttt{gzip} & 35 kB & 47 kB
+    \\\hline
+    Rozmiar całego projektu & 2.2 MB & 372 MB
+    \\\hline
+    Szacowany czas implementacji & 10h & 2h
+    \\\hline
+\end{tabular}
+\end{center}
+
+React pozwala na łatwe i szybkie stworzenie działającego programu, który będzie spełniał podstawowe wymagania, gdzie Elm wymagał więcej pracy i zaangażowania.
+Jednakże, ze względu na naturę Elma, jego kod jest czytelniejszy, a sama aplikacja w tym języku jest bezpieczniejsza, zarówno pod względem występowania wyjątków w czasie działania programu, jak i odpowiedniego przetwarzania danych wejściowych, co zdecydowanie zmniejsza ryzyko naruszenia zabezpieczeń programu.
+
+Wadą tworzenia aplikacji w React.js jest rozmiar dodatkowych dependencji.
+W przypadku omawianych programów, katalog \texttt{node-modules/} stworzony przez polecenie \texttt{npm install} zajmuje aż 372 MB w porównaniu do znikomych 2.2 MB w przypadku katalogu \texttt{elm-stuff/}.
+Jest to ogromna różnica i podczas pracy w ograniczonych warunkach sieciowych, np.~w podróży, pobranie takiej ilości danych może być zdecydowanie kłopotliwe.
+
+Ważnym elementem jest także refaktoryzacja kodu bardziej zaawansowanych aplikacji.
+W przypadku dużych projektów stworzonych z pomocą biblioteki React, refaktoryzacja może być bardzo czasochłonna i nieprzewidywalna.
+Może okazać się, że po jej skończeniu program uruchamia się i na pierwszy rzut oka wszystko działa bez zastrzeżeń, jednak w specyficznych sytuacjach niektóre funkcjonalności pracować prawidłowo.
+Takie sytuacje są często ciężkie do zdiagnozowania i w wielu przypadkach wymagają np.~całościowego pokrycia kodu testami jednostkowymi.
+
+Podczas refaktoryzacji aplikacji w Elmie takie sytuacje nie mają miejsca, gdyż w przypadkach występowania jakichkolwiek niezgodności program zwyczajnie nie skompiluje się i nie zostawia wtedy wątpliwości, że kod wymaga dodatkowej pracy.
+Jeżeli kod kompiluje się prawidłowo, wtedy programista może~,,spać spokojnie'' i nie obawiać się o działanie jego programu.
+Przez cały proces prowadzi go także kompilator oferujący pomoc w postaci odnośników do dokumentacji oraz wskazówek, jak dany problem może zostać rozwiązany.
+
 % ---------------------------------------------------------------------------------------------------------------------
 
-\chapter{Porównanie}
-Celem tego rozdziału jest przeprowadzenie porównania języka Elm z najpopularniejszymi bibliotekami do tworzenia interfejsów użytkownika.
-Skupiam się przede wszystkim na porównaniu wydajności Elma w stosunku do innych rozwiązań, a także dokonuję porównania narzędzi deweloperskich dostarczanych przez Elma z tymi, które są dostępne w przypadku pracy z biblioteką React.
-Na końcu rozdziału przedstawiam swoją subiektywną opinię na temat języka.
+\chapter{Porównanie Elma z konkurencyjnymi rozwiązaniami}
+Oprócz własności języka, czytelności kodu i innych cech języka, które widzi programista, niezwykle ważne jest także zachowanie aplikacji w trakcie pracy.
+Poniższy rozdział ma na celu przeprowadzenie porównania języka Elm z najpopularniejszymi bibliotekami i frameworkami do tworzenia interfejsów użytkownika.
+Nacisk został położony przede wszystkim na porównaniu wydajności Elma w stosunku do innych rozwiązań, a także dokonanie porównania narzędzi deweloperskich dostarczanych przez Elma z tymi, które są dostępne w przypadku pracy z biblioteką React.
+Na końcu rozdziału przedstawiona została subiektywna opinia autora niniejszej pracy na temat języka Elm.
 
 \section{Wydajność}
 Celem tego podrozdziału jest porównanie wydajności wybranych bibliotek/frameworków na przykładzie TodoMVC~\cite{todomvc}.
 Jest to projekt, którego celem jest implementacja tej samej aplikacji typu Todo (listy rzeczy do zrobienia) z użyciem różnych bibliotek JavaScriptowych (lub kompilujących się do JavaScriptu, tak jak ma to miejsce w przypadku Elma).
 W momencie pisania tej pracy dostępnych jest ponad 40 aplikacji stworzonych z użyciem różnych rozwiązań.
 
-Na potrzeby niniejszego porównania zdecydowałem się wybrać biblioteki React, Angular i Vue, jak i aplikację napisaną w~,,czystym'' języku JavaScript.
+Na potrzeby niniejszego porównania wybrane zostały technologie React, Angular i Vue, jak i aplikacja napisaną w~,,czystym'' języku JavaScript.
 Aplikacja w języku Elm jest oczywiście także częścią testu.
 
 Celem testu było dodanie 200 nowych elementów do listy rzeczy do zrobienia, następnie wszystkie z nich zostały oznaczone jako wykonane, a na koniec każdy element został usunięty.
@@ -812,8 +970,9 @@ Wymaga to dodatkowego nakładu pracy związanego z refaktoryzacją, która jak c
 
 % ---------------------------------------------------------------------------------------------------------------------
 
-\chapter{Automatyzacja}
-W poniższym rozdziale chciałbym opisać procesy CI/CD oraz korzyści płynące z ich użytkowania, a także zaprezentować implementację takiego rozwiązania na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
+\chapter{Nowoczesny proces wytwórczy aplikacji w języku Elm}
+Trudno wyobrazić sobie pracę nad nowoczesnymi rozwiązaniami dot.~wytwarzania aplikacji internetowych bez wsparcia CI/CD\@.
+W poniższym rozdziale opisane zostały procesy CI/CD oraz korzyści płynące z ich użytkowania, a także ujęte zostały wnioski związane z wdrożeniem takiego rozwiązania na przykładzie stworzonej wcześniej aplikacji w Elm'ie.
 
 \section{CI/CD}
 Mianem CI/CD określa się zbiór praktyk pozwalających na ciągłą integrację oraz ciągłe dostarczanie projektów informatycznych.
@@ -868,12 +1027,12 @@ W praktyce ciągłe wdrażanie jest zdecydowanie rzadziej spotykane, gdyż pełn
 
 \section{GitHub Actions}
 Od samego rozpoczęcia pracy nad aplikacją w Elmie, cały kod źródłowy przechowywany był z użyciem systemu kontroli wersji Git~\cite{git}, a wybór serwisu hostującego zdalne repozytorium kodu padł na GitHub~\cite{github}.
-Ze względu na ten wybór jak i niewielki rozmiar stworzonej w Elmie aplikacji, zdecydowałem się wykorzystać GitHub Actions do zbudowania potoków CI/CD\@.
+Ze względu na ten wybór jak i niewielki rozmiar stworzonej w Elmie aplikacji, została podjęta decyzja o wykorzystaniu GitHub Actions do zbudowania potoków CI/CD\@.
 
 W odróżnieniu od standardowych przypadków użycia potoków CI/CD, gdzie oprogramowanie jest tworzone przez zespół deweloperski składający się z wielu osób, aplikacja powstała w ramach niniejszej pracy magisterskiej została stworzona przez jedną osobę.
 Jest to specyficzny przypadek, gdyż w takiej sytuacji nie ma możliwości wystąpienia problemów, które często mogą pojawić się w zespołach deweloperskich podczas próby integracji, na przykład konflikty łączenia gałęzi.
 
-Jednakże, celem mojej implementacji było pokazanie, że techniki CI/CD mogą zostać efektywnie wykorzystane podczas pracy z językiem Elm.
+Jednakże, celem implementacji było pokazanie, że techniki CI/CD mogą zostać efektywnie wykorzystane podczas pracy z językiem Elm.
 
 Zaimplementowany potok CI/CD dla aplikacji w Elmie został przedstawiony na rys.~\ref{fig:elm_yml}.
 Składa się z kroku \textit{build}, którego celem jest przygotowanie środowiska, tj.~instalacja platformy Elm oraz pobranie kodu źródłowego, a następnie zbudowanie aplikacji i udostępnienie artefaktu kompilacji (plik \texttt{main.js}) oraz z kroku \textit{deploy}, który przygotowuje oddzielną gałąź \textit{gh-pages} poprzez pobranie i aktualizację udostępnionego wcześniej pliku wynikowego.
@@ -905,33 +1064,568 @@ Na rysunku~\ref{fig:deploy_yml} został zaprezentowany domyślny widok potoku po
     \caption{Publikacja aplikacji z użyciem GitHub Pages}\label{fig:deploy_yml}
 \end{figure}
 
+\section{Wnioski}
+Język Elm nie stanowi żadnych przeszkód w automatyzacji procesów CI/CD\@.
+Wynika to częściowo z interoperacyjności tego języka, czyli faktu kompilowania do JavaScriptu.
+Po kompilacji program Elmowy może być obsługiwany tak jak program napisany w języku JavaScript, a do tej technologii dostępnych jest wiele rozwiązań CI/CD\@.
+
 % ---------------------------------------------------------------------------------------------------------------------
 
 \chapter{Podsumowanie}
-Niniejszy rozdział ma na celu wskazanie efektów końcowych pracy magisterskiej i przedstawienie wyciągniętych wniosków na temat tworzenia aplikacji frontendowych wykorzystując język programowania Elm.
+Elm jest zdecydowanie bardzo ciekawym rozwiązaniem do tworzenia aplikacji frontendowych.
+Jest językiem czysto funkcyjnym, co przed rozpoczęciem przygody z nim może wymagać wcześniejszego zapoznania się z najważniejszymi zagadnieniami w tym temacie.
+Jednakże język zawiera świetną dokumentację i zestaw najpotrzebniejszych narzędzi, które umożliwiają relatywnie szybkie i przyjemne tworzenie oprogramowania.
 
-\section{Efekty}
-W ramach pracy magisterskiej powstały dwie implementacje tej samej aplikacji internetowej typu \textit{startpage}, czyli strony startowej przeglądarki.
-Pierwsza, główna implementacja została stworzona z wykorzystaniem języka funkcyjnego Elm, a druga w celach porównawczych przy pomocy biblioteki React.
-Ponadto wdrożona została automatyzacja procesów ciągłej integracji i ciągłego dostarczania z wykorzystaniem zdalnego repozytorium kodu źródłowego GitHub i usług dostarczanych przez ten serwis, tj.~GitHub Actions oraz GitHub Pages.
+Aplikacje stworzone z użyciem tej technologii są niezwykle wydajne i szybkie w porównaniu do rozwiązań konkurencyjnych, takich jak React i Angular.
+Największą zaletą jest zdecydowanie brak występowania wyjątków w czasie działania programu, co jest skutkiem działania kompilatora Elma oraz silnego typowania.
+Dlatego w wielu przypadkach programowania w Elmie można krótko powiedzieć --- jeżeli kod Elma się kompiluje, to znaczy, że działa.
 
-Kolejnym efektem pracy magisterskiej jest niniejszy dokument, zawierający przede wszystkim opis implementacji stworzonej aplikacji, porównanie Elma z innymi rozwiązaniami tego typu pod kątem wydajnościowym jak i uwzględniając subiektywne odczucia towarzyszące podczas pracy z językiem.
-Przygotowana została także instrukcja laboratoryjna przeprowadzająca czytelnika przez proces tworzenia oprogramowania z użyciem języka Elm, od przygotowania środowiska, przez podstawy języka, aż po stworzenie pełnej aplikacji frontendowej, wraz z ćwiczeniami.
+Elm stanowczo sprawdzi się także w środowiskach produkcyjnych ze względu na swój brak występowania wyjątków w czasie działania programu, a także na możliwość automatyzacji procesów CI/CD, co udało mi się pokazać w poprzednim rozdziale.
+Kod źródłowy wymaga trzymania się ustalonej architektury, jednak w przypadku Elma przychodzi to dość naturalnie i powoduje, że kod jest bardzo czytelny i łatwy do zrozumienia.
 
-\section{Wnioski}
-Elm jest zdecydowanie bardzo ciekawym rozwiązaniem do tworzenia aplikacji frontedowych.
-Zawiera świetną dokumentację i zestaw najpotrzebniejszych narzędzi, które umożliwiają szybkie i przyjemne tworzenie oprogramowania.
+Stworzona w ramach niniejszej pracy instrukcja laboratoryjna może stanowić wprowadzenie do języka Elm dla osób, które dopiero zaczynają w nim programować, gdyż zawiera wszystkie niezbędne elementy takie jak instrukcja przygotowania środowiska deweloperskiego i opis podstaw języka i składni.
 
-Stanowczo sprawdzi się w środowiskach produkcyjnych ze względu na swój brak występowania wyjątków w czasie działania programu, a także na możliwość automatyzacji procesów CI/CD, co udało mi się pokazać w poprzednim rozdziale.
-Kod źródłowy wymaga trzymania sie ustalonej architektury, jednak w przypadku Elma przychodzi to dość naturalnie i powoduje, że kod jest bardzo czytelny i łatwy do zrozumienia.
+% ---------------------------------------------------------------------------------------------------------------------
+\listoffigures
+\addcontentsline{toc}{chapter}{Spis rysunków}
+\lstlistoflistings{}
+\addcontentsline{toc}{chapter}{Spis listingów}
+\printbibliography{}
+\addcontentsline{toc}{chapter}{Bibliografia}
 
 % ---------------------------------------------------------------------------------------------------------------------
 
-\listoffigures
-% \listoftables
-\lstlistoflistings{}
+\chapter*{Dodatek {A}: Instrukcja laboratoryjna}
+\markboth{Instrukcja laboratoryjna}{Dodatek {A}}
+\addcontentsline{toc}{chapter}{Dodatek {A}: Instrukcja laboratoryjna}
+Poniższa instrukcja laboratoryjna ma na celu krok po kroku przeprowadzić czytelnika przez proces tworzenia aplikacji w Elmie, zaczynając od przygotowania środowiska deweloperskiego, przez podstawy języka wraz z ćwiczeniami pozwalającymi na lepsze zrozumienie składni, aż po stworzenie większej aplikacji frontendowej.
 
-\printbibliography{}
+\section*{Przygotowanie środowiska}
+Pierwszą rzeczą, którą należy się zająć przed rozpoczęciem nowego projektu jest przygotowanie odpowiedniego środowiska deweloperskiego.
+Należy upewnić się, że wszystkie narzędzia potrzebne do wykonania pracy są zainstalowane i prawidłowo skonfigurowane.
+W przypadku pracy z Elm'em zalecane będzie korzystanie przede wszystkim z platformy dostarczanej przez autora, edytora tekstu wspierającego podświetlanie składni, a także innych narzędzi wspomagających proces tworzenia oprogramowania z użyciem tej technologii.
+
+\subsection*{Platforma Elm}
+Najważniejszą rzeczą, jaka będzie potrzebna podczas pracy z Elm'em, będzie platforma języka zawierająca m.in.~takie narzędzia jak kompilator oraz menadżer bibliotek.
+Poniżej przedstawiam instrukcję instalacji tej platformy na systemach operacyjnych Linux i Windows.
+Po przejściu tych kroków, w wierszu poleceń należy wykonać instrukcję \texttt{elm}.
+Jeśli wszystko zostało prawidłowo zainstalowane i skonfigurowane, na ekranie powinien pojawić się widok podobny do przedstawionego na rysunku~\ref{lab:elm_output}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/elm_output.png}
+    \caption{Wyjście instrukcji \texttt{elm}}\label{lab:elm_output}
+\end{figure}
+
+\subsubsection{Linux}
+Najprostszym sposobem instalacji platformy Elm na systemie operacyjnym Linux jest wykorzystanie narzędzia \texttt{npm}~-- powszechnie używanego menadżera pakietów służącego do zarządzania warstwą frontendową aplikacji internetowych.
+Aby zainstalować \texttt{npm} należy skorzystać z systemowego menadżera pakietów.
+Na przykładzie dystrybucji Ubuntu będą to komendy:
+
+\begin{lstlisting}
+  $ sudo apt update
+  $ sudo apt install npm
+\end{lstlisting}
+
+Kiedy narzędzie zostanie już pomyślnie zainstalowane, można przejść do instalacji platformy Elm.
+Posłuży do tego polecenie:
+
+\begin{lstlisting}
+  $ npm install -g elm
+\end{lstlisting}
+
+Zgodnie z dokumentacją \texttt{npm}~\cite{npmdocs}, flaga \texttt{-g} oznacza, że pakiet zostanie zainstalowany globalnie, dzięki czemu będzie dostępny z każdego miejsca z systemu.
+Aby sprawdzić, czy rzeczywiście tak się stało, wystarczy w wierszu poleceń uruchomić komendę \texttt{elm}.
+Jeżeli wszystkie kroki przebiegły pomyślnie, na ekranie powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{lab:elm_output}, tak jak zostało to już wcześniej wspomniane.
+
+\subsubsection{Windows}
+Osoby korzystające z systemu operacyjnego Windows mogą skorzystać z npm, tak jak to było opisane w powyższej sekcji dotyczącej Linuxa lub posłużyć się dedykowanym \href{https://github.com/elm/compiler/releases/download/0.19.1/installer-for-windows.exe}{instalatorem Elm'a}~\cite{elm_installer} na system Windows.
+W tym drugim przypadku wystarczy przejść przez wszystkie kroki zostawiając opcje domyślne i w rezultacie Elm zostanie pomyślnie zainstalowany i będzie gotowy do użytkowania.
+W celu sprawdzenia czy faktycznie tak się stało, należy uruchomić wiersz poleceń oraz wykonać instrukcję \texttt{elm}.
+Wyjście komendy powinno być podobne do tego przedstawionego na rysunku~\ref{lab:elm_output}, tak jak zostało to już wcześniej wspomniane.
+
+\subsection*{Edytor}
+Ważnym elementem tworzenia oprogramowania jest wyposażenie się w odpowiedni edytor tekstowy, który jest w stanie podświetlać składnię języka, z którego aktualnie korzystamy.
+Żeby osiągnąć ten cel, w przypadku Elm'a potrzebna będzie instalacja dodatkowej wtyczki do jednego z następujących edytorów:
+
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item{\href{https://atom.io/packages/language-elm}{Atom}}
+    \item{\href{https://github.com/jcollard/elm-mode}{Emacs}}
+    \item{\href{https://github.com/klazuka/intellij-elm}{IntelliJ}}
+    \item{\href{https://github.com/rundis/elm-light}{Light Table}}
+    \item{\href{https://github.com/evancz/elm-syntax-highlighting/}{Sublime Text}}
+    \item{\href{https://github.com/elm-tooling/elm-vim}{Vim}}
+    \item{\href{https://github.com/elm-tooling/elm-language-client-vscode}{VS Code}}
+\end{itemize}
+
+Powyższa lista zawiera odnośniki do wspomnianych wtyczek dla danego edytora, wystarczy kliknąć nazwę swojego ulubionego edytora i pobrać odpowiedni dodatek.
+Na potrzeby niniejszej instrukcji przedstawię proces instalacji wtyczki dla edytora Visual Studio Code~\cite{vscode}, ponieważ jest to jedno z najbardziej powszechnie używanych narzędzi do pracy z kodem źródłowym.
+
+W tym celu należy otworzyć edytor VS Code, otworzyć konsolę \textit{Quick Open} przy pomocy skrótu \textit{Ctrl+P} i wpisać następującą komendę:
+\begin{lstlisting}
+  ext install Elmtooling.elm-ls-vscode
+\end{lstlisting}
+Wtyczka powinna zostać automatycznie zainstalowana i dalsza konfiguracja nie jest konieczna, edytor powinien być gotowy do pracy.
+Po instalacji można przejść do kolejnego kroku.
+
+\subsection*{Tworzenie projektu}
+Elm jest dostarczany wraz z zestawem bardzo przydatnych narzędzi.
+Jednym z nich jest \texttt{elm init}, które posłuży nam do stworzenia nowego projektu.
+W tym celu należy otworzyć wiersz poleceń i wykonać następujące instrukcje:
+
+\begin{lstlisting}
+  $ mkdir lab
+  $ cd lab
+  $ elm init
+\end{lstlisting}
+
+Po wypisaniu zawartości katalogu \texttt{lab} z użyciem polecenia \texttt{ls} powinny pojawić się dwa nowe elementy:
+
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item{Plik \texttt{elm.json} opisujący projekt oraz jego zależności}
+    \item{Katalog \texttt{src/} zawierający nasze przyszłe pliki Elm'a}
+\end{itemize}
+
+Następnym krokiem będzie utworzenie nowego pliku \texttt{Main.elm} w nowo utworzonym katalogu \texttt{src/}.
+Będzie się tam znajdował kod aplikacji, która zostanie stworzona w kolejnych krokach.
+
+\section*{Podstawy języka Elm}
+W celu nauki podstaw języka Elm użyte zostanie narzędzie \texttt{elm repl}, pozwalającego na korzystanie z interaktywnej sesji programistycznej.
+Należy otworzyć wiersz poleceń i wpisać polecenie \texttt{elm repl}.
+Powinien ukazać się widok podobny do przedstawionego na rysunku~\ref{lab:elm_repl_output} poniżej.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{img/elm_repl_output.png}
+    \caption{Otwarta interaktywna sesja \texttt{elm repl}}\label{lab:elm_repl_output}
+\end{figure}
+
+\subsection*{Wartości}
+Najmniejszym budulcem aplikacji w Elmie są \textbf{wartości}.
+Mogą to być liczby, ciągi znaków, czy typy logiczne, np. 10,~,,Hello'', True.
+Po wpisaniu do okna \texttt{elm repl} danej wartości, na ekranie powinna zostać pokazana powtórzona wartość, a po dwukropku jej typ.
+
+Wartości można także łączyć z operatorami.
+Dla liczb będą to typowe operatory matematyczne, jak \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, dla ciągów znaków operatorem konkatenacji jest \texttt{++}, a dla typów logicznych dostępne są operatory logiczne~,,\texttt{\&\&}'' (AND) oraz~,,\texttt{||}'' (OR).
+
+Na rysunku~\ref{lab:repl_values} pokazane zostały przykłady efektów takich wywołań.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.29\textwidth}
+        \centering
+        \includegraphics[height=1cm]{img/repl_number}
+        \caption{Liczba}\label{lab:repl_number}
+    \end{subfigure}
+    \begin{subfigure}{.4\textwidth}
+        \centering
+        \includegraphics[height=1cm]{img/repl_string}
+        \caption{Ciąg znaków}\label{lab:repl_string}
+    \end{subfigure}
+    \begin{subfigure}{.29\textwidth}
+        \centering
+        \includegraphics[height=1cm]{img/repl_bool}
+        \caption{Typ logiczny}\label{lab:repl_bool}
+    \end{subfigure}
+    \caption{Wartości w Elmie}\label{lab:repl_values}
+\end{figure}
+
+\subsection*{Funkcje}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.45\textwidth]{img/repl_func}
+    \caption{Definicja funkcji w Elmie}\label{lab:repl_func}
+\end{wrapfigure}
+
+Funkcje w Elmie określają, w jaki sposób wartości mogą zostać przetworzone.
+Na rysunku~\ref{lab:repl_func} pokazana została przykładowa funkcja \texttt{hello}, która przyjmuje argument \texttt{name} i zwraca nowy ciąg znaków.
+
+Można zauważyć, że typ argumentu \texttt{name} nie został sprecyzowany.
+Elm sam potrafi określić, czy dana funkcja wykona się poprawnie na podstawie operacji w niej zawartych.
+W pokazanym przykładzie argument \texttt{name} jest wykorzystany jako operand operatora konkatenacji~,,\texttt{++}'', który potrzebuje dwóch operandów typu \texttt{String} do prawidłowego działania programu.
+Jeśli użytkownik zamiast ciągu znaków podałby jako argument inny typ, np.~liczbę, to kompilator Elma zwróciłby na to uwagę i wystosował użytkownikowi odpowiedni komunikat.
+
+Przykład takiego komunikatu został przedstawiony na rysunku~\ref{lab:repl_error}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/repl_error}
+    \caption{Komunikat kompilatora o błędzie}\label{lab:repl_error}
+\end{figure}
+
+\subsection*{Listy}
+Listy są jednymi z najczęściej używanych struktur danych w Elmie.
+Ich przeznaczeniem jest trzymanie sekwencji wielu elementów tego samego typu.
+
+Na rysunku~\ref{lab:repl_lists} zostały pokazane przykłady użycia list. Została zdefiniowana lista \texttt{names}, zawierająca trzy elementy typu \texttt{String}, a także tablica \texttt{numbers}, która zawiera 4 liczby (typ \texttt{Int}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/repl_lists}
+    \caption{Operacje na listach}\label{lab:repl_lists}
+\end{figure}
+
+\subsection*{Rekordy}
+Rekordy służą do trzymania wielu wartości, gdzie każda z nich jest przypisana do konkretnej nazwy.
+Na rysunku~\ref{lab:repl_records} pokazane zostały przykładowe operacje związane z rekordami.
+Zdefiniowany został rekord \texttt{bob}, który zawiera informacje o imieniu, nazwisku oraz wieku.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \caption{Definicja rekordu i dostęp do jednego z pól}\label{lab:repl_record_bob}
+        \includegraphics[width=1\textwidth]{img/repl_record_bob}
+    \end{subfigure}
+    \begin{subfigure}{.7\textwidth}
+        \centering
+        \caption{Nadpisanie zawartości rekordu}\label{lab:repl_record_update}
+        \includegraphics[width=1\textwidth]{img/repl_record_update}
+    \end{subfigure}
+    \caption{Przykłady pracy z rekordami}\label{lab:repl_records}
+\end{figure}
+
+W przypadku rekordów, które zawierają wiele pól, praca z nimi może stawać się problematyczna.
+Wygodne może być wtedy wykorzystanie tzw.~,,aliasów typów'', które pozwalają na definicję typu rekordu i korzystanie z niego w skróconej wersji.
+
+Na rysunku~\ref{lab:repl_type_alias} zdefiniowany został nowy typ \texttt{Person}, który jest równoznaczny ze zdefiniowanym na rys.~\ref{fig:repl_record_bob} rekordem \texttt{bob}.
+Jednakże tak zdefiniowany typ sprawia, że kod staje się krótszy, bardziej czytelny, a praca z nim dużo wygodniejsza.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{img/repl_type_alias}
+    \caption{Definicja aliasu typu \texttt{Person}}\label{lab:repl_type_alias}
+\end{figure}
+
+\section*{Aplikacja frontendowa}
+W ramach większego projektu zbudowana zostanie strona internetową typu \texttt{startpage}, czyli strona startowa przeglądarki zawierająca najważniejsze i najczęściej używane elementy.
+Zaimplementowane zostaną cztery moduły --- Data i czas, pogoda, wyszukiwarka oraz pasek zakładek.
+
+Każda z funkcjonalności będzie dodawana inkrementalnie poprzez dokładanie kolejnych fragmentów kodu do każdej z części architektury Elma, tj. \texttt{Model}, \texttt{Update} oraz \texttt{View}, czyli elementów odpowiedzialnych odpowiednio za stan, logikę i wygląd aplikacji.
+
+Plik źródłowy \texttt{Main.elm} został stworzony w jednym z poprzednich kroków --- należy go otworzyć w swoim wybranym edytorze i przejść do kolejnych kroków.
+
+\subsection*{Szkielet aplikacji}
+W pierwszej kolejności należy uruchomić aplikację typu~,,Hello World!'', aby upewnić się, że środowisko zostało prawidłowo skonfigurowane.
+W załączonym pliku \texttt{Main.elm} znajdują się wszystkie potrzebne do działania klauzule importujące biblioteki podstawowe Elma.
+Ponadto zaimplementowana została podstawowa architektura aplikacji.
+Aby uruchomić aplikację~,,Hello, World!'' należy otworzyć wiersz poleceń i wykonać polecenie:
+
+\begin{lstlisting}
+  $ elm reactor
+\end{lstlisting}
+
+Powinien pokazać się następujący widok:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/elm_reactor}
+\end{figure}
+
+Po otwarciu w przeglądarce adresu \texttt{http://localhost:8000} należy znaleźć plik \texttt{Main.elm} i go otworzyć.
+Powinien wyświetlić się napis~,,Hello, World!'' oraz guzik \texttt{Click me!}, który zamienia ciąg tekstowy na~,,Hello, again!''.
+
+Celem dalszych sekcji będzie rozwinięcie tego programu poprzez implementację wymaganych funkcjonalności omówionych na początku instrukcji.
+
+\subsection*{Czas}
+Do wydobycia informacji o aktualnym czasie wykorzystana zostanie biblioteka \texttt{elm/time}.
+W celu zainstalowania tej biblioteki w wierszu poleceń należy wykonać komendę \texttt{\$ elm install elm/time}, a następnie załączyć bibliotekę do tworzonego programu używając klauzuli \texttt{import Time exposing (..)}.
+
+Przechodząc do edycji kodu, pierwszą rzeczą jest zdefiniowanie modelu programu.
+Potrzebne będą informacje o strefie czasowej oraz aktualny czas.
+W tym celu należy stworzyć nowy typ \texttt{DateTime}, który będzie przechowywał te dane, a następnie dodać go do modelu.
+
+\begin{lstlisting}[language=Elm]
+type alias Model =
+    { dateTime : DateTime }
+type alias DateTime =
+    { zone : Time.Zone, time : Time.Posix }
+\end{lstlisting}
+
+Kolejnym krokiem będzie zdefiniowanie typów wiadomości, które może odebrać program.
+Do prawidłowego działania zegara potrzebne będzie dostosowanie strefy czasowej oraz pobranie aktualnego czasu.
+Oznacza to, że należy zdefiniować dwie wiadomości --- \texttt{AdjustTimeZone} oraz \texttt{Tick}.
+
+\begin{lstlisting}[language=Elm]
+type Msg
+    = Tick Time.Posix
+    | AdjustTimeZone Time.Zone
+\end{lstlisting}
+
+Oba typy wiadomości muszą zostać odpowiednio przetworzone w funkcji \texttt{update}.
+W obu przypadkach wystarczające będzie nadpisanie stworzonego modelu nowymi wartościami.
+Przykład nadpisania rekordu został przedstawiony wcześniej na rys.~\ref{lab:repl_record_update}.
+
+Następnie należy zdefiniować funkcję \texttt{init}, gdzie wskazany zostanie sposób inicjalizacji modelu oraz operacje, jakie mają zostać wykonane na początku programu.
+W przypadku daty i czasu należy początkowo wyzerować obie wartości, a następnie pobrać aktualne informacje wykorzystując stworzone przed chwilą wiadomości.
+
+\begin{lstlisting}[language=Elm]
+init _ =
+    ( Model (DateTime Time.utc (Time.millisToPosix 0))
+    , Cmd.batch [ Task.perform AdjustTimeZone Time.here, Task.perform Tick Time.now ]
+    )
+\end{lstlisting}
+
+Jednakże czas zmienia się z sekundy na sekundę, więc jednorazowe ustawienie wartości modelu niestety nie jest wystarczające --- trzeba aktualizować model co sekundę.
+Aby to osiągnąć, wykorzystana zostanie funkcja \texttt{subscriptions}.
+Pozwala na nasłuchiwanie zewnętrznych zdarzeń, takich jak kliknięcie myszki, naciśnięcie klawisza na klawiaturze, zmiany w geolokalizacji lub --- tykanie zegara.
+
+W przypadku tworzonej aplikacji należy co sekundę generować nową wiadomość \texttt{Tick}, która po jej przetworzeniu w funkcji \texttt{update} zaktualizuje aktualny czas w modelu.
+
+\begin{lstlisting}[language=Elm]
+subscriptions _ =
+    Time.every 1000 Tick
+\end{lstlisting}
+
+Ostatnim elementem architektury Elma jest funkcja \texttt{view}, której zadaniem jest wyświetlanie programu na ekranie.
+
+\begin{lstlisting}[language=Elm]
+view model =
+    { title = "Hello"
+    , body =
+        [ viewTime model.dateTime
+        , viewDate model.dateTime
+        ]
+    }
+\end{lstlisting}
+
+W celu polepszenia czytelności kodu, funkcja \texttt{view} wykorzystuje dwie funkcje pomocnicze --- \texttt{viewTime} oraz \texttt{viewDate}.
+Część implementacji jednej z nich została przedstawiona poniżej.
+W ramach ćwiczenia należy dokończyć implementację funkcji \texttt{viewDate} oraz stworzyć analogiczną funkcję \texttt{viewTime}.
+Ponadto przedstawiony został początek funkcji \texttt{toEnglishWeekday}, która przyjmuje wartość typu \texttt{Time.Weekday} i zwraca typ \texttt{String}, który może zostać następnie wyświetlony w funkcji \texttt{viewDate}.
+Implementację tej funkcji także należy dokończyć oraz stworzyć analogiczną funkcję pozwalającą na dekodowanie nazw miesięcy.
+Dla lepszego wyglądu zegara warto także stworzyć funkcję dodającą znak 0 dla liczb mniejszych od 10.
+\begin{lstlisting}[language=Elm]
+viewDate dateTime =
+    let
+        weekday =
+            Time.toWeekday dateTime.zone dateTime.time
+        ...
+    in
+    div [] [ text (toEnglishWeekday weekday) ]
+toEnglishWeekday weekday =
+    case weekday of
+        Mon ->
+            "Monday"
+        ...
+\end{lstlisting}
+
+Jeżeli wszystko udało się pomyślnie, w przeglądarce internetowej powinien wyświetlić się aktualny czas, zmieniający się co sekundę, a pod nim data.
+Następnie można przejść do kolejnej sekcji.
+
+\subsection*{Pogoda}
+Pogoda będzie pobierana wykorzystując zapytania HTTP do API portalu OpenWeatherMap\@.
+Potrzebne będą do tego dwie biblioteki --- \texttt{elm/http} do wysłania zapytania oraz \texttt{elm/json} do odebrania i przetworzenia odpowiedzi w formacie JSON\@.
+Podobnie jak poprzednio, należy je zainstalować używając poleceń:
+\begin{lstlisting}
+  $ elm install elm/http
+  $ elm install elm/json
+\end{lstlisting}
+Następnie należy dodać do pliku \texttt{Main.elm} następujące klauzule:
+
+\begin{lstlisting}[language=Elm]
+import Http
+import Json.Decode exposing (..)
+\end{lstlisting}
+
+Przed przejściem do edycji kodu programu należy założyć darmowe konto na stronie \href{https://openweathermap.org/}{OpenWeatherMap}, a następnie wygenerować klucz API, który będzie konieczny do prawidłowego działania aplikacji.
+Po stworzeniu prywatnego klucza API można przejść do kolejnych kroków.
+
+W przypadku pogody potrzebne będzie stworzenie dwóch nowych typów: jeden będzie zawierał informacje o faktycznym stanie pogody, tj.~temperatura i krótki opis słowny, a drugi informacje o statusie zapytania HTTP\@.
+
+\begin{lstlisting}[language=Elm]
+type WeatherStatus
+    = Failure String
+    | Loading
+    | Success Weather
+type alias Weather =
+    { description : String
+    , temperature : Float
+    }
+\end{lstlisting}
+
+Powyższy typ \texttt{WeatherStatus} należy dodać do głównego modelu.
+Ponadto należy zdefiniować w programie dane potrzebne do wysłania zapytania, a następnie wykorzystać je w funkcji odpowiedzialnej za wysłanie zapytania GET do OpenWeatherAPI\@.
+Są to:
+\begin{itemize}[noitemsep,topsep=0pt]
+    \item URL do wysłania zapytania
+    \item Prywatny klucz API do OpenWeatherMap
+    \item Miasto
+    \item Jednostki
+\end{itemize}
+Przykład implementacji został przedstawiony poniżej:
+
+\begin{lstlisting}[language=Elm]
+getWeather =
+  Http.get
+    { url = weatherApi ++ ("&q=" ++ city) ++ ("&units=" ++ unit) ++ ("&appid=" ++ apiKey)
+    , expect = Http.expectJson GotWeather weatherDecoder
+    }
+\end{lstlisting}
+Szczegóły użycia API opisane są w \href{https://openweathermap.org/current#name}{dokumentacji OpenWeatherMap}.
+
+Z perspektywy Elma najważniejsze jest sprecyzowanie rodzaju zapytania (tutaj GET) oraz adresu URL, na który ma został wysłane zapytanie.
+Konieczne jest także określenie formy spodziewanej odpowiedzi (JSON), a także przekazanie funkcji jej dekodującej.
+Na końcu należy przekazać rodzaj wiadomości do wygenerowania po odebraniu odpowiedzi (\texttt{GotWeather}).
+
+A jak wygląda funkcja i dekodująca i do czego służy?
+Przykład prostego dekodera został przedstawiony poniżej.
+Celem dekodera jest przetworzenie pliku w formacie JSON w taki sposób, aby był zrozumiały dla Elma.
+Należy w nim określić nazwy oczekiwanych pól oraz opisać jak się do nich dostać.
+
+Funkcja \texttt{personDecoder} spodziewa się trzech wartości --- dwóch ciągów znaków i jednej liczby, które znajdują się w polach nazwanych odpowiednio \texttt{first}, \texttt{last} oraz \texttt{age}.
+Typ \texttt{Person} został stworzony na rys.~\ref{lab:repl_record_update} i zawiera w sobie takie same typy jak dekoder.
+Oznacza to, że taka odpowiedź JSON powinna zostać prawidłowo zmapowana na typ \texttt{Person}.
+\begin{lstlisting}[language=Elm]
+personDecoder =
+  map3 Person
+      (field "first" string)
+      (field "last" string)
+      (field "age" int)
+\end{lstlisting}
+
+W ramach ćwiczenia należy zaimplementować funkcję \texttt{weatherDecoder}, która zmapuje odpowiednie pola z odpowiedzi JSON na typ \texttt{Weather} zaimplementowany wcześniej w modelu.
+
+W przypadku wiadomości \texttt{Msg} sytuacja będzie podobna jak przy tworzeniu typów --- potrzebny będzie jeden rodzaj wiadomości odpowiedzialny za wysłanie zapytania oraz drugi odpowiedzialny za jego odebranie i odpowiednie zaktualizowanie modelu na podstawie danych odebranych z dekodera.
+
+\begin{lstlisting}[language=Elm]
+type Msg
+    = ...
+    | UpdateWeather
+    | GotWeather (Result Http.Error Weather)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Elm]
+update msg model =
+  case msg of
+    ...
+    UpdateWeather ->
+      ( { model | weatherStatus = Loading }, getWeather )
+    GotWeather result ->
+      case result of
+        Ok weather ->
+          ( { model | weatherStatus = Success weather }, Cmd.none )
+        Err _ ->
+          ( { model | weatherStatus = Failure "Error: Couldn't retrieve weather data" }, Cmd.none)
+\end{lstlisting}
+
+
+
+\subsection*{Wyszukiwarka}
+Wyszukiwarka jest jedną z prostszych funkcjonalności do implementacji.
+Potrzebne będzie jedynie stworzenie pola tekstowego, gdzie użytkownik może wpisać wybraną frazę, oraz jego odpowiednie obsłużenie.
+Po wpisaniu frazy i wciśnięciu klawisza Enter użytkownik powinien zostać przeniesiony do strony wyszukiwarki z wyszukanym wpisanym już wcześniej hasłem.
+
+Można zauważyć, że tym razem do modelu należy dołożyć jedynie jedną wartość --- ciąg znaków wpisany przez użytkownika.
+Wiadomości typu \texttt{Msg} natomiast będą dwie --- jedna standardowo odpowiedzialna za zaktualizowanie modelu, a druga za przekierowanie strony do wyszukiwarki.
+Przekierowanie odbywa się za pomocą funkcji \texttt{load} z biblioteki \texttt{Navigation}, która powinna już być załączona do programu w początkowym szkielecie.
+Poniżej zostały przedstawione propozycje implementacji wiadomości \texttt{Search} obsługującej przekierowanie do wyszukiwarki oraz funkcji \texttt{viewSearchBar} wyświetlającej pole tekstowe.
+Dodatkowo zaimplementowana została funkcja \texttt{onEnter} pozwalająca na wykrycie czy użytkownik wcisnął klawisz Enter.
+\begin{lstlisting}[language=Elm]
+Search ->
+  ( model
+  , Nav.load ("https://google.com/search?q=" ++ model.searchText)
+  )
+\end{lstlisting}
+\begin{minipage}{.56\textwidth}
+\begin{lstlisting}[language=Elm]
+onEnter msg =
+  let
+    isEnter code =
+      if code == 13 then
+        succeed msg
+      else
+        fail "not ENTER"
+  in
+  on "keydown" (andThen isEnter keyCode)
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.38\textwidth}
+\begin{lstlisting}[language=Elm]
+viewSearchBar =
+  div []
+    [ input
+      [ type_ "text"
+      , placeholder "Search"
+      , onInput UpdateField
+      , onEnter Search
+      ] []
+    ]
+\end{lstlisting}
+\end{minipage}\hfill
+
+W ramach ćwiczenia należy zaimplementować model oraz rozszerzyć funkcję \texttt{update} o dwie nowe wiadomości, jak i główną funkcję \texttt{view} o przedstawioną wyżej propozycję \texttt{viewSearchBar}.
+Po prawidłowym złączeniu wszystkich fragmentów kodu program powinien się kompilować i wyświetlać nowy pasek pola tekstowego, a po wciśnięciu klawisza Enter strona powinna zostać przekierowana do wyszukiwarki Google.
+
+Jeżeli wszystko udało się zaimplementować pomyślnie, można przejść do kolejnego kroku.
+
+\subsection*{Zakładki}
+W dalszej części implementacji
+Do prawidłowego działania zakładek potrzebne będzie stworzenie dwóch dodatkowych plików --- \texttt{bookmarks.js} oraz \texttt{index.html}.
+Pierwszy posłuży do trzymania listy zakładek, gdzie każda składa się z adresu URL oraz nazwy, która zostanie wyświetlona na tworzonej stronie.
+Natomiast drugi plik \texttt{index.html} potrzebny będzie do załadowania do programu poprzedniego pliku z zakładkami jak i pliku wynikowego stworzonego przez kompilator Elma z użyciem następującej komendy:
+\begin{lstlisting}
+  $ elm make src/MainBookmarks.elm --output=assets/elm.js
+\end{lstlisting}
+
+W sekcji \texttt{<head>} pliku \texttt{index.html} należy załączyć plik z zakładkami oraz wynikowy plik kompilatora.
+W sekcji \texttt{<body>} należy dodać fragment kodu przedstawiony poniżej, który pozwoli na wykorzystanie programu w Elmie razem z zewnętrznym plikiem HTML\@.
+
+\vspace{.5cm}
+\noindent
+\begin{minipage}{.41\textwidth}
+\begin{lstlisting}[language=html]
+<head>
+  <script
+    src="assets/elm.js">
+  </script>
+  <script
+    src="assets/bookmarks.js">
+  </script>
+</head>
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.55\textwidth}
+\begin{lstlisting}[language=html]
+<body>
+  <div id="app"></div>
+  <script>
+    var app = Elm.Main.init({
+      node: document.getElementById("app"),
+      flags: bookmarks,
+    });
+  </script>
+</body>
+\end{lstlisting}
+\end{minipage}\hfill
+
+Po otwarciu pliku \texttt{index.html} z użyciem programu \texttt{elm reactor} aplikacja wraz z zakładkami powinna pojawić się na ekranie.
+
+\subsection*{Style}
+W załączonym pliku \texttt{styles.css} znajdują się kaskadowe arkusze stylów, które mogą zostać wykorzystane wraz ze stworzoną aplikacją.
+W tym celu należy odpowiednio zmienić w programie funkcje odpowiedzialne za wyświetlanie elementów, dodając do nich tagi \texttt{div[][]}.
+Funkcja \texttt{div} przyjmuje dwa argumenty: listę atrybutów oraz listę elementów HTML\@.
+W tej części należy skupić się na pierwszym argumencie, gdyż dotychczas nie był on jeszcze używany.
+Atrybuty HTML to np. \texttt{class}, \texttt{id} oraz \texttt{style}.
+
+Na przykładzie głównej funkcji \texttt{view}, wykorzystanie klasy \texttt{container} wygląda następująco:
+\begin{lstlisting}[language=Elm]
+view model =
+  { ...
+  , body =
+    [ div [ class "container" ]
+      [ viewTime model.clockTime
+        ... ] ]
+  }
+\end{lstlisting}
+
+Jako, że plik \texttt{styles.css} został dostarczony w załączniku, w ramach ćwiczenia w aplikacji wystarczy jedynie dodać w odpowiednich miejscach funkcje \texttt{div} wraz z pasującymi atrybutami, które zostały zdefiniowane w arkuszu stylów.
+
+\subsection*{Efekt}
+Jeżeli wszystkie funkcjonalności zostały prawidłowo zaimplementowane, a arkusze stylów właściwie użyte w programie, finalna aplikacja powinna wyglądać następująco:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/final_app.png}
+\end{figure}
 
 % ---------------------------------------------------------------------------------------------------------------------
 

@@ -17,9 +17,7 @@ export default class App extends Component {
   render() {
     return (
       <div class="container">
-        <div id="clock">
           <Clock />
-        </div>
         <div class="weather-container">
           <Weather />
         </div>
